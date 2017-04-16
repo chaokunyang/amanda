@@ -1,4 +1,4 @@
-package com.timeyang.amanda.base.converters;
+package com.timeyang.amanda.base.jpa.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

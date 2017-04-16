@@ -1,4 +1,4 @@
-package com.timeyang.amanda.data;
+package com.timeyang.amanda.base.jpa.domain;
 
 import lombok.Getter;
 import lombok.Setter;

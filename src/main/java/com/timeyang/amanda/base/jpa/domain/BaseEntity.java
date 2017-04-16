@@ -1,4 +1,4 @@
-package com.timeyang.amanda.data;
+package com.timeyang.amanda.base.jpa.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,5 +20,5 @@ public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @DocumentId
-    private long id;
+    private Long id;
 }

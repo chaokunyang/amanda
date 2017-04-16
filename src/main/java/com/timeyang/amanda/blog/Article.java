@@ -2,7 +2,7 @@ package com.timeyang.amanda.blog;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.base.valadation.NotBlank;
-import com.timeyang.amanda.data.AuditedEntity;
+import com.timeyang.amanda.base.jpa.domain.AuditedEntity;
 import com.timeyang.amanda.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +35,7 @@ public class Article extends AuditedEntity implements Serializable {
 
     @NotNull(message = "{validate.article.user")
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "usedId")
+    @JoinColumn(name = "used_id")
     @JsonProperty
     @IndexedEmbedded
     private User user;

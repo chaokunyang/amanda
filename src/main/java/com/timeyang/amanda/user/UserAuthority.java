@@ -1,14 +1,12 @@
 package com.timeyang.amanda.user;
 
-import com.timeyang.amanda.data.AuditedEntity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 /**
  * 用户权限
@@ -18,15 +16,9 @@ import javax.persistence.Column;
  */
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
-@AttributeOverride(name = "id", column = @Column(name = "authority_id"))
-public class UserAuthority extends AuditedEntity implements GrantedAuthority {
-
+@AllArgsConstructor
+@Embeddable
+public class UserAuthority implements GrantedAuthority {
     private String authority;
-
-    public UserAuthority(String authority) {
-        this.authority = authority;
-    }
-
 }
