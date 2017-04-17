@@ -28,7 +28,7 @@ public abstract class AbstractJpaCriterionRepository<T> extends AbstractDomainCl
     protected EntityManager entityManager;
 
     @Override
-    public Page search(SearchCriteria criteria, Pageable pageable) {
+    public Page search(QueryCriteria criteria, Pageable pageable) {
         CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 
         CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
@@ -51,7 +51,7 @@ public abstract class AbstractJpaCriterionRepository<T> extends AbstractDomainCl
         return new PageImpl<>(new ArrayList<>(list), pageable, total);
     }
 
-    private static Predicate[] toPredicates(SearchCriteria criteria, Root<?> root, CriteriaBuilder builder) {
+    private static Predicate[] toPredicates(QueryCriteria criteria, Root<?> root, CriteriaBuilder builder) {
         Predicate[] predicates = new Predicate[criteria.size()];
         predicates = criteria.stream()
                 .map(criterion -> criterion.getOperator().toPredicate(criterion, root, builder)).collect(Collectors.toList()).toArray(predicates);

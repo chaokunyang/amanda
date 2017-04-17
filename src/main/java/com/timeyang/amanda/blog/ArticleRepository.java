@@ -1,6 +1,7 @@
 package com.timeyang.amanda.blog;
 
 import com.timeyang.amanda.base.jpa.criterion.CriterionRepository;
+import com.timeyang.amanda.base.search.SearchableRepository;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -9,5 +10,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author chaokunyang
  * @create 2017-04-17
  */
-public interface ArticleRepository extends CrudRepository<Article, Long>, CriterionRepository<Article> {
+public interface ArticleRepository extends CrudRepository<Article, Long>, CriterionRepository<Article>, SearchableRepository<Article> {
 }

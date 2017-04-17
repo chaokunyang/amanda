@@ -8,5 +8,5 @@ import org.springframework.data.domain.Pageable;
  * @create 2017-04-17
  */
 public interface CriterionRepository<T> {
-    Page<T> search(SearchCriteria searchCriteria, Pageable pageable);
+    Page<T> search(QueryCriteria queryCriteria, Pageable pageable);
 }
