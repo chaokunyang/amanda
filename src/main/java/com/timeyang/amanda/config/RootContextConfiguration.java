@@ -26,7 +26,7 @@ import java.util.Map;
 @EnableLoadTimeWeaving // 附件、md需要懒加载以加快速度
 @EnableJpaRepositories(
         basePackages = "com.timeyang.amanda",
-        entityManagerFactoryRef = "entityManagerFactoryBean"
+        entityManagerFactoryRef = "entityManagerFactoryBean" // 必须指定，不然创建仓库会失败
 )
 public class RootContextConfiguration {
 
@@ -42,8 +42,8 @@ public class RootContextConfiguration {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() throws Throwable {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("javax.persistence.schema-generation.database.action",
-                "none");
+        // properties.put("javax.persistence.schema-generation.database.action", "none");
+        properties.put("hibernate.ddl-auto", "update");
         properties.put("hibernate.ejb.use_class_enhancer", "true");
         properties.put("hibernate.search.default.directory_provider",
                 "filesystem");

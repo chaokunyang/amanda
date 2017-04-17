@@ -48,7 +48,7 @@ public class AuditingHandler {
         User auditor = touchAuditor(auditedEntity, isNew);
         Instant now = touchDate(auditedEntity, isNew);
 
-        Object defaultAuditor = auditor == null ? "unknown" : auditor;
+        Object defaultAuditor = auditor == null ? "anonymous" : auditor;
 
         LOGGER.debug("Touched {} - Last modification at {} by {}", new Object[]{auditedEntity, now, defaultAuditor});
     }
