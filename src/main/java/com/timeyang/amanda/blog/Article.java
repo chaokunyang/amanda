@@ -78,6 +78,15 @@ public class Article extends AuditedEntity implements Serializable {
     @JsonProperty
     private List<Attachment> attachments = new ArrayList<>();
 
+    public Article(User user, String title, String keywords, String mdBody, String htmlBody, List<Attachment> attachments) {
+        this.user = user;
+        this.title = title;
+        this.keywords = keywords;
+        this.mdBody = mdBody;
+        this.htmlBody = htmlBody;
+        this.attachments = attachments;
+    }
+
     /**
      * 加载attachments
      * @return

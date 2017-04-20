@@ -1,6 +1,7 @@
 package com.timeyang.amanda.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.timeyang.amanda.authority.UserAuthority;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +36,16 @@ public class User implements UserDetails, CredentialsContainer, Cloneable {
     private boolean credentialsNonExpired;
 
     private boolean enabled;
+
+    public User(String username, byte[] hashedPassword, Set<UserAuthority> authorities, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+        this.username = username;
+        this.hashedPassword = hashedPassword;
+        this.authorities = authorities;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+    }
 
     @JsonProperty
     @Id

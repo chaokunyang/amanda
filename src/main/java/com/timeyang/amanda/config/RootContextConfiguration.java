@@ -1,13 +1,19 @@
 package com.timeyang.amanda.config;
 
-import com.timeyang.amanda.Application;
+import com.timeyang.amanda.AmandaApplication;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
+import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.persistenceunit.PersistenceUnitManager;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.persistence.SharedCacheMode;
@@ -28,10 +34,18 @@ import java.util.Map;
         basePackages = "com.timeyang.amanda",
         entityManagerFactoryRef = "entityManagerFactoryBean" // 必须指定，不然创建仓库会失败
 )
+@EnableConfigurationProperties
 public class RootContextConfiguration {
 
+    private final DataSource dataSource;
+
+    private final JpaProperties properties;
+
     @Autowired
-    private DataSource dataSource;
+    public RootContextConfiguration(DataSource dataSource, JpaProperties properties) {
+        this.dataSource = dataSource;
+        this.properties = properties;
+    }
 
     @Bean
     public InstrumentationLoadTimeWeaver loadTimeWeaver()  throws Throwable {
@@ -40,29 +54,40 @@ public class RootContextConfiguration {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() throws Throwable {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(EntityManagerFactoryBuilder builder) throws Throwable {
         Map<String, Object> properties = new HashMap<>();
-        // properties.put("javax.persistence.schema-generation.database.action", "none");
-        properties.put("hibernate.ddl-auto", "update");
+        // properties.put("javax.persistence.schema-generation.database.action", "none"); // 没有update选项，只有：none、create、drop-and-create、drop，不满足开发需求
+        // properties.put("hibernate.hbm2ddl.auto", "update"); // 使用adapter.setGenerateDdl(true)，避免拼写错误;
         properties.put("hibernate.ejb.use_class_enhancer", "true");
-        properties.put("hibernate.search.default.directory_provider",
-                "filesystem");
+        properties.put("hibernate.search.default.directory_provider", "filesystem");
+        properties.put("hibernate.search.lucene_version", "5.3.1"); // 避免控制台警告，默认使用LUCENE_CURRENT
         properties.put("hibernate.search.default.indexBase", "../searchIndexes");
-
-        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-        adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5InnoDBDialect");
 
         LocalContainerEntityManagerFactoryBean factory =
                 new LocalContainerEntityManagerFactoryBean();
-        factory.setJpaVendorAdapter(adapter);
         factory.setDataSource(this.dataSource);
-        factory.setPackagesToScan(Application.class.getPackage().getName());
+        factory.setJpaVendorAdapter(jpaVendorAdapter());
+        factory.setPackagesToScan(AmandaApplication.class.getPackage().getName());
         factory.setSharedCacheMode(SharedCacheMode.ENABLE_SELECTIVE);
         factory.setValidationMode(ValidationMode.NONE);
         factory.setLoadTimeWeaver(this.loadTimeWeaver()); // TODO: remove when SPR-10856 fixed
         factory.setJpaPropertyMap(properties);
         return factory;
-
     }
 
+    @Bean
+    public JpaVendorAdapter jpaVendorAdapter() {
+        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+        adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5InnoDBDialect");
+        adapter.setGenerateDdl(true);
+        return adapter;
+    }
+
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public JpaProperties getProperties() {
+        return properties;
+    }
 }

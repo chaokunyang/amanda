@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.base.valadation.NotBlank;
 import com.timeyang.amanda.base.jpa.domain.AuditedEntity;
 import com.timeyang.amanda.user.User;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -25,12 +22,13 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "comment_id"))
 public class Comment extends AuditedEntity {
 
     @JsonProperty
-    private long ticketId;
+    private Long articleId;
 
     @NotNull(message = "{validate.article.comment.user}")
     @JsonProperty

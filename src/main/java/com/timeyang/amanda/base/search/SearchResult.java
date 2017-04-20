@@ -15,5 +15,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SearchResult<T> {
     private final T entity;
-    private final double relevance;
+    private final Float relevance;
 }

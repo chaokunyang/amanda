@@ -20,6 +20,12 @@ public interface UserService extends UserDetailsService {
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
-    void saveUser(@NotNull(message = "{validate.authenticate.saveUser}") @Valid User user, String newPassword);
+    void save(@NotNull(message = "{validate.authenticate.save}") @Valid User user, String newPassword);
+
+    byte[] getHashedPassword(String password);
+
+    User save(@Valid User user);
+
+    void deleteAll();
 
 }

@@ -1,7 +1,8 @@
-package com.timeyang.amanda.blog;
+package com.timeyang.amanda.blog.repository;
 
 import com.timeyang.amanda.base.jpa.criterion.CriterionRepository;
 import com.timeyang.amanda.base.search.SearchableRepository;
+import com.timeyang.amanda.blog.Article;
 import org.springframework.data.repository.CrudRepository;
 
 /**

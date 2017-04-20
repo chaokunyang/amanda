@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * 搜索接口
+ * 全文搜索接口
  *
  * @author chaokunyang
  * @create 2017-04-16

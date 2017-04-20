@@ -1,4 +1,4 @@
-package com.timeyang.amanda.user;
+package com.timeyang.amanda.authority;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

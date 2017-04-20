@@ -2,7 +2,6 @@ package com.timeyang.amanda.base.jpa.listener;
 
 import com.timeyang.amanda.base.jpa.domain.AuditedEntity;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -16,8 +15,8 @@ import javax.persistence.PreUpdate;
 @NoArgsConstructor
 public class AuditingEntityListener {
 
-    @Autowired
-    private AuditingHandler auditingHandler;
+    // @Autowired // AuditingEntityListener不受Spring管理，无法进行自动装配，后续会参考Spring Data Jpa 的 AuditingEntityListener实现
+    private AuditingHandler auditingHandler = new AuditingHandler();
 
     /**
      * 当persist events发生时设置创建、修改时间和auditor
