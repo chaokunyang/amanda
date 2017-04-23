@@ -61,7 +61,8 @@ public class RootContextConfiguration {
         properties.put("hibernate.ejb.use_class_enhancer", "true");
         properties.put("hibernate.search.default.directory_provider", "filesystem");
         properties.put("hibernate.search.lucene_version", "5.3.1"); // 避免控制台警告，默认使用LUCENE_CURRENT
-        properties.put("hibernate.search.default.indexBase", "../searchIndexes");
+        properties.put("hibernate.search.default.indexBase", "../amanda/searchIndexes");
+        properties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy"); // 不工作，应该与Spring Boot的自动配置有关
 
         LocalContainerEntityManagerFactoryBean factory =
                 new LocalContainerEntityManagerFactoryBean();

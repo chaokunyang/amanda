@@ -2,8 +2,8 @@ package com.timeyang.amanda.config;
 
 import com.timeyang.amanda.authority.UserAuthority;
 import com.timeyang.amanda.authority.util.AuthorityUtils;
-import com.timeyang.amanda.blog.Article;
-import com.timeyang.amanda.blog.Comment;
+import com.timeyang.amanda.blog.domain.Article;
+import com.timeyang.amanda.blog.domain.Comment;
 import com.timeyang.amanda.blog.repository.ArticleRepository;
 import com.timeyang.amanda.blog.repository.CommentRepository;
 import com.timeyang.amanda.user.User;
@@ -50,7 +50,7 @@ public class DatabaseInitializer {
 
         Article article = new Article(user, "我为什么开发Amanda？",
                 "Amanda、 Spring Boot、Spring Data JPA、 Hibernate Search",
-                "Amanda关注于使用最好和最合适的工具解决问题", "Amanda关注于使用最好和最合适的工具解决问题", null);
+                "Amanda关注于使用最好和最合适的工具解决问题", "Amanda关注于使用最好和最合适的工具解决问题", null, null);
 
         articleRepository.save(article);
 

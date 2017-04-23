@@ -2,7 +2,7 @@ package com.timeyang.amanda.blog.service;
 
 import com.timeyang.amanda.base.jpa.criterion.QueryCriteria;
 import com.timeyang.amanda.base.search.SearchResult;
-import com.timeyang.amanda.blog.Article;
+import com.timeyang.amanda.blog.domain.Article;
 import com.timeyang.amanda.blog.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

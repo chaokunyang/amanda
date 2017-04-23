@@ -19,6 +19,6 @@ import javax.persistence.MappedSuperclass;
 public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @DocumentId
+    @DocumentId // 也可以不添加，Hibernate Search会自动使用标注了@Id的属性
     private Long id;
 }

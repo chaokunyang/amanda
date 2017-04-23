@@ -1,4 +1,4 @@
-package com.timeyang.amanda.blog;
+package com.timeyang.amanda.blog.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.base.valadation.NotBlank;

@@ -3,7 +3,7 @@ package com.timeyang.amanda.blog.repository;
 import com.timeyang.amanda.base.jpa.criterion.AbstractJpaCriterionRepository;
 import com.timeyang.amanda.base.search.SearchResult;
 import com.timeyang.amanda.base.search.SearchableRepository;
-import com.timeyang.amanda.blog.Article;
+import com.timeyang.amanda.blog.domain.Article;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;

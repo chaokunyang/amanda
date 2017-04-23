@@ -3,6 +3,7 @@ package com.timeyang.amanda.user;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.authority.UserAuthority;
 import lombok.NoArgsConstructor;
+import org.hibernate.search.annotations.Field;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -59,6 +60,7 @@ public class User implements UserDetails, CredentialsContainer, Cloneable {
         this.id = id;
     }
 
+    @Field
     @JsonProperty
     @Override
     public String getUsername() {

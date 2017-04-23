@@ -1,4 +1,4 @@
-package com.timeyang.amanda.blog;
+package com.timeyang.amanda.blog.domain;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
