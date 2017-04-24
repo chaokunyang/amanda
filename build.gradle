@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
     }
 }
 
@@ -17,6 +17,20 @@ jar {
     baseName = 'amanda'
     version =  '0.1.0'
 }
+
+/*
+ * Hibernate 5.0.12.Final 在字节码增强方面有很多bug，使用字节码增强后会导致保存Category失败、ArticleServiceImpl.search失败，不使用字节码增强则正常。
+ * 从5.1.5.Final开始才进行了一些bug修复：
+        1) 5.1.5 https://hibernate.atlassian.net/secure/ReleaseNote.jspa?projectId=10031&version=28103
+        2) 5.2.10 https://hibernate.atlassian.net/secure/ReleaseNote.jspa?version=28100&styleName=Html&projectId=10031
+    Hibernate ORM与相应版本Hibernate Search存在一些问题：
+        1) 5.0.12.Final 5.5.6.Final 无法搜索、无法保存Category
+        2) 5.1.5.Final 5.6.1.Final Category能够保存，但是ArticleServiceImpl.search方法仍会失败。
+        3) 5.2.10.Final 5.7.0.Final Category能够保存, ArticleServiceImpl.search方法能够搜索
+ */
+ext['hibernate.version'] = '5.2.10.Final'
+ext['hibernateSearchVersion'] = '5.7.0.Final' // Hibernate Search 5.7.0.Final is only compatible with Hibernate ORM 5.2.3 and later.
+
 
 repositories {
     maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
@@ -40,7 +54,7 @@ dependencies {
 
     runtime 'mysql:mysql-connector-java'
     compile 'org.projectlombok:lombok'
-    compile ('org.hibernate:hibernate-search-orm:5.5.6.Final') {
+    compile ("org.hibernate:hibernate-search-orm:${hibernateSearchVersion}") {
         exclude group: 'org.jboss.logging', module: 'jboss-logging'
         exclude group: 'org.slf4j', module: 'slf4j-api'
         exclude group: 'org.javassist', module: 'javassist'

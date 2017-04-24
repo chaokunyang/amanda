@@ -1,7 +1,6 @@
 package com.timeyang.amanda.config;
 
 import com.timeyang.amanda.AmandaApplication;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,7 +12,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.persistenceunit.PersistenceUnitManager;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.persistence.SharedCacheMode;
@@ -62,7 +60,6 @@ public class RootContextConfiguration {
         properties.put("hibernate.search.default.directory_provider", "filesystem");
         properties.put("hibernate.search.lucene_version", "5.3.1"); // 避免控制台警告，默认使用LUCENE_CURRENT
         properties.put("hibernate.search.default.indexBase", "../amanda/searchIndexes");
-        properties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy"); // 不工作，应该与Spring Boot的自动配置有关
 
         LocalContainerEntityManagerFactoryBean factory =
                 new LocalContainerEntityManagerFactoryBean();

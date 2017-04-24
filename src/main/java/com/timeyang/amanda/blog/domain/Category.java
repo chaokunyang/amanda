@@ -52,7 +52,7 @@ public class Category extends AuditedEntity implements Serializable, SelfReferen
     private Long parentId;
 
     // @JsonIgnore // 自动的，因为我们默认忽略了所有
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "parent_id")
     private Category parent;
 
@@ -122,7 +122,6 @@ public class Category extends AuditedEntity implements Serializable, SelfReferen
                 "name='" + name + '\'' +
                 ", level=" + level +
                 ", orderNumber=" + orderNumber +
-                ", parentId=" + parentId +
                 ", children=" + children +
                 '}';
     }

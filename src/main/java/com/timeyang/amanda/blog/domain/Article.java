@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "article_id"))
+@Indexed
 public class Article extends AuditedEntity implements Serializable {
 
     @NotNull(message = "{validate.article.user")

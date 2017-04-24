@@ -25,7 +25,7 @@ public class CategoryServiceTest {
 
     @Test
     public void save() {
-        // categoryService.deleteAll();
+        categoryService.deleteAll();
 
         Category lang = new Category("编程语言", 0, 0, null, null);
         List<Category> langs = Arrays.asList(

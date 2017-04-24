@@ -26,7 +26,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.search(criteria, pageable);
     }
 
-    @Transactional
+    @Transactional // 必须包含该行，不只是懒加载问题，而是需要 transactional EntityManager available (无法得到FullTextEntityManager)
     @Override
     public Page<SearchResult<Article>> search(String query, Pageable pageable) {
         return articleRepository.search(query, pageable);
