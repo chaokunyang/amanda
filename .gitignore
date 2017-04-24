@@ -129,3 +129,5 @@ local.properties
 .scala_dependencies
 .worksheet
 
+# lucene索引
+/searchIndexes
