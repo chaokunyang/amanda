@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.io.Serializable;
@@ -27,17 +28,23 @@ public class AbstractSelfReferenceRepository<T, ID extends Serializable>
 
     @Override
     public void delete(ID id) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaDelete<T> query = builder.createCriteriaDelete(domainClass);
 
+        Root<T> root = query.from(domainClass);
+        entityManager.createQuery(query.where(
+                builder.equal(root.get("id"), id)
+        )).executeUpdate();
     }
 
     @Override
     public void delete(SelfReference<T> entity) {
-
+        entityManager.remove(entity);
     }
 
     @Override
     public void delete(Iterable<? extends T> entities) {
-
+        entities.forEach(entity -> entityManager.remove(entity));
     }
 
     @Transactional
