@@ -1,4 +1,4 @@
-package com.timeyang.amanda.blog.web;
+package com.timeyang.amanda.web;
 
 import com.timeyang.amanda.blog.service.ArticleService;
 import org.apache.logging.log4j.LogManager;
@@ -20,10 +20,10 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index() {
+    @RequestMapping(value = "/article", method = RequestMethod.GET)
+    public String article() {
 
-        return "index";
+        return "article";
     }
 
 }
