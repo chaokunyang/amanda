@@ -38,6 +38,14 @@ public class CategoryServiceTest {
         );
         lang.setChildren(langs);
 
+        Category microservices = new Category("微服务", 0, 1, null, null);
+        List<Category> microservicesList = Arrays.asList(
+                new Category("Event Sourcing", 1, 0, microservices, null),
+                new Category("CQRS", 1, 1, microservices, null),
+                new Category("消息驱动的微服务", 1, 2, microservices, null)
+        );
+        microservices.setChildren(microservicesList);
+
         Category reactive = new Category("响应式编程", 0, 3, null, null);
         List<Category> reactives = Arrays.asList(
                 new Category("Akka", 1, 0, reactive, null),
@@ -46,13 +54,40 @@ public class CategoryServiceTest {
         );
         reactive.setChildren(reactives);
 
+        Category cloudComputing = new Category("云计算", 0, 4, null, null);
+        List<Category> cloudComputingList = Arrays.asList(
+                new Category("Docker", 1, 0, cloudComputing, null),
+                new Category("Kubernetes", 1, 1, cloudComputing, null),
+                new Category("Mesos", 1, 2, cloudComputing, null)
+        );
+        cloudComputing.setChildren(cloudComputingList);
+
+        Category bigData = new Category("大数据", 0, 5, null, null);
+        List<Category> bigDataList = Arrays.asList(
+                new Category("Hadoop", 1, 0, bigData, null),
+                new Category("Spark", 1, 1, bigData, null),
+                new Category("Flink", 1, 2, bigData, null),
+                new Category("Storm", 1, 3, bigData, null),
+                new Category("Beam", 1, 4, bigData, null)
+        );
+        bigData.setChildren(bigDataList);
+
+        Category devOps = new Category("DevOps", 0, 6, null, null);
+        List<Category> devOpsList = Arrays.asList(
+                new Category("DevOps实践", 1, 0, devOps, null),
+                new Category("SRE实践", 1, 1, devOps, null)
+        );
+        devOps.setChildren(devOpsList);
+
         List<Category> categories = Arrays.asList(
                 lang,
-                new Category("微服务", 0, 1, null, null),
+                microservices,
                 new Category("Streaming", 0, 2, null, null),
                 reactive,
-                new Category("容器", 0, 4, null, null),
-                new Category("构建交付", 0, 5, null, null)
+                cloudComputing,
+                bigData,
+                devOps,
+                new Category("构建交付", 0, 7, null, null)
         );
         categoryService.save(categories);
     }

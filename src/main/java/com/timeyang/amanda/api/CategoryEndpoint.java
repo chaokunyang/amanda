@@ -1,4 +1,4 @@
-package com.timeyang.api;
+package com.timeyang.amanda.api;
 
 import com.timeyang.amanda.blog.domain.Category;
 import com.timeyang.amanda.blog.service.CategoryService;
