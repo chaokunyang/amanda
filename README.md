@@ -11,3 +11,9 @@ grant all privileges on *.* to 'amanda'@'127.0.0.1' identified by '123456';
 grant all privileges on *.* to 'amanda'@'::1' identified by '123456'; 
 flush privileges;
 ```
+### 前端开发
+```shell
+npm install
+npm start
+```
+npm run-script watch

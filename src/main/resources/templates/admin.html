@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="timeyang的个人博客Amanda" />
+    <meta name="author" content="Chaokun Yang" />
+    <title>amanda admin</title>
+</head>
+<body>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Log Out"/>
+</form>
+
+<div id="app"></div>
+<script th:src="@{/built/bundle.js}" src="../static/built/bundle.js"></script>
+</body>
+</html>
