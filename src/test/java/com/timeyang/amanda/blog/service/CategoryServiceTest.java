@@ -11,8 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * ${DESCRIPTION}
- *
  * @author chaokunyang
  * @create 2017-04-21
  */

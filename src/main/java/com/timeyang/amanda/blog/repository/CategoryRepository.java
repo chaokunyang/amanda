@@ -1,6 +1,6 @@
 package com.timeyang.amanda.blog.repository;
 
-import com.timeyang.amanda.base.jpa.repository.SelfReferenceRepository;
+import com.timeyang.amanda.core.jpa.repository.SelfReferenceRepository;
 import com.timeyang.amanda.blog.domain.Category;
 import org.springframework.data.repository.CrudRepository;
 

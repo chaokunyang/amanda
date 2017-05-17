@@ -1,7 +1,7 @@
 package com.timeyang.amanda.blog.repository;
 
-import com.timeyang.amanda.base.jpa.repository.AbstractSelfReferenceRepository;
-import com.timeyang.amanda.base.jpa.repository.SelfReferenceRepository;
+import com.timeyang.amanda.core.jpa.repository.AbstractSelfReferenceRepository;
+import com.timeyang.amanda.core.jpa.repository.SelfReferenceRepository;
 import com.timeyang.amanda.blog.domain.Category;
 
 /**

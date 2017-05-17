@@ -6,12 +6,12 @@ import com.timeyang.amanda.blog.domain.Article;
 import com.timeyang.amanda.blog.domain.Comment;
 import com.timeyang.amanda.blog.repository.ArticleRepository;
 import com.timeyang.amanda.blog.repository.CommentRepository;
+import com.timeyang.amanda.blog.service.CategoryService;
 import com.timeyang.amanda.user.User;
 import com.timeyang.amanda.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -31,13 +31,17 @@ public class DatabaseInitializer {
     private ArticleRepository articleRepository;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
     private CommentRepository commentRepository;
 
-    @Transactional
     public void populate() {
+        deleteAll();
+
         List<UserAuthority> userAuthorityList = AuthorityUtils.createAuthorityList(
                 "VIEW_ARTICLES", "VIEW_ARTICLE", "CREATE_ARTICLE", "EDIT_ARTICLE", "DELETE_ARTICLE", "DELETE_ANY_ARTICLE",
                 "VIEW_COMMENTS", "VIEW_COMMENT", "CREATE_COMMENT", "EDIT_COMMENT", "DELETE_COMMENT", "DELETE_ANY_COMMENT",
@@ -61,7 +65,7 @@ public class DatabaseInitializer {
     public void deleteAll() {
         commentRepository.deleteAll();
         articleRepository.deleteAll();
-
+        categoryService.deleteAll();
         userService.deleteAll();
     }
 }

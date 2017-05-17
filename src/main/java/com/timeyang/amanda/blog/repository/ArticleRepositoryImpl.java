@@ -1,8 +1,8 @@
 package com.timeyang.amanda.blog.repository;
 
-import com.timeyang.amanda.base.jpa.criterion.AbstractJpaCriterionRepository;
-import com.timeyang.amanda.base.search.SearchResult;
-import com.timeyang.amanda.base.search.SearchableRepository;
+import com.timeyang.amanda.core.jpa.criterion.AbstractJpaCriterionRepository;
+import com.timeyang.amanda.core.search.SearchResult;
+import com.timeyang.amanda.core.search.SearchableRepository;
 import com.timeyang.amanda.blog.domain.Article;
 import org.apache.lucene.search.Query;
 import org.hibernate.search.jpa.FullTextEntityManager;

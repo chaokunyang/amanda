@@ -1,9 +1,10 @@
 package com.timeyang.amanda.blog.domain;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.timeyang.amanda.base.jpa.domain.AuditedEntity;
-import com.timeyang.amanda.base.jpa.domain.SelfReference;
-import com.timeyang.amanda.base.valadation.NotBlank;
+import com.timeyang.amanda.core.jpa.domain.AuditedEntity;
+import com.timeyang.amanda.core.jpa.domain.SelfReference;
+import com.timeyang.amanda.core.valadation.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +27,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AttributeOverride(name = "id", column = @Column(name = "category_id"))
+@JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE,
+        fieldVisibility = JsonAutoDetect.Visibility.NONE,
+        getterVisibility = JsonAutoDetect.Visibility.NONE,
+        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
+        setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class Category extends AuditedEntity implements Serializable, SelfReference<Category> {
 
     @NotBlank(message = "{validate.category.name}")

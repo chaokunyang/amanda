@@ -1,6 +1,6 @@
 package com.timeyang.amanda.blog.service;
 
-import com.timeyang.amanda.base.search.SearchResult;
+import com.timeyang.amanda.core.search.SearchResult;
 import com.timeyang.amanda.blog.domain.Article;
 import com.timeyang.amanda.config.DatabaseInitializer;
 import org.junit.Assert;

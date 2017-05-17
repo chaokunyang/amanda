@@ -1,7 +1,7 @@
 package com.timeyang.amanda.blog.service;
 
-import com.timeyang.amanda.base.jpa.criterion.QueryCriteria;
-import com.timeyang.amanda.base.search.SearchResult;
+import com.timeyang.amanda.core.jpa.criterion.QueryCriteria;
+import com.timeyang.amanda.core.search.SearchResult;
 import com.timeyang.amanda.blog.domain.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

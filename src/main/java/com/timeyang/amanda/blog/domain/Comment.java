@@ -1,8 +1,8 @@
 package com.timeyang.amanda.blog.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.timeyang.amanda.base.valadation.NotBlank;
-import com.timeyang.amanda.base.jpa.domain.AuditedEntity;
+import com.timeyang.amanda.core.valadation.NotBlank;
+import com.timeyang.amanda.core.jpa.domain.AuditedEntity;
 import com.timeyang.amanda.user.User;
 import lombok.*;
 

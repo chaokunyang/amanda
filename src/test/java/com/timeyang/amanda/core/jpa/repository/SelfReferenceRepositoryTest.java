@@ -1,4 +1,4 @@
-package com.timeyang.amanda.base.jpa.repository;
+package com.timeyang.amanda.core.jpa.repository;
 
 import com.timeyang.amanda.blog.domain.Category;
 import com.timeyang.amanda.blog.repository.CategoryRepository;

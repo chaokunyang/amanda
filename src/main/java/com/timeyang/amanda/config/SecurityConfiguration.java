@@ -1,6 +1,5 @@
 package com.timeyang.amanda.config;
 
-import com.timeyang.amanda.user.User;
 import com.timeyang.amanda.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AdviceMode;
@@ -11,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
@@ -23,9 +23,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * @create 2017-04-15
  */
 @Configuration
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(
-    prePostEnabled = true, order = 0, mode = AdviceMode.PROXY,
-    proxyTargetClass = false
+    prePostEnabled = true, order = 0, mode = AdviceMode.PROXY
 )
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -54,13 +54,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity security) throws Exception {
-        security.ignoring().antMatchers("/assets/**", "/favicon.ico");
+        security.ignoring().antMatchers("/assets/**", "/favicon.ico", "/built/**");
     }
 
     @Override
     protected void configure(HttpSecurity security) throws Exception {
         security
-                .authorizeRequests()
+                .authorizeRequests() // authorize all requests using the access rules defined earlier
                 .antMatchers("/session/list")
                 .hasAuthority("VIEW_USER_SESSIONS")
                 .anyRequest().authenticated()
@@ -81,7 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().and().csrf()
                 .requireCsrfProtectionMatcher(request -> {
                     String m = request.getMethod();
-                    return !request.getServletPath().startsWith("/services/") &&
+                    return !request.getServletPath().startsWith("/api/") &&
                             ("POST".equals(m)) || "PUT".equals(m) ||
                             "DELETE".equals(m) || "PATCH".equals(m); // rest services 不用考虑跨站请求伪造
                 });
