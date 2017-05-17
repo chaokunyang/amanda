@@ -29,8 +29,5 @@ spring:
     cache-seconds: -1 # Loaded resource bundle files cache expiration, in seconds. When set to -1, bundles are cached forever.
     encoding: UTF-8 # Message bundles encoding.
     fallback-to-system-locale: true # Set whether to fall back to the system Locale if no files for a specific Locale have been found.
-  data:
-    rest:
-      base-path: /api # By default, Spring Data REST hosts a root collection of links at /. Because you will host a web UI on the same path, you need to change the root URI.
 server:
-  port: 8080
+  port: 8090

@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Category rest端点，定制化一些Spring Data Rest不能良好暴露的资源
+ * Category rest端点
  * @author chaokunyang
  * @create 2017-04-25
  */
-@RestController(value = "/api/categories")
+@RestController
+@RequestMapping(value = "/api/categories")
 public class CategoryEndpoint {
 
     @Autowired
