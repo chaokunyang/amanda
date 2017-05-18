@@ -2,6 +2,7 @@ package com.timeyang.amanda.config;
 
 import com.timeyang.amanda.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 /**
  * 安全配置
@@ -32,6 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
+    // https://github.com/spring-projects/spring-security/issues/3078
+    // The SessionRegistry is not exposed as a Bean so there is no way for ApplicationEvent to be published to it. A workaround is to do something like:
     @Bean
     protected SessionRegistry sessionRegistry() {
         return new SessionRegistryImpl();
@@ -86,4 +90,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "DELETE".equals(m) || "PATCH".equals(m); // rest services 不用考虑跨站请求伪造
                 });
     }
+
+    // missing HttpSessionEventPublisher in spring boot。Because SessionRegistry is not exposed as a Bean so there is no way for ApplicationEvent to be published to it, spring boot doesn't provide HttpSessionEventPublisher. solved by register both two
+    // https://github.com/spring-projects/spring-boot/issues/1537
+    // Register HttpSessionEventPublisher
+    @Bean
+    public static ServletListenerRegistrationBean httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());
+    }
+
 }
