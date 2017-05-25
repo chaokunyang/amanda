@@ -18,7 +18,8 @@ public class AdminController {
 
     private static final Logger LOGGER = LogManager.getLogger();
 
-    @RequestMapping(value = "admin", method = RequestMethod.GET)
+    // 匹配"admin"以及"admin"下任意级子路径。"admin/*"只能匹配admin及一级子路径
+    @RequestMapping(value = "admin/**", method = RequestMethod.GET)
     public String admin(Map<String, Object> model) {
 
         return "admin";

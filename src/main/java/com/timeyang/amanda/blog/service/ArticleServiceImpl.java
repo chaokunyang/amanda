@@ -31,4 +31,14 @@ public class ArticleServiceImpl implements ArticleService {
     public Page<SearchResult<Article>> search(String query, Pageable pageable) {
         return articleRepository.search(query, pageable);
     }
+
+    @Override
+    public Page<Article> articles(Pageable pageable) {
+        return articleRepository.findAll(pageable);
+    }
+
+    @Override
+    public Article article(Long id) {
+        return articleRepository.findOne(id);
+    }
 }

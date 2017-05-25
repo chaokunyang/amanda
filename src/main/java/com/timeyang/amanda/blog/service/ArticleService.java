@@ -20,4 +20,8 @@ public interface ArticleService {
 
     Page<SearchResult<Article>> search(String query, Pageable pageable);
 
+    Page<Article> articles(Pageable pageable);
+
+    Article article(Long id);
+
 }
