@@ -10,7 +10,7 @@ import Analyze from './Analyze'
 import Profile from './Profile'
 import Settings from './Settings'
 
-module.exports = (
+const routes = (
     <Route path="/" component={App}>
         <IndexRoute component={Home}/>
         <Route path="/articles" component={Articles}>
@@ -23,3 +23,7 @@ module.exports = (
         <Route path="/settings" component={Settings}/>
     </Route>
 );
+
+export default routes;
+
+

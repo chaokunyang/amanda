@@ -22,7 +22,7 @@ spring:
         hbm2ddl:
           auto: update
     # disable open EntityManager in View
-    open-in-view: false
+   # open-in-view: false
   messages:
     always-use-message-format: false # Set whether to always apply the MessageFormat rules, parsing even messages without arguments.
     basename: classpath:i18n/titles, classpath:i18n/messages", classpath:i18n/errors, classpath:i18n/validation # Comma-separated list of basenames, each following the ResourceBundle convention.

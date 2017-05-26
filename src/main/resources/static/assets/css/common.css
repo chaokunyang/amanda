@@ -1,0 +1,146 @@
+/*
+=========================
+Le Journal (Responsive)
+=========================
+*/
+
+
+/* normalize.css v2.1.2 | MIT License | git.io/normalize
+    (truncated for example in book)
+---------------------------------------------------------------- */
+
+/* ::: HTML5 display definitions ::: */
+/**
+ * Correct `block` display not defined in IE 8/9.
+ */
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+main,
+nav,
+section {
+    display: block;
+}
+
+/* ::: Base ::: */
+/**
+ * Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+/**
+ * Remove default margin.
+ */
+body {
+    margin: 0;
+}
+
+/* ::: Links ::: */
+/**
+ * Address `outline` inconsistency between Chrome and other browsers.
+ */
+a:focus {
+    outline: thin dotted;
+}
+
+a:active,
+a:hover {
+    outline: 0;
+}
+
+/* ::: Typography ::: */
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+small {
+    font-size: 80%;
+}
+
+/* ::: Embedded content ::: */
+/**
+ * Remove border when inside `a` element in IE 8/9.
+ */
+img {
+    border: 0;
+}
+/* -- end of abridged normalize -- */
+
+
+/* GENERAL (APPLIED DIRECTLY TO ELEMENTS MOSTLY)
+------------------------------------------------ */
+body {
+    font: 100%/1.2 Georgia, "Times New Roman", serif;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+* {
+    -webkit-box-sizing: border-box; /* Android <= 2.3, iOS <= 4 */
+    -moz-box-sizing: border-box; /* Firefox 1+ */
+    box-sizing: border-box; /* Chrome, IE 8+, Opera, Safari 5.1 */
+}
+
+h1 {
+    color: #212121;
+    font-family: 'Lato', sans-serif;
+    font-size: 2.25em;
+    font-weight: 300;
+    letter-spacing: -2px;
+    line-height: .975;
+    margin-bottom: .4125em;
+}
+
+.about h2,
+.mod h2,
+.nav-main a {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.about h2,
+.mod h2 {
+    font-size: .875em; /* 15px/16px */
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    color: #1162a4;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.more:after {
+    content: ' »';
+}
+
+img {
+    border: 0;
+}
+
+.page {
+    /* these declarations combine to center entire page in browser */
+    margin: 0 auto;
+    max-width: 960px;
+}
+
+.post-photo,
+.post-photo-full,
+.about img,
+.map {
+    max-width: 100%;
+}

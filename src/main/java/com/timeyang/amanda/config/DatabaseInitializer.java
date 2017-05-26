@@ -65,6 +65,11 @@ public class DatabaseInitializer {
         Comment comment = new Comment(article.getId(), user, "Amanda设计不错, 我很喜欢", null);
         commentRepository.save(comment);
 
+        Article logPlatform = new Article(user, "基于Elastic Stack + Fluentd搭建实时日志平台",
+                "Elastic Stack、Fluentd、ElasticSearch、Logstash、Beats、filebeat、metricbeat、 Kibana",
+                "基于Elastic Stack + Fluentd搭建实时日志平台", "基于Elastic Stack + Fluentd搭建实时日志平台", null, null);
+
+        articleRepository.save(logPlatform);
     }
 
     public void deleteAll() {

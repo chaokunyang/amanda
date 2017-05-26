@@ -1,5 +1,6 @@
 package com.timeyang.amanda.blog.domain;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.core.jpa.converter.InstantConverter;
 import com.timeyang.amanda.core.jpa.domain.AuditedEntity;
@@ -33,6 +34,11 @@ import java.util.List;
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "article_id"))
 @Indexed
+@JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE,
+        fieldVisibility = JsonAutoDetect.Visibility.NONE,
+        getterVisibility = JsonAutoDetect.Visibility.NONE,
+        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
+        setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class Article extends AuditedEntity implements Serializable {
 
     @NotNull(message = "{validate.article.user")

@@ -5,28 +5,37 @@ import Axios from 'axios'
 
 class Articles extends Component {
 
-    // state = { articles: null };
+    constructor(props) {
+        super(props);
+        this.state = { articles: [] }
+    }
 
     componentDidMount() {
-        Axios.get('/api/categories')
-            .then(function (response) {
-                console.log(response);
+        Axios.get('/api/articles')
+            .then(response => {
+                this.setState({articles: response.data.content})
             })
-            .catch(function (error) {
+            .catch(error => {
                 console.log(error);
             });
-
     }
 
     render() {
+        let articleList = this.state.articles.map(article =>
+            <li key={article.id}>
+                <NavLink to={ "articles/" + article.id + "/" + article.title}>{article.title}</NavLink>
+            </li>
+        );
+
         return(
             <div>
                 <h2>文章列表</h2>
-                <Link to="/articles/new"/>
+                <Link to="/articles/new">新建文章</Link>
                 <ul>
-                    <li><NavLink to="/articles/1"/>使用事件源在微服务中实现最终一致性</li>
-                    <li><NavLink to="/articles/2"/>使用Elastic Stack搭建日志平台</li>
+                    { articleList }
                 </ul>
+
+                {this.props.children}
             </div>
         )
     }

@@ -1,5 +1,6 @@
 package com.timeyang.amanda.user;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.authority.UserAuthority;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,11 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "user_id"))
+@JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE,
+        fieldVisibility = JsonAutoDetect.Visibility.NONE,
+        getterVisibility = JsonAutoDetect.Visibility.NONE,
+        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
+        setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class User implements UserDetails, CredentialsContainer, Cloneable {
 
     private long id;
