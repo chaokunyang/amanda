@@ -1,14 +1,12 @@
 package com.timeyang.amanda.blog.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.timeyang.amanda.core.valadation.NotBlank;
 import com.timeyang.amanda.core.jpa.domain.AuditedEntity;
-import com.timeyang.amanda.user.User;
+import com.timeyang.amanda.core.valadation.NotBlank;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +28,13 @@ public class Comment extends AuditedEntity {
     @JsonProperty
     private Long articleId;
 
-    @NotNull(message = "{validate.article.comment.user}")
-    @JsonProperty
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "user_id")
-    private User user;
+    // @NotNull(message = "{validate.getArticle.comment.user}")
+    // @JsonProperty
+    // @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    // @JoinColumn(name = "user_id")
+    // private User user;
 
-    @NotBlank(message = "{validate.article.comment.body}")
+    @NotBlank(message = "{validate.getArticle.comment.body}")
     @JsonProperty
     @Lob
     private String body;

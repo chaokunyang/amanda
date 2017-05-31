@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.core.jpa.converter.InstantConverter;
 import com.timeyang.amanda.core.jpa.domain.AuditedEntity;
 import com.timeyang.amanda.core.valadation.NotBlank;
-import com.timeyang.amanda.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,22 +40,22 @@ import java.util.List;
         setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class Article extends AuditedEntity implements Serializable {
 
-    @NotNull(message = "{validate.article.user")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "used_id")
-    @JsonProperty
-    @IndexedEmbedded
-    private User user;
+    // @NotNull(message = "{validate.getArticle.user")
+    // @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    // @JoinColumn(name = "used_id")
+    // @JsonProperty
+    // @IndexedEmbedded
+    // private User user;
 
     /**
      * 标题
      */
-    @NotBlank(message = "{validate.article.title}")
+    @NotBlank(message = "{validate.getArticle.title}")
     @JsonProperty
     @Field
     private String title;
 
-    @NotNull(message = "{validate.article.categories}")
+    @NotNull(message = "{validate.getArticle.categories}")
     @ManyToMany
     @JoinTable(name = "article_category",
             joinColumns = {@JoinColumn(name = "article_id")},
@@ -73,14 +72,14 @@ public class Article extends AuditedEntity implements Serializable {
     @Field(boost = @Boost(2.0F))
     private String keywords;
 
-    @NotBlank(message = "{validate.article.mdBody}")
+    @NotBlank(message = "{validate.getArticle.mdBody}")
     @JsonProperty
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Field
     private String mdBody;
 
-    @NotBlank(message = "{validate.article.htmlBody}")
+    @NotBlank(message = "{validate.getArticle.htmlBody}")
     @JsonProperty
     @Lob
     private String htmlBody;
@@ -110,8 +109,8 @@ public class Article extends AuditedEntity implements Serializable {
     @JsonProperty
     private List<Attachment> attachments = new ArrayList<>();
 
-    public Article(User user, String title, String keywords, String mdBody, String htmlBody, List<Attachment> attachments, List<Category> categories) {
-        this.user = user;
+    public Article(String title, String keywords, String mdBody, String htmlBody, List<Attachment> attachments, List<Category> categories) {
+        // this.user = user;
         this.title = title;
         this.keywords = keywords;
         this.mdBody = mdBody;

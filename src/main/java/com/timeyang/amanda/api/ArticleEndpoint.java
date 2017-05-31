@@ -5,10 +5,7 @@ import com.timeyang.amanda.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 文章API
@@ -23,14 +20,19 @@ public class ArticleEndpoint {
     private ArticleService articleService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Page<Article> articles(Pageable pageable) {
-        return articleService.articles(pageable);
+    public Page<Article> getArticles(Pageable pageable) {
+        return articleService.getArticles(pageable);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Article article(@PathVariable Long id) {
-        return articleService.article(id);
+    @RequestMapping(value = "/{id}/**", method = RequestMethod.GET)
+    public Article getArticle(@PathVariable Long id) {
+        return articleService.getArticle(id);
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public Article saveArticle(@RequestBody Article article) {
+        Article result = articleService.save(article);
+        return result;
+    }
 
 }

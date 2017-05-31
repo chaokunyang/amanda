@@ -34,14 +34,19 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Transactional
     @Override
-    public Page<Article> articles(Pageable pageable) {
+    public Page<Article> getArticles(Pageable pageable) {
         Page<Article> articles = articleRepository.findAll(pageable);
         return articles;
     }
 
     @Transactional
     @Override
-    public Article article(Long id) {
+    public Article getArticle(Long id) {
         return articleRepository.findOne(id);
+    }
+
+    @Override
+    public Article save(Article article) {
+        return articleRepository.save(article);
     }
 }

@@ -20,8 +20,10 @@ public interface ArticleService {
 
     Page<SearchResult<Article>> search(String query, Pageable pageable);
 
-    Page<Article> articles(Pageable pageable);
+    Page<Article> getArticles(Pageable pageable);
 
-    Article article(Long id);
+    Article getArticle(Long id);
+
+    Article save(Article article);
 
 }
