@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 /**
@@ -83,6 +84,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .maximumSessions(1).maxSessionsPreventsLogin(true)
                 .sessionRegistry(this.sessionRegistry())
                 .and().and().csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .requireCsrfProtectionMatcher(request -> {
                     String m = request.getMethod();
                     return !request.getServletPath().startsWith("/api/") &&

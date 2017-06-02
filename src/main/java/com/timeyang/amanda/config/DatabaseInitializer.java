@@ -70,6 +70,22 @@ public class DatabaseInitializer {
                 "基于Elastic Stack + Fluentd搭建实时日志平台", "基于Elastic Stack + Fluentd搭建实时日志平台", null, null);
 
         articleRepository.save(logPlatform);
+
+        Article eventSourcing = new Article("Microservices Event Sourcing",
+                "spring-boot\n" +
+                        "springcloud\n" +
+                        "event-driven\n" +
+                        "event-sourcing\n" +
+                        "angularjs\n" +
+                        "ecommerce\n" +
+                        "mongodb\n" +
+                        "neo4j\n" +
+                        "microservice\n" +
+                        "oauth2\n" +
+                        "eventually-consistent",
+                "Microservices Event Sourcing 是一个微服务架构的在线购物平台，使用Spring Boot、Spring Cloud、Spring Reactor、OAuth2、CQRS 构建，实现了基于Event Sourcing的最终一致性，提供了构建端到端微服务的最佳实践", "Microservices Event Sourcing", null, null);
+
+        articleRepository.save(eventSourcing);
     }
 
     public void deleteAll() {

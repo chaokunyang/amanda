@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { IndexLink} from 'react-router'
 import NavLink from './NavLink'
+import '../../../resources/static/assets/css/admin/App.css';
 
 const Sidebar = () => (
-    <div>
+    <div className="Sidebar">
         <ul role="nav">
             <li><IndexLink to="/" activeClassName="active">主页</IndexLink></li>
             <li><NavLink to="/articles">文章</NavLink></li>

@@ -33,7 +33,7 @@ class Article extends Component {
     handleSubmit (event) {
         Axios.post('/api/articles', this.state.article)
             .then(response => this.setState({article: response.data}))
-            .catch(error => console.log(error))
+            .catch(error => console.log(error));
 
         event.preventDefault()
     }
