@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { IndexLink} from 'react-router'
-import NavLink from './NavLink'
-import '../../../resources/static/assets/css/admin/App.css';
+import NavLink from '../NavLink'
+import './Sidebar.css'
 
 const Sidebar = () => (
     <div className="Sidebar">

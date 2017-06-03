@@ -1,0 +1,54 @@
+.active {
+    color: #fff;
+    background-color: #428bca;
+}
+
+/* 480-767-only
+------------------------------------------ */
+@media only screen and (min-width: 30em) and (max-width: 47.9375em) {
+
+}
+
+/* 600-767-only
+------------------------------------------ */
+@media only screen and (min-width: 37.5em) and (max-width: 47.9375em) {
+
+}
+
+/* 768+
+------------------------------------------- */
+@media only screen and (min-width: 48em) {
+    .App-header {
+        background-color: #222;
+        height: 60px;
+        padding: 0 2em;
+
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1030;
+        text-align: right;
+    }
+    .Sidebar {
+        position: fixed;
+        top: 60px;
+        bottom: 0;
+        left: 0;
+        width: 11%;
+
+        z-index: 1000;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+    }
+    .App-main {
+        float: left;
+        margin-left: 11%;
+        margin-top: 60px;
+        width: 89%;
+        padding: 1em;
+    }
+}

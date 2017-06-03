@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Sidebar from './Sidebar';
-import Header from './Header';
-import '../../../resources/static/assets/css/admin/App.css';
+import Sidebar from './sidebar/Sidebar';
+import Header from './header/Header';
+import './App.css';
 
 
 class App extends Component {

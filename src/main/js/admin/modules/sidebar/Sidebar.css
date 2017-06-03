@@ -1,0 +1,7 @@
+
+.Sidebar ul li a {
+    display: block;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 1.2em;
+}

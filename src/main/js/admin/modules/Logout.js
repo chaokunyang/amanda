@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../../resources/static/assets/css/admin/App.css';
 import Http from './http/Http'
 
 class Logout extends Component {

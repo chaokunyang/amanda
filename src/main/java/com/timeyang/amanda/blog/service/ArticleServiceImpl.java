@@ -22,7 +22,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Transactional
     @Override
-    public Page search(QueryCriteria criteria, Pageable pageable) {
+    public Page<Article> search(QueryCriteria criteria, Pageable pageable) {
         return articleRepository.search(criteria, pageable);
     }
 
@@ -47,6 +47,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article save(Article article) {
+
         return articleRepository.save(article);
     }
 }
