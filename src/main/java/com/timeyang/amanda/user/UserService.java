@@ -26,6 +26,7 @@ public interface UserService extends UserDetailsService {
 
     User save(@Valid User user);
 
+    // @PreAuthorize("hasAuthority('DELETE_ANY_USER')")
     void deleteAll();
 
 }

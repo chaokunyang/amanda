@@ -29,5 +29,7 @@ spring:
     cache-seconds: -1 # Loaded resource bundle files cache expiration, in seconds. When set to -1, bundles are cached forever.
     encoding: UTF-8 # Message bundles encoding.
     fallback-to-system-locale: true # Set whether to fall back to the system Locale if no files for a specific Locale have been found.
+  http.multipart.max-file-size: 256Mb
+  http.multipart.max-request-size: 256Mb
 server:
   port: 8090

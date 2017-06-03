@@ -5,6 +5,7 @@ import Home from './Home'
 import Articles from './article/Articles'
 import Article from './article/Article'
 import Category from './Category'
+import FileService from './file/FileService'
 import Report from './Report'
 import Analyze from './Analyze'
 import Profile from './Profile'
@@ -17,6 +18,7 @@ const routes = (
         </Route>
         <Route path="/articles/:articleId/:articleName" component={Article}/>
         <Route path="/categories" component={Category}/>
+        <Route path="/files" component={FileService}/>
         <Route path="/report" component={Report}/>
         <Route path="/analyze" component={Analyze}/>
         <Route path="/profile" component={Profile}/>

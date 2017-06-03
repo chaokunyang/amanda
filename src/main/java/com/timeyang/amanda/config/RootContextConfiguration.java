@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.timeyang.amanda.AmandaApplication;
+import com.timeyang.amanda.core.storage.StorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -36,7 +37,7 @@ import java.util.Map;
         basePackages = "com.timeyang.amanda",
         entityManagerFactoryRef = "entityManagerFactoryBean" // 必须指定，不然创建仓库会失败
 )
-@EnableConfigurationProperties
+@EnableConfigurationProperties(StorageProperties.class)
 public class RootContextConfiguration {
 
     private final DataSource dataSource;

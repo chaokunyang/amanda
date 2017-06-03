@@ -1,11 +1,10 @@
 package com.timeyang.amanda;
 
-import com.timeyang.amanda.config.DatabaseInitializer;
+import com.timeyang.amanda.core.storage.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 
 /**
  * @author chaokunyang
@@ -19,8 +18,9 @@ public class AmandaApplication {
     }
 
     @Bean
-    @Profile("dev")
-    public CommandLineRunner commandLineRunner(DatabaseInitializer databaseInitializer) {
-        return args -> databaseInitializer.populate();
+    CommandLineRunner init(StorageService storageService) {
+        return (args) -> {
+            storageService.init();
+        };
     }
 }

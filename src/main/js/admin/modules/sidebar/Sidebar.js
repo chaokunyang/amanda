@@ -9,6 +9,7 @@ const Sidebar = () => (
             <li><IndexLink to="/" activeClassName="active">主页</IndexLink></li>
             <li><NavLink to="/articles">文章</NavLink></li>
             <li><NavLink to="/categories">分类</NavLink></li>
+            <li><NavLink to="/files">文件</NavLink></li>
             <li><NavLink to="/report">报告</NavLink></li>
             <li><NavLink to="/analyze">分析</NavLink></li>
             <li><NavLink to="/profile">简介</NavLink></li>

@@ -11,6 +11,7 @@ import com.timeyang.amanda.blog.service.CategoryService;
 import com.timeyang.amanda.user.User;
 import com.timeyang.amanda.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ import java.util.Set;
  */
 @Service
 @Profile("dev")
-public class DatabaseInitializer {
+public class DatabaseInitializer implements CommandLineRunner {
 
     @Autowired
     private ArticleRepository articleRepository;
@@ -48,7 +49,9 @@ public class DatabaseInitializer {
                 "VIEW_ARTICLES", "VIEW_ARTICLE", "CREATE_ARTICLE", "EDIT_ARTICLE", "DELETE_ARTICLE", "DELETE_ANY_ARTICLE",
                 "VIEW_COMMENTS", "VIEW_COMMENT", "CREATE_COMMENT", "EDIT_COMMENT", "DELETE_COMMENT", "DELETE_ANY_COMMENT",
                 "VIEW_ATTACHMENT", "DELETE_ATTACHMENT", "DELETE_ANY_ATTACHMENT",
-                "VIEW_USER_SESSIONS");
+                "VIEW_USER_SESSIONS",
+                "DELETE_ANY_USER",
+                "VIEW_FILE", "UPLOAD_FILE", "DELETE_FILE", "DELETE_ANY_FILE");
         Set<UserAuthority> authorities = new HashSet<>(userAuthorityList);
         User user = new User("amanda", userService.getHashedPassword("timeyang"),
                 authorities, true, true, true, true);
@@ -161,5 +164,11 @@ public class DatabaseInitializer {
                 new Category("构建交付", 0, 7, null, null)
         );
         categoryService.save(categories);
+    }
+
+
+    @Override
+    public void run(String... args) throws Exception {
+        populate();
     }
 }
