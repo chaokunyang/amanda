@@ -1,0 +1,25 @@
+.Accept > .dropzone {
+    display: inline-block;
+    vertical-align: top;
+    width: 25%;
+}
+
+.Accept > .files-list {
+
+}
+.Accept > .files-list .file-item {
+    padding: 1em 0 1em 0em;
+}
+.Accept > .files-list .file-item > * {
+    display: inline-block;
+    width: 200px;
+    vertical-align: top;
+    text-align: left;
+}
+/*.Accept > .files-list .file-item> *:first-child {*/
+    /*width: 100px;*/
+/*}*/
+.Accept > .files-list .file-item img{
+    max-width: 100px;
+    max-height: 100px;
+}

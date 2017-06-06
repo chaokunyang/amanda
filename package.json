@@ -6,6 +6,7 @@
     "axios": "v0.16.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-dropzone": "^3.13.2",
     "react-redux": "^5.0.5",
     "react-router": "^2.0.0",
     "redux": "^3.6.0",

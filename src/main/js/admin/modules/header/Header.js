@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Logout from '../Logout'
+import Logout from '../logout/Logout'
 import './Header.css'
 
 const Header = () => (

@@ -1,5 +1,6 @@
 package com.timeyang.amanda.api;
 
+import com.timeyang.amanda.core.storage.FileInfo;
 import com.timeyang.amanda.core.storage.StorageFileNotFoundException;
 import com.timeyang.amanda.core.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,16 +58,35 @@ public class FileUploadEndpoint {
                 .body(file);
     }
 
+    // @PostMapping
+    // public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+    //     storageService.store(file);
+    //
+    //     String fileUrl = MvcUriComponentsBuilder
+    //             .fromMethodName(FileUploadEndpoint.class,
+    //                     "serveFile", file.getOriginalFilename())
+    //             .build().toString();
+    //     return fileUrl;
+    //
+    // }
+
     @PostMapping
-    public String handleFileUpload(@RequestParam("file") MultipartFile file) {
-        storageService.store(file);
+    public List<FileInfo> handleFileUpload(@RequestParam("files") List<MultipartFile> files) {
 
-        String fileUrl = MvcUriComponentsBuilder
-                .fromMethodName(FileUploadEndpoint.class,
-                        "serveFile", file.getOriginalFilename())
-                .build().toString();
-        return fileUrl;
+        List<FileInfo> filesInfo = new ArrayList<>(files.size());
+        files.forEach(file -> {
+            storageService.store(file);
 
+            String fileUrl = MvcUriComponentsBuilder
+                    .fromMethodName(FileUploadEndpoint.class,
+                            "serveFile", file.getOriginalFilename())
+                    .build().toString();
+
+            filesInfo.add(new FileInfo(file.getOriginalFilename(), file.getContentType(),
+                    file.getSize(), fileUrl));
+        });
+
+        return filesInfo;
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

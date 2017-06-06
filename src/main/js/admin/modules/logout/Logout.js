@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Http from './http/Http'
+import Http from '../http/Http'
 
 class Logout extends Component {
 
@@ -21,8 +21,8 @@ class Logout extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit} className="Logout">
-                <input type="submit" value="退出登录"/>
+            <form onSubmit={this.handleSubmit}>
+                <button type="submit" className="btn btn-default">退出登录</button>
             </form>
         )
     }
