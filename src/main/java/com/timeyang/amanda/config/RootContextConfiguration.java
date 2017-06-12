@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.timeyang.amanda.AmandaApplication;
-import com.timeyang.amanda.core.storage.StorageProperties;
+import com.timeyang.amanda.core.fileserver.StorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -65,6 +65,10 @@ public class RootContextConfiguration {
         properties.put("hibernate.search.default.directory_provider", "filesystem");
         properties.put("hibernate.search.lucene_version", "5.3.1"); // 避免控制台警告，默认使用LUCENE_CURRENT
         properties.put("hibernate.search.default.indexBase", "../amanda/searchIndexes");
+
+        properties.put("hibernate.show_sql", "true");
+        properties.put("hibernate.format_sql", "true");
+        properties.put("hibernate.use_sql_comments", "true");
 
         LocalContainerEntityManagerFactoryBean factory =
                 new LocalContainerEntityManagerFactoryBean();

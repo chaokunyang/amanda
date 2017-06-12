@@ -1,0 +1,78 @@
+.FileService {
+
+}
+
+.FileService .NavBar li {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 0.1em;
+}
+.FileService .NavBar li > * {
+    vertical-align: middle;
+}
+.FileService .NavBar li a {
+    background: transparent;
+    /*border: 1px solid #eee;*/
+    color: #4287ed;
+    font-size: 16px;
+    font-weight: 600;
+}
+.FileService .NavBar li span.separator {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: hsl(175, 2%, 72%);
+    /*margin: 0 0.2em;*/
+}
+.separator::before, .separator::after {
+    white-space: nowrap;
+    content: " ";
+}
+
+.FileService .file-grid ul li {
+    position: relative;
+    padding-top: 1.4em;
+}
+.FileService .file-grid ul li:hover, .FileService .file-grid ul li.selected {
+    background-color: #f1f5fa;
+    border: 1px solid #90c3fd;
+    border-radius: 5px;
+}
+.FileService .file-grid ul li .option {
+    position: absolute;
+    top: 0;
+    right: 4%;
+    display: none;
+}
+.FileService .file-grid ul li .option > i:hover {
+    cursor: pointer;
+}
+.FileService .file-grid ul li:hover .option, .FileService .file-grid ul li.selected .option {
+    display: block;
+}
+.FileService .file-grid ul li img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.FileService .file-grid ul li {
+    display: inline-block;
+    vertical-align: bottom;
+    margin: 1em;
+    width: 150px;
+    height: 150px;
+}
+.FileService .file-grid ul li a {
+    display: block;
+    height: 100%;
+    text-align: center;
+}
+.FileService .file-grid ul li a i.fa-folder {
+    font-size: 6.5em;
+}
+.FileService .file-grid ul li.dir a div.folder, .FileService .file-grid ul li.file a div.img {
+    height: 80%;
+}
+.FileService .file-grid ul li a div.name {
+    height: 20%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

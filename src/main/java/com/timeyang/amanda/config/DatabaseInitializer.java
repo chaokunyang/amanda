@@ -27,7 +27,7 @@ import java.util.Set;
  * @create 2017-04-18
  */
 @Service
-@Profile("dev")
+@Profile("init")
 public class DatabaseInitializer implements CommandLineRunner {
 
     @Autowired
@@ -51,7 +51,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "VIEW_ATTACHMENT", "DELETE_ATTACHMENT", "DELETE_ANY_ATTACHMENT",
                 "VIEW_USER_SESSIONS",
                 "DELETE_ANY_USER",
-                "VIEW_FILE", "UPLOAD_FILE", "DELETE_FILE", "DELETE_ANY_FILE");
+                "VIEW_FILE", "VIEW_PRIVATE_FILE", "UPLOAD_FILE", "UPLOAD_PRIVATE_FILE", "DELETE_FILE", "DELETE_ANY_FILE");
         Set<UserAuthority> authorities = new HashSet<>(userAuthorityList);
         User user = new User("amanda", userService.getHashedPassword("timeyang"),
                 authorities, true, true, true, true);

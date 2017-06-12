@@ -1,4 +1,4 @@
-package com.timeyang.amanda.core.storage;
+package com.timeyang.amanda.core.fileserver;
 
 /**
  * @author chaokunyang

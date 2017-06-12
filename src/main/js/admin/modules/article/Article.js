@@ -65,7 +65,9 @@ class Article extends Component {
                         <MarkdownEditor inputTitle="mdBody" mdBody={this.state.article.mdBody} previewTitle="预览" htmlBody={this.state.article.htmlBody} onMarkdownChange={this.onMarkdownChange}/>
                     </div>
 
-                    <input type="submit" value="更新" />
+                    <div>
+                        <input type="submit" value="更新" className="btn btn-default" />
+                    </div>
                 </form>
             </div>
         )

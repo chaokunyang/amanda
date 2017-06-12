@@ -76,7 +76,8 @@ img {
 /* GENERAL (APPLIED DIRECTLY TO ELEMENTS MOSTLY)
 ------------------------------------------------ */
 body {
-    font: 100%/1.2 Georgia, "Times New Roman", serif;
+    /*font: 100%/1.2 Georgia, "Times New Roman", serif;*/
+    font: 12px/1.5 Microsoft YaHei,tahoma,arial,Hiragino Sans GB,\\5b8b\4f53,sans-serif;
     background-color: #fafafa;
 }
 
@@ -182,17 +183,25 @@ img {
     border: 1px solid transparent;
     border-radius: 4px;
 }
-
 .btn-default {
     color: #333;
     background-color: #fff;
     border-color: #ccc;
 }
-
 .btn-primary {
     color: #fff;
     background-color: #337ab7;
     border-color: #2e6da4;
+}
+.btn-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+.btn-warning {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
 }
 
 /* 480-767-only

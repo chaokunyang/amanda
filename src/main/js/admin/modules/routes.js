@@ -18,7 +18,9 @@ const routes = (
         </Route>
         <Route path="/articles/:articleId/:articleName" component={Article}/>
         <Route path="/categories" component={Category}/>
-        <Route path="/files" component={FileService}/>
+        <Route path="/files" component={FileService}>
+             <Route path="/files/"/>
+        </Route>
         <Route path="/report" component={Report}/>
         <Route path="/analyze" component={Analyze}/>
         <Route path="/profile" component={Profile}/>

@@ -3,6 +3,36 @@
     vertical-align: top;
     width: 25%;
 }
+.Accept > .dropzone:hover {
+    cursor: pointer;
+}
+
+.Accept .upload-option {
+    display: inline-block;
+    max-width: 30em;
+}
+.Accept .upload-option > * {
+    display: block;
+    margin-bottom: 15px;
+}
+.Accept button {
+    margin-right: 0.5em;
+}
+.Accept .upload-option .upload-dir .input-group-addon {
+    font-size: 0.85em;
+    font-weight: 400;
+    text-align: center;
+     white-space: nowrap;
+    padding: 6px 12px;
+    background-color: coral;
+    border: 1px solid coral;
+    color: #fff;
+}
+.Accept .upload-option .upload-dir input {
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+}
 
 .Accept > .files-list {
 

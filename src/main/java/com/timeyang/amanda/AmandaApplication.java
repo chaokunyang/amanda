@@ -1,6 +1,6 @@
 package com.timeyang.amanda;
 
-import com.timeyang.amanda.core.storage.StorageService;
+import com.timeyang.amanda.core.fileserver.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

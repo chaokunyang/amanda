@@ -1,11 +1,11 @@
-package com.timeyang.amanda.core.storage;
+package com.timeyang.amanda.core.fileserver;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author chaokunyang
  */
-@ConfigurationProperties("storage")
+@ConfigurationProperties("fileserver")
 public class StorageProperties {
 
     /**
