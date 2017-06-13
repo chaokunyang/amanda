@@ -12,26 +12,41 @@
     max-width: 30em;
 }
 .Accept .upload-option > * {
-    display: block;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 .Accept button {
     margin-right: 0.5em;
 }
+.Accept .upload-option .upload-dir {
+    display: inline-block;
+    width: 14.5em;
+    vertical-align: middle;
+    margin-bottom: 0;
+}
 .Accept .upload-option .upload-dir .input-group-addon {
-    font-size: 0.85em;
-    font-weight: 400;
-    text-align: center;
-     white-space: nowrap;
-    padding: 6px 12px;
     background-color: coral;
     border: 1px solid coral;
     color: #fff;
 }
 .Accept .upload-option .upload-dir input {
-    display: inline-block;
-    vertical-align: middle;
     width: auto;
+    /*border: 1px solid coral;*/
+}
+
+.Accept .upload-option .selectUploadDir-wrapper {
+    vertical-align: middle;
+    display: inline-block;
+    background-color: #FC6398;
+    width: 8em;
+    margin-left: 0.5em;
+    border-radius: 4px;
+}
+.Accept .upload-option .selectUploadDir {
+    background-color: transparent;
+    color: brown;
+}
+.Accept .upload-option .selectUploadDir option:hover {
+    background: hsl(339, 96%, 59%);
 }
 
 .Accept > .files-list {
@@ -46,9 +61,6 @@
     vertical-align: top;
     text-align: left;
 }
-/*.Accept > .files-list .file-item> *:first-child {*/
-    /*width: 100px;*/
-/*}*/
 .Accept > .files-list .file-item img{
     max-width: 100px;
     max-height: 100px;

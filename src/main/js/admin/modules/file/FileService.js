@@ -8,10 +8,10 @@ import NavBar from './NavBar'
 class FileService extends Component {
 
     static extractPathFromUrl(url) {
-        if(url.lastIndexOf("api/fs/dir/") !== -1) { // 目录
-            return url.substring(url.lastIndexOf("api/fs/dir/") + "api/fs/dir/".length);
+        if(url.lastIndexOf("fs/dir/") !== -1) { // 目录
+            return url.substring(url.lastIndexOf("fs/dir/") + "fs/dir/".length);
         }else { // 文件
-            return url.substring(url.lastIndexOf("api/fs/file/") + "api/fs/file/".length);
+            return url.substring(url.lastIndexOf("fs/file/") + "fs/file/".length);
         }
     }
 
@@ -23,7 +23,8 @@ class FileService extends Component {
                 dirs: [],
                 files: []
             },
-            selectedItems: {}
+            selectedItems: {},
+            uploadToDir: "home"
         };
         this.viewDir = this.viewDir.bind(this);
         this.goToDirPath = this.goToDirPath.bind(this);
@@ -31,6 +32,7 @@ class FileService extends Component {
         this.onSelectAll = this.onSelectAll.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.onDeleteSelected = this.onDeleteSelected.bind(this);
+        this.selectUploadDir = this.selectUploadDir.bind(this);
     }
 
     componentDidMount() {
@@ -43,13 +45,14 @@ class FileService extends Component {
             this.viewDir(dirPath);
             return {
                 dirPath: dirPath,
-                selectedItems: {} // 进入新的目录时清空旧的已选中文件
+                selectedItems: {}, // 进入新的目录时清空旧的已选中文件
+                uploadToDir: dirPath
             }
         });
     }
 
     viewDir(dirPath) {
-        Axios.get('/api/fs/dir/' + dirPath)
+        Axios.get('/fs//dir/' + dirPath)
             .then(response => {
                 this.setState({dirInfo: response.data})
             })
@@ -80,7 +83,7 @@ class FileService extends Component {
     onDelete(path) {
         const data = [];
         data.push(path);
-        Axios.post('/api/fs/delete', data)
+        Axios.post('/fs//delete', data)
             .then(response => {
                 if(this.state.selectedItems.length === this.state.dirInfo.dirs.length + this.state.dirInfo.files.length) {
                     this.goToDirPath("");
@@ -98,7 +101,7 @@ class FileService extends Component {
         this.state.selectedItems.forEach(path => {
             data.push(path);
         });
-        Axios.post('/api/fs/delete', data)
+        Axios.post('/fs//delete', data)
             .then(response => {
                 if(this.state.selectedItems.length === this.state.dirs.length + this.state.files.length) {
                     this.goToDirPath("/");
@@ -111,11 +114,17 @@ class FileService extends Component {
             });
     }
 
+    selectUploadDir(path) {
+        this.setState({
+            uploadToDir: path
+        })
+    }
+
     render() {
         return (
             <div className="FileService">
                 <h2>文件服务</h2>
-                <Accept getFileList={this.viewDir}/>
+                <Accept getFileList={this.viewDir} dirPath={this.state.dirPath} goToDirPath={this.goToDirPath} uploadToDir={this.state.uploadToDir} selectUploadDir={this.selectUploadDir}/>
                 <NavBar dirPath={this.state.dirPath} goToDirPath={this.goToDirPath} onSelectAll={this.onSelectAll} />
                 <FileGrid dirInfo={this.state.dirInfo} viewDir={this.viewDir} goToDirPath={this.goToDirPath} onSelect={this.onSelect} selectedItems={this.state.selectedItems} onDelete={this.onDelete} />
             </div>

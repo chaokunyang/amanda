@@ -21,11 +21,10 @@ class NavBar extends Component {
             const dirPath = navItems[navItems.length - 1].dirPath + "/" + dir;
             navItems.push({name: dir, dirPath: dirPath})
         });
-        console.log(navItems);
 
         const navDirs = navItems.map((item, index) =>
             <li key={item.dirPath}>
-                <a href={"/api/fs/dir/" + item.dirPath} onClick={(e) => this.handleClick(e, item.dirPath)}>{item.name}</a>
+                <a href={"/fs/dir/" + item.dirPath} onClick={(e) => this.handleClick(e, item.dirPath)}>{item.name}</a>
                 <span className="separator">{index !== navItems.length -1 ? "/" : ""}</span>
             </li>
         );

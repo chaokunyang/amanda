@@ -25,7 +25,7 @@ import java.util.function.Function;
  * @author chaokunyang
  */
 @RestController
-@RequestMapping("api/fs")
+@RequestMapping("fs")
 public class FileServerEndpoint {
 
     private final Function<Path, String> getPathUrlFunction =
