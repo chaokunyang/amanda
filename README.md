@@ -15,8 +15,8 @@ flush privileges;
 ```shell
 npm install
 npm start
-```
 npm run-script watch
+```
 
 ### 路由
 
@@ -39,3 +39,11 @@ cnpm install --save redux
 cnpm install --save react-redux
 cnpm install --save-dev redux-devtools
 ```
+
+### Running
+first run, add following parameters to setup demo data:
+```
+--spring.profiles.active=init
+```
+
+

@@ -2,22 +2,31 @@
 
 }
 
-.FileService .NavBar li {
+/* 导航条 */
+.FileService .NavBar {
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid #eee;
+    text-align: right;
+}
+.FileService .NavBar ol {
+    float: left;
+}
+.FileService .NavBar ol li {
     display: inline-block;
     vertical-align: middle;
     padding: 0 0.1em;
 }
-.FileService .NavBar li > * {
+.FileService .NavBar ol li > * {
     vertical-align: middle;
 }
-.FileService .NavBar li a {
+.FileService .NavBar ol li a {
     background: transparent;
     /*border: 1px solid #eee;*/
     color: #4287ed;
     font-size: 16px;
     font-weight: 600;
 }
-.FileService .NavBar li span.separator {
+.FileService .NavBar ol li span.separator {
     font-size: 0.9em;
     font-weight: 600;
     color: hsl(175, 2%, 72%);
@@ -27,10 +36,24 @@
     white-space: nowrap;
     content: " ";
 }
+.FileService .NavBar .nav-option {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 1em;
+    font-size: 16px;
+}
+.FileService .NavBar button.nav-option {
+    padding: 0.1em 0.2em;
+}
 
+
+    /* 文件网格 */
 .FileService .file-grid ul li {
     position: relative;
     padding-top: 1.4em;
+}
+.FileService .file-grid ul:first-line li {
+    margin-top: 0.4em;
 }
 .FileService .file-grid ul li:hover, .FileService .file-grid ul li.selected {
     background-color: #f1f5fa;

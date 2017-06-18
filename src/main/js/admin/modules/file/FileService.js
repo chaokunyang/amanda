@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios'
 import './FileService.css'
-import Accept from './Accept'
+import FullScreen from './upload/FullScreen'
 import FileGrid from './FileGrid'
 import NavBar from './NavBar'
 
@@ -15,6 +15,13 @@ class FileService extends Component {
         }
     }
 
+    static getParentPath(dirPath) {
+        if("home" === dirPath) {
+            return "home";
+        }
+        return dirPath.substring(0, dirPath.lastIndexOf("/"));
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -24,7 +31,8 @@ class FileService extends Component {
                 files: []
             },
             selectedItems: {},
-            uploadToDir: "home"
+            uploadToDir: "home",
+            allChecked: false
         };
         this.viewDir = this.viewDir.bind(this);
         this.goToDirPath = this.goToDirPath.bind(this);
@@ -52,7 +60,7 @@ class FileService extends Component {
     }
 
     viewDir(dirPath) {
-        Axios.get('/fs//dir/' + dirPath)
+        Axios.get('/fs/dir/' + dirPath)
             .then(response => {
                 this.setState({dirInfo: response.data})
             })
@@ -68,25 +76,30 @@ class FileService extends Component {
         })
     };
 
-    onSelectAll() {
+    onSelectAll(allChecked) {
         const selectedItems = {};
         this.state.dirInfo.dirs.forEach(dir => {
             const path = FileService.extractPathFromUrl(dir.url);
-            selectedItems[path] = !selectedItems[path]
+            selectedItems[path] = allChecked
         });
         this.state.dirInfo.files.forEach(file => {
             const path = FileService.extractPathFromUrl(file.url);
-            selectedItems[path] = !selectedItems[path]
+            selectedItems[path] = allChecked
         });
+        this.setState(prevState => {
+            prevState.selectedItems = selectedItems;
+            prevState.allChecked = allChecked;
+            return prevState;
+        })
     }
 
     onDelete(path) {
         const data = [];
         data.push(path);
-        Axios.post('/fs//delete', data)
+        Axios.post('/fs/delete', data)
             .then(response => {
-                if(this.state.selectedItems.length === this.state.dirInfo.dirs.length + this.state.dirInfo.files.length) {
-                    this.goToDirPath("");
+                if(1 === this.state.dirInfo.dirs.length + this.state.dirInfo.files.length) {
+                    this.goToDirPath(FileService.getParentPath(this.state.dirPath));
                 }else {
                     this.goToDirPath(this.state.dirPath);
                 }
@@ -98,13 +111,21 @@ class FileService extends Component {
 
     onDeleteSelected() {
         const data = [];
-        this.state.selectedItems.forEach(path => {
-            data.push(path);
-        });
-        Axios.post('/fs//delete', data)
+        let selectedItemsLength = 0;
+        for(let prop in this.state.selectedItems) {
+            if(this.state.selectedItems[prop] === true)
+                data.push(prop);
+            selectedItemsLength++;
+        }
+        Axios.post('/fs/delete', data)
             .then(response => {
-                if(this.state.selectedItems.length === this.state.dirs.length + this.state.files.length) {
-                    this.goToDirPath("/");
+
+                this.setState({
+                    allChecked: false
+                });
+
+                if(selectedItemsLength === this.state.dirInfo.dirs.length + this.state.dirInfo.files.length) {
+                    this.goToDirPath(FileService.getParentPath(this.state.dirPath));
                 }else {
                     this.goToDirPath(this.state.dirPath);
                 }
@@ -124,8 +145,8 @@ class FileService extends Component {
         return (
             <div className="FileService">
                 <h2>文件服务</h2>
-                <Accept getFileList={this.viewDir} dirPath={this.state.dirPath} goToDirPath={this.goToDirPath} uploadToDir={this.state.uploadToDir} selectUploadDir={this.selectUploadDir}/>
-                <NavBar dirPath={this.state.dirPath} goToDirPath={this.goToDirPath} onSelectAll={this.onSelectAll} />
+                <FullScreen getFileList={this.viewDir} dirPath={this.state.dirPath} goToDirPath={this.goToDirPath} uploadToDir={this.state.uploadToDir} selectUploadDir={this.selectUploadDir}/>
+                <NavBar dirPath={this.state.dirPath} goToDirPath={this.goToDirPath} allChecked={this.state.allChecked} onSelectAll={this.onSelectAll} onDeleteSelected={this.onDeleteSelected} />
                 <FileGrid dirInfo={this.state.dirInfo} viewDir={this.viewDir} goToDirPath={this.goToDirPath} onSelect={this.onSelect} selectedItems={this.state.selectedItems} onDelete={this.onDelete} />
             </div>
         )

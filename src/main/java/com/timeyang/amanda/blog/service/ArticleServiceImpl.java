@@ -1,9 +1,10 @@
 package com.timeyang.amanda.blog.service;
 
-import com.timeyang.amanda.core.jpa.criterion.QueryCriteria;
-import com.timeyang.amanda.core.search.SearchResult;
 import com.timeyang.amanda.blog.domain.Article;
 import com.timeyang.amanda.blog.repository.ArticleRepository;
+import com.timeyang.amanda.core.jpa.criterion.QueryCriteria;
+import com.timeyang.amanda.core.search.SearchResult;
+import com.timeyang.amanda.user.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,7 +48,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article save(Article article) {
-
+        if(article.getUser() == null) {
+            article.setUser(UserUtils.getCurrentUser());
+        }
         return articleRepository.save(article);
     }
 }

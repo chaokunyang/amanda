@@ -9,13 +9,19 @@
     <title>amanda admin</title>
     <link rel="stylesheet" th:href="@{/assets/lib/font-awesome/css/font-awesome.min.css}" />
     <link rel="stylesheet" th:href="@{/assets/lib/bootstrap/css/bootstrap.min.css}" />
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet"/>
+
     <link rel="stylesheet" th:href="@{/assets/css/common.css}" />
     <link rel="stylesheet" th:href="@{/assets/css/admin/admin.css}" />
     <link rel="stylesheet" th:href="@{/assets/css/markdown.css}" />
 </head>
 <body>
 <div id="app"></div>
+
 <script th:src="@{/assets/js/common.js}" src="../static/assets/js/common.js"></script>
 <script th:src="@{/built/bundle.js}" src="../static/built/bundle.js"></script>
+
+<script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+<script >hljs.initHighlightingOnLoad();</script>
 </body>
 </html>

@@ -10,23 +10,28 @@
 
     <title>杨朝坤的个人网站</title>
 
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet"/>
+
+    <link href="../static/assets/css/markdown.css" th:href="@{/assets/css/markdown.css}" rel="stylesheet"/>
     <link href="../static/assets/css/common.css" th:href="@{/assets/css/common.css}" rel="stylesheet"/>
+    <link href="../static/assets/css/index.css" th:href="@{/assets/css/index.css}" rel="stylesheet"/>
 </head>
 <body>
 
-    <ul>
-        <li th:each="category : ${categories}">
-            <a th:href="${category.name}" th:text="${category.name}"></a>
-        </li>
-    </ul>
+    <div class="page">
+        <div th:replace="fragments/header :: header">Header</div>
 
-    <h1>文章列表</h1>
-    <ul>
-        <li th:each="article : ${articles}">
-            <div th:utext="${article.htmlBody}"></div>
-        </li>
-    </ul>
+        <main>
+            <!--/*@thymesVar id="articles" type="java.util.List<com.timeyang.amanda.blog.domain.Article>"*/-->
+            <section th:each="article : ${articles}">
+                <h1 th:text="${article.title}"></h1>
+                <img th:src="${article.pictureUrl}"/>
+                <div th:utext="${article.abstractContent}"></div>
+            </section>
+        </main>
+    </div>
 
-
+    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+    <script >hljs.initHighlightingOnLoad();</script>
 </body>
 </html>

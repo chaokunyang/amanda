@@ -1,0 +1,77 @@
+/* 上传操作 */
+.Upload .upload-option > * {
+    margin-bottom: 20px;
+}
+.Upload .upload-option > * > * {
+    margin-right: 0.5em;
+}
+.Upload .upload-option .upload-dir {
+    display: inline-block;
+    width: 14.5em;
+    vertical-align: middle;
+    margin-bottom: 0;
+}
+.Upload .upload-option .upload-dir .input-group-addon {
+    background-color: coral;
+    border: 1px solid coral;
+    color: #fff;
+}
+.Upload .upload-option .upload-dir input {
+    width: auto;
+    /*border: 1px solid coral;*/
+}
+
+.Upload .upload-option .selectUploadDir-wrapper {
+    vertical-align: middle;
+    display: inline-block;
+    background-color: #FC6398;
+    width: 8em;
+    border-radius: 4px;
+}
+.Upload .upload-option .selectUploadDir {
+    background-color: transparent;
+    color: brown;
+}
+.Upload .upload-option .selectUploadDir option:hover {
+    background: hsl(339, 96%, 59%);
+}
+
+/* 上传结果 */
+.Upload > .files-list {
+
+}
+.Upload > .files-list .file-item {
+    padding: 1em 0 1em 0;
+}
+.Upload > .files-list .file-item > * {
+    display: inline-block;
+    width: 200px;
+    vertical-align: top;
+    text-align: left;
+}
+.Upload > .files-list .file-item img{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+/* Accept组件样式 */
+.Upload.Accept .upload-option {
+    display: inline-block;
+    max-width: 30em;
+}
+.Upload.Accept > .dropzone {
+    display: inline-block;
+    vertical-align: top;
+    width: 25%;
+}
+.Upload.Accept > .dropzone:hover {
+    cursor: pointer;
+}
+
+/* FullScreen样式 */
+.Upload.FullScreen .prompt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

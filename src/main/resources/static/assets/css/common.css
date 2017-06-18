@@ -204,6 +204,11 @@ img {
     border-color: #eea236;
 }
 
+input[type='checkbox'] {
+    position: relative;
+    top: 1px;
+}
+
 /* 480-767-only
 ------------------------------------------ */
 @media only screen and (min-width: 30em) and (max-width: 47.9375em) {

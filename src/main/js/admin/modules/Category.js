@@ -10,10 +10,12 @@ class Category extends Component {
 
     componentDidMount() {
         Axios.get('/api/categories')
-            .then(function (response) {
-                console.log(response);
+            .then(response => {
+                this.setState({
+                    categories: response.data
+                })
             })
-            .catch(function (error) {
+            .catch(error => {
                 console.log(error);
             });
     }
@@ -22,6 +24,9 @@ class Category extends Component {
         return (
             <div>
                 <h2>分类</h2>
+                <div>
+                    {JSON.stringify(this.state.categories)}
+                </div>
             </div>
         )
     }

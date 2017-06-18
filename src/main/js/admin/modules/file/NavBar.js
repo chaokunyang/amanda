@@ -3,11 +3,21 @@ import React, {Component} from 'react'
 class NavBar extends Component {
     constructor(props) {
         super(props);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     handleClick(e, dirPath) {
         e.preventDefault();
         this.props.goToDirPath(dirPath);
+    }
+
+    handleInputChange(event) {
+        this.props.onSelectAll(event.target.checked)
+    }
+
+    handleDelete(event) {
+        this.props.onDeleteSelected();
     }
 
     render() {
@@ -30,9 +40,18 @@ class NavBar extends Component {
         );
 
         return (
-            <ol className="NavBar">
-                {navDirs}
-            </ol>
+            <div className="NavBar">
+                <ol>
+                    {navDirs}
+                </ol>
+                <div className="checkbox nav-option">
+                    <label>
+                        <input type="checkbox" checked={this.props.allChecked} onChange={this.handleInputChange}/>
+                        <span> 全选</span>
+                    </label>
+                </div>
+                <button type="button" className="nav-option btn btn-danger btn-xs" onClick={this.handleDelete}>删除所选项</button>
+            </div>
         )
     }
 }

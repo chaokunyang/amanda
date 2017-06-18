@@ -66,6 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity security) throws Exception {
         security
                 .authorizeRequests() // authorize all requests using the access rules defined earlier
+                .antMatchers("/").permitAll()
                 .antMatchers("/session/list")
                 .hasAuthority("VIEW_USER_SESSIONS")
                 .anyRequest().authenticated()

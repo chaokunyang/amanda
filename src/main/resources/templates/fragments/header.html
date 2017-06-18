@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="../../static/assets/css/common.css" th:href="@{/assets/css/common.css}" rel="stylesheet"/>
+    <link href="../../static/assets/css/index.css" th:href="@{/assets/css/index.css}" rel="stylesheet"/>
+</head>
+<body>
+    <header th:fragment="header" class="header" role="banner">
+        <ul>
+            <li th:each="category : ${categories}">
+                <a th:href="${category.name}" th:text="${category.name}"></a>
+            </li>
+        </ul>
+    </header>
+</body>
+</html>

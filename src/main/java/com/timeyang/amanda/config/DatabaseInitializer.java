@@ -59,7 +59,7 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         addCategories();
 
-        Article article = new Article("我为什么开发Amanda？",
+        Article article = new Article(user, "我为什么开发Amanda？",
                 "Amanda、 Spring Boot、Spring Data JPA、 Hibernate Search",
                 "Amanda关注于使用最好和最合适的工具解决问题", "Amanda关注于使用最好和最合适的工具解决问题", null, null);
 
@@ -68,13 +68,13 @@ public class DatabaseInitializer implements CommandLineRunner {
         Comment comment = new Comment(article.getId(), "Amanda设计不错, 我很喜欢", null);
         commentRepository.save(comment);
 
-        Article logPlatform = new Article("基于Elastic Stack + Fluentd搭建实时日志平台",
+        Article logPlatform = new Article(user, "基于Elastic Stack + Fluentd搭建实时日志平台",
                 "Elastic Stack、Fluentd、ElasticSearch、Logstash、Beats、filebeat、metricbeat、 Kibana",
                 "基于Elastic Stack + Fluentd搭建实时日志平台", "基于Elastic Stack + Fluentd搭建实时日志平台", null, null);
 
         articleRepository.save(logPlatform);
 
-        Article eventSourcing = new Article("Microservices Event Sourcing",
+        Article eventSourcing = new Article(user, "Microservices Event Sourcing",
                 "spring-boot\n" +
                         "springcloud\n" +
                         "event-driven\n" +
