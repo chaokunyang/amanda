@@ -2,7 +2,7 @@ package com.timeyang.amanda.core.jpa.listener;
 
 
 import com.timeyang.amanda.core.jpa.domain.AuditedEntity;
-import com.timeyang.amanda.user.User;
+import com.timeyang.amanda.user.domain.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;

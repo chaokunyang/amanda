@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link href="../../static/assets/css/common.css" th:href="@{/assets/css/common.css}" rel="stylesheet"/>
+    <link href="../../static/assets/css/index.css" th:href="@{/assets/css/index.css}" rel="stylesheet"/>
 </head>
 <body>
-
+<footer th:fragment="footer" class="footer" role="contentInfo">
+    <p class="legal"><small>&copy; 2017 timeyang. All Rights Reserved.</small></p>
+</footer>
 </body>
 </html>

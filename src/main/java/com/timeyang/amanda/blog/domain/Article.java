@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.core.jpa.converter.InstantConverter;
 import com.timeyang.amanda.core.jpa.domain.BaseEntity;
 import com.timeyang.amanda.core.valadation.NotBlank;
-import com.timeyang.amanda.user.User;
+import com.timeyang.amanda.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +14,7 @@ import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -62,6 +63,7 @@ public class Article extends BaseEntity implements Serializable {
     @NotBlank(message = "{validate.getArticle.abstract}")
     @JsonProperty
     @Field
+    @Lob
     private String abstractContent;
 
     @NotNull(message = "{validate.getArticle.categories}")
@@ -113,8 +115,10 @@ public class Article extends BaseEntity implements Serializable {
 
     @Convert(converter = InstantConverter.class)
     @JsonProperty
+    @CreatedDate
     private Instant dateCreated;
 
+    // 更新日期不做审计，手动指定更新日期
     @Convert(converter = InstantConverter.class)
     @JsonProperty
     private Instant dateModified;
@@ -128,6 +132,12 @@ public class Article extends BaseEntity implements Serializable {
     @OrderColumn(name = "sort_key")
     @JsonProperty
     private List<Attachment> attachments = new ArrayList<>();
+
+    /**
+     * 文章访问量
+     */
+    @JsonProperty
+    private Long views;
 
     public Article(User user, String title, String keywords, String mdBody, String htmlBody, List<Attachment> attachments, List<Category> categories) {
         this.user = user;

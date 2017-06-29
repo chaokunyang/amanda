@@ -8,5 +8,7 @@
     padding: 0.3em 0;
 }
 
-
+.Article .MarkdownEditor {
+    padding-left: 4.7em;
+}
 

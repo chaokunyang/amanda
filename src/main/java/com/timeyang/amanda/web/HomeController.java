@@ -34,7 +34,8 @@ public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Map<String, Object> model) {
         List<Category> categories = categoryService.getAllCategory();
-        Page<Article> articles = articleService.getArticles(new PageRequest(0, 3));
+        Pageable pageable = new PageRequest(0, 5);
+        Page<Article> articles = articleService.getArticles(pageable);
 
         model.put("categories", categories);
         model.put("articles", articles);
@@ -50,7 +51,7 @@ public class HomeController {
         model.put("categories", categories);
         model.put("articles", articles);
 
-        return "list";
+        return "index";
     }
 
 }

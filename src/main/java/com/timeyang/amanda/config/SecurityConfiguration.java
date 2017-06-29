@@ -1,6 +1,6 @@
 package com.timeyang.amanda.config;
 
-import com.timeyang.amanda.user.UserService;
+import com.timeyang.amanda.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.AdviceMode;
@@ -19,6 +19,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
 /**
  * 安全配置
  *
@@ -31,6 +34,22 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
     prePostEnabled = true, order = 0, mode = AdviceMode.PROXY
 )
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    private static final SecureRandom RANDOM;
+    private static final int HASHING_ROUNDS = 10;
+
+    static {
+        try {
+            RANDOM = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException(e); // not possible
+        }
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder(HASHING_ROUNDS, RANDOM);
+    }
 
     @Autowired
     private UserService userService;
@@ -52,7 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder
                 .userDetailsService(userService)
-                .passwordEncoder(new BCryptPasswordEncoder())
+                .passwordEncoder(bCryptPasswordEncoder())
                 .and()
                 .eraseCredentials(true);
     }
@@ -66,8 +85,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity security) throws Exception {
         security
                 .authorizeRequests() // authorize all requests using the access rules defined earlier
-                .antMatchers("/").permitAll()
-                .antMatchers("/session/list")
+                .antMatchers("/", "/fs/**").permitAll()
+                .antMatchers("/api/session/list")
                 .hasAuthority("VIEW_USER_SESSIONS")
                 .anyRequest().authenticated()
                 .and().formLogin()
@@ -82,7 +101,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and().sessionManagement()
                 .sessionFixation().changeSessionId()
-                .maximumSessions(1).maxSessionsPreventsLogin(true)
+                .maximumSessions(1).maxSessionsPreventsLogin(false)
                 .sessionRegistry(this.sessionRegistry())
                 .and().and().csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())

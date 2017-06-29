@@ -1,15 +1,18 @@
-package com.timeyang.amanda.user;
+package com.timeyang.amanda.user.service;
 
+import com.timeyang.amanda.user.domain.User;
+import com.timeyang.amanda.user.repository.UserRepository;
+import com.timeyang.amanda.user.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 
 /**
  * @author chaokunyang
@@ -18,16 +21,9 @@ import java.security.SecureRandom;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final SecureRandom RANDOM;
-    private static final int HASHING_ROUNDS = 10;
-
-    static {
-        try {
-            RANDOM = SecureRandom.getInstanceStrong();
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException(e); // not possible
-        }
-    }
+    @Lazy // 避免与SecurityConfiguration形成依赖循环
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -35,7 +31,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User principal = userRepository.getByUsername(username);
+        User principal = userRepository.findUserByUsername(username);
         // make sure the authorities and password are loaded;
         principal.getAuthorities().size();
         principal.getHashedPassword(); // hashedPassword也是懒加载的
@@ -46,8 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user, String newPassword) {
         if(StringUtils.hasLength(newPassword)) {
-            String salt = BCrypt.gensalt(HASHING_ROUNDS, RANDOM);
-            user.setHashedPassword(BCrypt.hashpw(newPassword, salt).getBytes());
+            user.setHashedPassword(bCryptPasswordEncoder.encode(newPassword).getBytes());
         }
 
         userRepository.save(user);
@@ -55,14 +50,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public byte[] getHashedPassword(String password) {
+        Assert.notNull(password, "password can't be null");
         if(StringUtils.hasLength(password)) {
-            String salt = BCrypt.gensalt(HASHING_ROUNDS, RANDOM);
-            return BCrypt.hashpw(password, salt).getBytes();
+            // String salt = BCrypt.gensalt(HASHING_ROUNDS, RANDOM);
+            // return BCrypt.hashpw(password, salt).getBytes();
+            return bCryptPasswordEncoder.encode(password).getBytes();
         }
 
         throw new IllegalArgumentException("password can't be null or blank");
     }
 
+    @Transactional
     @Override
     public User save(User user) {
         return userRepository.save(user);
@@ -76,6 +74,23 @@ public class UserServiceImpl implements UserService {
         userRepository.findAll()
                 .forEach(user -> user.getAuthorities().size());
         userRepository.deleteAll();
+    }
+
+    @Transactional
+    @Override
+    public void changePassword(String currentPassword, String newPassword) {
+        User currentUser = userRepository.findUserByUsername(UserUtils.getCurrentUser().getUsername()); // 密码在登录后会被擦除
+        Assert.notNull(currentUser, "你必须先登录才能修改密码！");
+        if(!bCryptPasswordEncoder.matches(currentPassword, currentUser.getPassword()))
+            throw new AuthorizationServiceException("密码错误!");
+
+        save(currentUser, newPassword);
+    }
+
+    @Transactional
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
     }
 
 }

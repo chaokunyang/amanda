@@ -1,4 +1,4 @@
-package com.timeyang.amanda.user;
+package com.timeyang.amanda.user.domain;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -95,6 +95,7 @@ public class User implements UserDetails, CredentialsContainer, Cloneable {
     @CollectionTable(name = "user_authority", joinColumns = {
             @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     })
+    @JsonProperty
     @Override
     public Set<UserAuthority> getAuthorities() {
         return authorities;
@@ -173,6 +174,13 @@ public class User implements UserDetails, CredentialsContainer, Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e); // not possible
         }
+    }
+
+    /**
+     * 加载权限
+     */
+    public int loadAuthorities() {
+        return authorities.size();
     }
 
     @Override

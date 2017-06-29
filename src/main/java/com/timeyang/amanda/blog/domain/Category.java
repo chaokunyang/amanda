@@ -64,6 +64,7 @@ public class Category extends AuditedEntity implements Serializable, SelfReferen
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderBy(value = "order_number ASC")
+    @JsonProperty
     private List<Category> children;
 
     // 这种构造器不要使用Lombok，因为lombok生成的构造器

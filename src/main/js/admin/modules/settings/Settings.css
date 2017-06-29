@@ -1,0 +1,11 @@
+.Settings .warning {
+    color: red;
+}
+.Settings .form-group .col-sm-10 input {
+    display: inline-block;
+    width: 20em;
+}
+
+.Settings .form-group .username {
+    padding: 6px 0;
+}

@@ -63,7 +63,7 @@ class FullScreen extends Component {
                 if(this.props.uploadToDir) {
                     this.props.goToDirPath(this.props.uploadToDir);
                 }else {
-                    this.props.goToDirPath(`home/${new Date().toLocaleDateString().replace(/-/g, "/")}`);
+                    this.props.goToDirPath(`home/${new Date().toISOString().slice(0,10).replace(/-/g, "/")}`);
                 }
             })
             .catch(error => console.log(error))
@@ -157,7 +157,7 @@ class FullScreen extends Component {
                         <div className="selectUploadDir-wrapper">
                             <select value={this.props.uploadToDir} onChange={this.onSelect} className="form-control selectUploadDir">
                                 <option value={this.props.dirPath}>当前路径</option>
-                                <option value={`home/${new Date().toLocaleDateString().replace(/-/g, "/")}`}>时间路径</option>
+                                <option value={`home/${new Date().toISOString().slice(0,10).replace(/-/g, "/")}`}>时间路径</option>
                             </select>
                         </div>
                         <button className="btn btn-success upload" onClick={() => { this.dropzoneRef.open() }}>选择文件</button>

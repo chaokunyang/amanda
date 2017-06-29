@@ -1,6 +1,6 @@
 package com.timeyang.amanda.user.util;
 
-import com.timeyang.amanda.user.User;
+import com.timeyang.amanda.user.domain.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 

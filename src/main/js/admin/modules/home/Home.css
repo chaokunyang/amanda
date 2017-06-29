@@ -1,0 +1,49 @@
+.Home .panel {
+    background-color: transparent;
+}
+.Home h4 {
+    font-weight: 400;
+}
+
+.Home .audit {
+    float: left;
+    width: 45%;
+}
+.Home .audit .lastLogged {
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 0.3em 0.7em;
+    margin-bottom: 0.7em;
+}
+.Home .audit .lastDenied {
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 0.3em 0.7em;
+}
+
+.Home .trace {
+    float: right;
+    width: 50%;
+
+    border: 1px solid #bce8f1;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.Home .trace h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.Home .trace .table {
+    margin-bottom: 0;
+}
+
+.Home .metrics {
+    float: left;
+    width: 45%;
+}

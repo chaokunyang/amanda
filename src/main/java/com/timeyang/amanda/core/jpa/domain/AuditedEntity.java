@@ -3,7 +3,7 @@ package com.timeyang.amanda.core.jpa.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.core.jpa.converter.InstantConverter;
 import com.timeyang.amanda.core.jpa.listener.AuditingEntityListener;
-import com.timeyang.amanda.user.User;
+import com.timeyang.amanda.user.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 

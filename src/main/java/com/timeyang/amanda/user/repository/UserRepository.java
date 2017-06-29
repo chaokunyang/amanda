@@ -1,5 +1,6 @@
-package com.timeyang.amanda.user;
+package com.timeyang.amanda.user.repository;
 
+import com.timeyang.amanda.user.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -7,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  * @create 2017-04-15
  */
 public interface UserRepository extends CrudRepository<User, Long> {
-    User getByUsername(String username);
+    User findUserByUsername(String username);
 }

@@ -43,7 +43,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     @Override
     public Article getArticle(Long id) {
-        return articleRepository.findOne(id);
+        Article article = articleRepository.findOne(id);
+        article.setViews(article.getViews() == null ? 1 :  article.getViews() + 1);
+        return articleRepository.save(article);
     }
 
     @Override

@@ -54,7 +54,8 @@ class FileService extends Component {
             return {
                 dirPath: dirPath,
                 selectedItems: {}, // 进入新的目录时清空旧的已选中文件
-                uploadToDir: dirPath
+                uploadToDir: dirPath,
+                allChecked: false
             }
         });
     }

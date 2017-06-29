@@ -25,7 +25,7 @@ public interface StorageService {
     Path load(String filepath);
 
     @PreAuthorize("(#filepath != null and #filepath.startsWith('home/private')) ? " +
-            "hasAuthority('VIEW_PRIVATE_FILE') : hasAuthority('VIEW_FILE') ")
+            "hasAuthority('VIEW_PRIVATE_FILE') : true ")
     Resource loadAsResource(String filepath);
 
     @PreAuthorize("hasAuthority('DELETE_ANY_FILE')")

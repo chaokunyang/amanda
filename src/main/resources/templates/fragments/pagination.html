@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="../../static/assets/css/common.css" th:href="@{/assets/css/common.css}" rel="stylesheet"/>
+    <link href="../../static/assets/css/index.css" th:href="@{/assets/css/index.css}" rel="stylesheet"/>
+</head>
+<body>
+<nav th:fragment="paging(page)" role="navigation">
+    <ol class="pagination">
+        <li th:class="${page.first} ? 'disabled'">
+            <a th:href="${page.number - 1}" th:text="#{pagination.previous}">上一页</a>
+        </li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">6</a></li>
+        <li th:class="${page.last} ? 'disabled'" class="more">
+            <a th:href="${page.number + 1}" th:text="#{pagination.next}">下一页</a>
+        </li>
+    </ol>
+</nav>
+</body>
+</html>

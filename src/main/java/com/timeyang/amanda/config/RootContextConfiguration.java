@@ -13,11 +13,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import javax.persistence.SharedCacheMode;
 import javax.persistence.ValidationMode;
@@ -38,6 +42,7 @@ import java.util.Map;
         entityManagerFactoryRef = "entityManagerFactoryBean" // 必须指定，不然创建仓库会失败
 )
 @EnableConfigurationProperties(StorageProperties.class)
+@EnableJpaAuditing
 public class RootContextConfiguration {
 
     private final DataSource dataSource;

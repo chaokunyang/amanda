@@ -1,5 +1,6 @@
-package com.timeyang.amanda.user;
+package com.timeyang.amanda.user.service;
 
+import com.timeyang.amanda.user.domain.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,5 +29,9 @@ public interface UserService extends UserDetailsService {
 
     // @PreAuthorize("hasAuthority('DELETE_ANY_USER')")
     void deleteAll();
+
+    void changePassword(String currentPassword, String newPassword);
+
+    User getUserByUsername(String username);
 
 }

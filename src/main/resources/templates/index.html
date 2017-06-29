@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description" content="microservices spring-boot springcloud event-driven event-sourcing ecommerce neo4j oauth2 eventually-consistent"/>
+    <meta name="description"
+          content="microservices spring-boot springcloud event-driven event-sourcing ecommerce neo4j oauth2 eventually-consistent"/>
     <meta name="author" content="chaokunyang"/>
-    <link rel="icon" th:href="@{/favicon.ico}" />
+    <link rel="icon" th:href="@{/favicon.ico}"/>
 
     <title>杨朝坤的个人网站</title>
+
+    <!--[if lt IE 9]>
+    <script src="../static/assets/lib/shim/html5shiv.js" th:href="@{/assets/lib/shim/html5shiv.js}"></script>
+    <![endif]-->
 
     <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet"/>
 
@@ -18,20 +23,33 @@
 </head>
 <body>
 
-    <div class="page">
-        <div th:replace="fragments/header :: header">Header</div>
+<div class="page">
+    <div th:replace="fragments/header :: header">Header</div>
 
-        <main>
+    <div class="container clearfix">
+        <main role="main">
             <!--/*@thymesVar id="articles" type="java.util.List<com.timeyang.amanda.blog.domain.Article>"*/-->
-            <section th:each="article : ${articles}">
+            <section th:each="article : ${articles}" class="post">
                 <h1 th:text="${article.title}"></h1>
+
                 <img th:src="${article.pictureUrl}"/>
+
                 <div th:utext="${article.abstractContent}"></div>
+
+                <footer class="footer">
+
+                </footer>
             </section>
+
+            <div th:replace="fragments/pagination :: paging(${articles})"></div>
         </main>
     </div>
 
-    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
-    <script >hljs.initHighlightingOnLoad();</script>
+    <div th:replace="fragments/footer :: footer">footer</div>
+
+</div>
+
+<script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>

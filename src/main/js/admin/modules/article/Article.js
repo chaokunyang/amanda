@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
+import history from '../History'
 import MarkdownEditor from '../markdown/MarkdownEditor'
 import './Article.css'
 
@@ -39,7 +40,10 @@ class Article extends Component {
         event.preventDefault();
 
         Axios.post('/api/articles', this.state.article)
-            .then(response => this.setState({article: response.data}))
+            .then(response => {
+                this.setState({article: response.data});
+                history.push("/articles");
+            })
             .catch(error => console.log(error));
     }
 
@@ -102,7 +106,7 @@ class Article extends Component {
                     </div>
 
                     <div className="form-group">
-                        <div className="col-sm-offset-2 col-sm-10">
+                        <div className="col-sm-offset-1 col-sm-11">
                             <button type="submit" className="btn btn-default">更新</button>
                         </div>
                     </div>

@@ -8,11 +8,12 @@ import com.timeyang.amanda.blog.domain.Comment;
 import com.timeyang.amanda.blog.repository.ArticleRepository;
 import com.timeyang.amanda.blog.repository.CommentRepository;
 import com.timeyang.amanda.blog.service.CategoryService;
-import com.timeyang.amanda.user.User;
-import com.timeyang.amanda.user.UserService;
+import com.timeyang.amanda.user.domain.Profile;
+import com.timeyang.amanda.user.domain.User;
+import com.timeyang.amanda.user.service.ProfileService;
+import com.timeyang.amanda.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -27,7 +28,7 @@ import java.util.Set;
  * @create 2017-04-18
  */
 @Service
-@Profile("init")
+@org.springframework.context.annotation.Profile("init")
 public class DatabaseInitializer implements CommandLineRunner {
 
     @Autowired
@@ -38,6 +39,9 @@ public class DatabaseInitializer implements CommandLineRunner {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ProfileService profileService;
 
     @Autowired
     private CommentRepository commentRepository;
@@ -51,7 +55,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "VIEW_ATTACHMENT", "DELETE_ATTACHMENT", "DELETE_ANY_ATTACHMENT",
                 "VIEW_USER_SESSIONS",
                 "DELETE_ANY_USER",
-                "VIEW_FILE", "VIEW_PRIVATE_FILE", "UPLOAD_FILE", "UPLOAD_PRIVATE_FILE", "DELETE_FILE", "DELETE_ANY_FILE");
+                "VIEW_FILE", "VIEW_PRIVATE_FILE", "UPLOAD_FILE", "UPLOAD_PRIVATE_FILE", "DELETE_FILE", "DELETE_ANY_FILE",
+                "ACTUATOR");
         Set<UserAuthority> authorities = new HashSet<>(userAuthorityList);
         User user = new User("amanda", userService.getHashedPassword("timeyang"),
                 authorities, true, true, true, true);
@@ -166,6 +171,12 @@ public class DatabaseInitializer implements CommandLineRunner {
         categoryService.save(categories);
     }
 
+    private void addProfile() {
+        User user = userService.getUserByUsername("amanda");
+
+        Profile profile = new Profile("杨朝坤", user, "chaokunyang@qq.com", "在微服务、Spring Cloud、Elastic Stack、搜索、Kafka、Spark、机器学习、深度学习等技术有一定的实践经验", "http://timeyang.com", "https://github.com/chaokunyang", "https://twitter.com/chaokunyang", "", "广东 深圳", "擅长大数据、机器学习、流处理、微服务", "", "");
+        profileService.save(profile);
+    }
 
     @Override
     public void run(String... args) throws Exception {
