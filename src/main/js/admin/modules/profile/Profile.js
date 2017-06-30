@@ -40,8 +40,11 @@ class Profile extends Component {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
-        this.setState({
-            [name]: value
+        this.setState(prevState => {
+            prevState.profile[name] = value;
+            return {
+                profile: prevState.profile
+            };
         });
     }
 

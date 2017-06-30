@@ -94,6 +94,8 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "Microservices Event Sourcing 是一个微服务架构的在线购物平台，使用Spring Boot、Spring Cloud、Spring Reactor、OAuth2、CQRS 构建，实现了基于Event Sourcing的最终一致性，提供了构建端到端微服务的最佳实践", "Microservices Event Sourcing", null, null);
 
         articleRepository.save(eventSourcing);
+
+        addProfile();
     }
 
     public void deleteAll() {
@@ -101,6 +103,7 @@ public class DatabaseInitializer implements CommandLineRunner {
         articleRepository.deleteAll();
         categoryService.deleteAll();
         userService.deleteAll();
+        profileService.deleteAll();
     }
 
     private void addCategories() {

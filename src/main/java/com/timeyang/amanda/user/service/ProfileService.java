@@ -14,4 +14,6 @@ public interface ProfileService {
     void delete(Profile profile);
 
     void delete(Long id);
+
+    void deleteAll();
 }
