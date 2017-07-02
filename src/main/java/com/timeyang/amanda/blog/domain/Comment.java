@@ -1,7 +1,7 @@
 package com.timeyang.amanda.blog.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.timeyang.amanda.core.jpa.domain.AuditedEntity;
+import com.timeyang.amanda.core.jpa.domain.AuditEntity;
 import com.timeyang.amanda.core.valadation.NotBlank;
 import lombok.*;
 
@@ -23,7 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "comment_id"))
-public class Comment extends AuditedEntity {
+public class Comment extends AuditEntity {
 
     @JsonProperty
     private Long articleId;

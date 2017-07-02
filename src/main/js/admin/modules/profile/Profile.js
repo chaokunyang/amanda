@@ -15,6 +15,7 @@ class Profile extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setView = this.setView.bind(this);
+        this.onMarkdownChange = this.onMarkdownChange.bind(this);
     }
 
     componentDidMount() {
@@ -61,19 +62,26 @@ class Profile extends Component {
             .catch(error => console.log(error));
     }
 
+    onMarkdownChange(markdownText, renderedHtml) {
+        // document.querySelectorAll("pre code").forEach(function(i, block) {
+        //     hljs.highlightBlock(block);
+        // });
+        this.setState((prevState, props) => {
+            let profile = prevState.profile;
+            profile.mdBody = markdownText;
+            profile.htmlBody = renderedHtml;
+            profile
+        })
+    }
+
     render() {
         return (
             <div className="Profile">
                 <h2>简历</h2>
                 {
                     this.state.view ?
-                        <button className="btn btn-info" onClick={this.setView}>编辑</button> :
-                        <button className="btn btn-info" onClick={this.setView}>查看</button>
-                }
-                {
-                    this.state.view ?
                         <ProfileView profile={this.state.profile} setView={this.setView}/>
-                        : <ProfileEdit profile={this.state.profile} setView={this.setView} handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange}/>
+                        : <ProfileEdit profile={this.state.profile} setView={this.setView} handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange} onMarkdownChange={this.onMarkdownChange}/>
                 }
             </div>
         );

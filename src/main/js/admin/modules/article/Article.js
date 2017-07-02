@@ -1,17 +1,23 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
-import history from '../History'
-import MarkdownEditor from '../markdown/MarkdownEditor'
+import ArticleView from './ArticleView'
+import ArticleEdit from './ArticleEdit'
 import './Article.css'
 
 class Article extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {article: {}};
+        this.state = {
+            article: {},
+            view: true
+        };
         this.onMarkdownChange = this.onMarkdownChange.bind(this);
         this.handleSubmit  = this.handleSubmit.bind(this);
         this.handleInputChange  = this.handleInputChange .bind(this);
+        this.setView = this.setView.bind(this);
+        this.publish = this.publish.bind(this);
+        this.cancelPublish = this.cancelPublish.bind(this);
     }
 
     componentDidMount() {
@@ -42,7 +48,7 @@ class Article extends Component {
         Axios.post('/api/articles', this.state.article)
             .then(response => {
                 this.setState({article: response.data});
-                history.push("/articles");
+                this.setView();
             })
             .catch(error => console.log(error));
     }
@@ -59,58 +65,38 @@ class Article extends Component {
         })
     }
 
+    setView() {
+        this.setState((prevState, props) => ({
+            view : !prevState.view
+        }))
+    }
+
+    publish() {
+        const id = this.state.article.id;
+        Axios.put(`/api/articles/publish/${id}`)
+            .then(response => {
+                this.setState({article: response.data});
+            })
+            .catch(error => console.log(error));
+    }
+
+    cancelPublish() {
+        const id = this.state.article.id;
+        Axios.put(`/api/articles/publish/cancel/${id}`)
+            .then(response => {
+                this.setState({article: response.data});
+            })
+            .catch(error => console.log(error));
+    }
+
     render() {
         return (
             <div className="Article">
-                <form onSubmit={this.handleSubmit} className="form-horizontal">
-                    <h2>{this.state.article.title}</h2>
-                    <div className="form-group">
-                        <label className="col-sm-1 control-label">标题</label>
-                        <div className="col-sm-5">
-                            <input type="text" value={this.state.article.title ? this.state.article.title : ''} onChange={this.handleInputChange} name="title" className="form-control"/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-1 control-label">关键字</label>
-                        <div className="col-sm-8">
-                            <input type="text" value={this.state.article.keywords ? this.state.article.keywords : ''} onChange={this.handleInputChange} name="keywords" className="form-control"/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-1 control-label">摘要</label>
-                        <div className="col-sm-8">
-                            <textarea value={this.state.article.abstractContent ? this.state.article.abstractContent : ''} onChange={this.handleInputChange} name="abstractContent" rows="4" cols="20" className="form-control"/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-1 control-label">图片URL</label>
-                        <div className="col-sm-6">
-                            <input type="text" value={this.state.article.pictureUrl ? this.state.article.pictureUrl : ''} onChange={this.handleInputChange} name="pictureUrl" className="form-control"/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-1 control-label">分类</label>
-                        <div className="col-sm-8">
-                            <input type="text" value={this.state.article.categories ? this.state.article.categories : ''} onChange={this.handleInputChange} name="categories" className="form-control"/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="col-sm-1 control-label">发布</label>
-                        <div className="col-sm-3">
-                            <span className="form-control">{this.state.article.published ? '发布于' + this.state.article.publishedDate : '未发布'}</span>
-                        </div>
-                    </div>
-
-                    <div>
-                        <MarkdownEditor inputTitle="mdBody" mdBody={this.state.article.mdBody} previewTitle="预览" htmlBody={this.state.article.htmlBody} onMarkdownChange={this.onMarkdownChange}/>
-                    </div>
-
-                    <div className="form-group">
-                        <div className="col-sm-offset-1 col-sm-11">
-                            <button type="submit" className="btn btn-default">更新</button>
-                        </div>
-                    </div>
-                </form>
+                {
+                    this.state.view ?
+                        <ArticleView view={this.state.view} setView={this.setView} article={this.state.article} publish={this.publish} cancelPublish={this.cancelPublish}/>
+                        : <ArticleEdit view={this.state.view} setView={this.setView} article={this.state.article} handleInputChange={this.handleInputChange} onMarkdownChange={this.onMarkdownChange} handleSubmit={this.handleSubmit} />
+                }
             </div>
         )
     }

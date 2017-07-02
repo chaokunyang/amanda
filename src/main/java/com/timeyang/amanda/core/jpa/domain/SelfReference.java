@@ -11,12 +11,6 @@ import java.util.List;
 public interface SelfReference<T> {
 
     /**
-     * 获取父实体
-     * @return 父实体
-     */
-    T getParent();
-
-    /**
      * 获取子实体列表
      * @return 子实体列表
      */

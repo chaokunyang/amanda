@@ -1,0 +1,23 @@
+.Categories .table-bordered>thead>tr>th, .Categories .table-bordered>tbody>tr>th, .Categories .table-bordered>tfoot>tr>th, .Categories .table-bordered>thead>tr>td, .Categories .table-bordered>tbody>tr>td, .Categories .table-bordered>tfoot>tr>td {
+    text-align: center;
+}
+.Categories .categories-options {
+    margin-right: 1em;
+}
+
+.Categories .Category-NavBar {
+    margin-bottom: 15px;
+}
+.Categories .Category-NavBar ol li {
+    display: inline-block;
+}
+.Categories .Category-NavBar ol li .category-name {
+    cursor: pointer;
+    color: #4287ed;
+    padding: 0.3em 0.7em;
+}
+.Categories .Category-NavBar .separator {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: hsl(175, 2%, 72%);
+}

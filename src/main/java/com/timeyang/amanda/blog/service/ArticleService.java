@@ -22,8 +22,25 @@ public interface ArticleService {
 
     Page<Article> getArticles(Pageable pageable);
 
+    /**
+     * 获取文章API，不改变文章阅读次数
+     * @param id
+     * @return
+     */
     Article getArticle(Long id);
+
+    /**
+     * 网站用户查看文章，每调用一次文章阅读次数加一
+     * @param id
+     * @return
+     */
+    Article viewArticle(Long id);
 
     Article save(Article article);
 
+    Article publishArticle(Long id);
+
+    Article cancelPublish(Long id);
+
+    void delete(Long id);
 }

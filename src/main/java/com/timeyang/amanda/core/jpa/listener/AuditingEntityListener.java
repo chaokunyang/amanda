@@ -1,6 +1,6 @@
 package com.timeyang.amanda.core.jpa.listener;
 
-import com.timeyang.amanda.core.jpa.domain.AuditedEntity;
+import com.timeyang.amanda.core.jpa.domain.AuditEntity;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.PrePersist;
@@ -23,7 +23,7 @@ public class AuditingEntityListener {
      * @param auditedEntity
      */
     @PrePersist
-    public void beforeInsert(AuditedEntity auditedEntity) {
+    public void beforeInsert(AuditEntity auditedEntity) {
         auditingHandler.markCreated(auditedEntity);
     }
 
@@ -32,7 +32,7 @@ public class AuditingEntityListener {
      * @param auditedEntity
      */
     @PreUpdate
-    public void beforeUpdate(AuditedEntity auditedEntity) {
+    public void beforeUpdate(AuditEntity auditedEntity) {
         auditingHandler.markModified(auditedEntity);
     }
 }

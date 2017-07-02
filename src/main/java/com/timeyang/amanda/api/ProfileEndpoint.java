@@ -42,7 +42,7 @@ public class ProfileEndpoint {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Profile save(@RequestBody Profile profile) {
-        return profileService.save(profile);
+    public Profile update(@RequestBody Profile profile) {
+        return profileService.update(profile);
     }
 }

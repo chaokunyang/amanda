@@ -53,7 +53,7 @@ class Home extends Component {
             <div className="Home">
                 <h2>首页</h2>
 
-                <div className="container">
+                <div>
                     <AuditEvents events={this.state.events}/>
 
                     <HttpTrace trace={this.state.trace}/>

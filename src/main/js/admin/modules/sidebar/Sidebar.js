@@ -5,7 +5,7 @@ import './Sidebar.css'
 
 const Sidebar = () => (
     <div className="Sidebar">
-        <ul role="nav">
+        <ul role="nav" className="clearfix">
             <li><IndexLink to="/" activeClassName="active">主页</IndexLink></li>
             <li><NavLink to="/articles">文章</NavLink></li>
             <li><NavLink to="/categories">分类</NavLink></li>

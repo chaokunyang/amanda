@@ -2,19 +2,19 @@ package com.timeyang.amanda.core.jpa.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.core.jpa.converter.InstantConverter;
-import com.timeyang.amanda.core.jpa.listener.AuditingEntityListener;
-import com.timeyang.amanda.user.domain.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Convert;
+import javax.persistence.EntityListeners;
+import javax.persistence.MappedSuperclass;
 import java.time.Instant;
 
 /**
- * 审计实体
- *
  * @author chaokunyang
- * @create 2017-04-15
  */
 @MappedSuperclass
 @Getter
@@ -22,22 +22,13 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AuditedEntity extends VersionedEntity {
 
+    @CreatedDate
     @Convert(converter = InstantConverter.class)
     @JsonProperty
     private Instant dateCreated;
 
+    @LastModifiedDate
     @Convert(converter = InstantConverter.class)
     @JsonProperty
     private Instant dateModified;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by") // 继承AuditedEntity的子类所在的表的user_id列包含User实体的主键
-    @JsonProperty
-    private User createdBy;
-
-    @ManyToOne
-    @JoinColumn(name = "last_modified_by")
-    @JsonProperty
-    private User lastModifiedBy;
-
 }

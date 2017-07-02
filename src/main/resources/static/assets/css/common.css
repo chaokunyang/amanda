@@ -162,51 +162,24 @@ img {
     vertical-align: middle;
 }
 
-.btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 0.85em;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
-.btn-default {
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc;
-}
-.btn-primary {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
-}
-.btn-success {
-    color: #fff;
-    background-color: #5cb85c;
-    border-color: #4cae4c;
-}
-.btn-warning {
-    color: #fff;
-    background-color: #f0ad4e;
-    border-color: #eea236;
-}
-
 input[type='checkbox'] {
     position: relative;
     top: 1px;
+}
+
+
+/* ===================== MEDIA QUERIES ===================== */
+
+/* 320+
+------------------------------------------ */
+@media only screen and (min-width: 20em) {
+
+}
+
+/* 480+
+------------------------------------------ */
+@media only screen and (min-width: 30em) {
+
 }
 
 /* 480-767-only

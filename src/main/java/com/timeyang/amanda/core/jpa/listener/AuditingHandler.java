@@ -1,7 +1,7 @@
 package com.timeyang.amanda.core.jpa.listener;
 
 
-import com.timeyang.amanda.core.jpa.domain.AuditedEntity;
+import com.timeyang.amanda.core.jpa.domain.AuditEntity;
 import com.timeyang.amanda.user.domain.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +31,7 @@ public class AuditingHandler {
      * 标记给定对象为创建
      * @param auditedEntity
      */
-    public void markCreated(AuditedEntity auditedEntity) {
+    public void markCreated(AuditEntity auditedEntity) {
         touch(auditedEntity, true);
     }
 
@@ -39,11 +39,11 @@ public class AuditingHandler {
      * 标记给定对象为修改
      * @param auditedEntity
      */
-    public void markModified(AuditedEntity auditedEntity) {
+    public void markModified(AuditEntity auditedEntity) {
         touch(auditedEntity, false);
     }
 
-    private void touch(AuditedEntity auditedEntity, boolean isNew) {
+    private void touch(AuditEntity auditedEntity, boolean isNew) {
         User auditor = touchAuditor(auditedEntity, isNew);
         Instant now = touchDate(auditedEntity, isNew);
 
@@ -58,7 +58,7 @@ public class AuditingHandler {
      * @param isNew
      * @return
      */
-    private User touchAuditor(AuditedEntity auditedEntity, boolean isNew) {
+    private User touchAuditor(AuditEntity auditedEntity, boolean isNew) {
         if (auditedEntity == null)
             return null;
 
@@ -80,7 +80,7 @@ public class AuditingHandler {
      * @param isNew
      * @return
      */
-    private Instant touchDate(AuditedEntity auditedEntity, boolean isNew) {
+    private Instant touchDate(AuditEntity auditedEntity, boolean isNew) {
         Instant now = Instant.now();
 
         if(isNew) {

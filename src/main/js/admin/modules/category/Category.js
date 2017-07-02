@@ -22,10 +22,11 @@ class Category extends Component {
 
     render() {
         return (
-            <div>
+            <div className="Category">
                 <h2>分类</h2>
                 <div>
-                    {JSON.stringify(this.state.categories)}
+                    <div></div>
+                    {/*{JSON.stringify(this.state.categories)}*/}
                 </div>
             </div>
         )

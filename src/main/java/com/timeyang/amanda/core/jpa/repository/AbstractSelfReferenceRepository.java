@@ -2,12 +2,17 @@ package com.timeyang.amanda.core.jpa.repository;
 
 import com.timeyang.amanda.core.jpa.domain.BaseEntity;
 import com.timeyang.amanda.core.jpa.domain.SelfReference;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.LazyInitializationException;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -22,12 +27,20 @@ import java.util.Queue;
  * @author chaokunyang
  * @create 2017-04-22
  */
-public class AbstractSelfReferenceRepository<T, ID extends Serializable>
+public abstract class AbstractSelfReferenceRepository<T, ID extends Serializable>
         extends AbstractDomainClassAwareRepository<T>
         implements SelfReferenceRepository<T, ID> {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+
+    @Lazy
     @PersistenceContext
     protected EntityManager entityManager;
+
+    public AbstractSelfReferenceRepository(EntityManager entityManager, Class<T> domainClass) {
+        super(domainClass);
+        this.entityManager = entityManager;
+    }
 
     @Transactional
     @Override
@@ -36,11 +49,11 @@ public class AbstractSelfReferenceRepository<T, ID extends Serializable>
 
         Assert.notNull(id, "The given id must not be null!");
 
-        // CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        // CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         // CriteriaDelete<T> query = builder.createCriteriaDelete(domainClass);
         //
         // Root<T> root = query.from(domainClass);
-        // entityManager.createQuery(query.where(
+        // this.entityManager.createQuery(query.where(
         //         builder.equal(root.get("id"), id)
         // )).executeUpdate();
 
@@ -60,7 +73,7 @@ public class AbstractSelfReferenceRepository<T, ID extends Serializable>
         Assert.notNull(entity, "The entity must not be null!");
 
         LinkedList<SelfReference<T>> treeEntities = bfsTraverse(entity);
-        treeEntities.forEach(e -> entityManager.remove(e));
+        treeEntities.forEach(e -> this.entityManager.remove(e));
     }
 
     @Transactional
@@ -74,7 +87,7 @@ public class AbstractSelfReferenceRepository<T, ID extends Serializable>
         entities.forEach(entity -> bfsTraverse((SelfReference<T>) entity, allEntitiesToDelete));
 
         allEntitiesToDelete.forEach(category ->
-                entityManager.remove(category));
+                this.entityManager.remove(category));
     }
 
     @Transactional
@@ -82,24 +95,44 @@ public class AbstractSelfReferenceRepository<T, ID extends Serializable>
     @SuppressWarnings("unchecked")
     public void deleteAll() {
 
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
         CriteriaQuery<T> query = builder.createQuery(domainClass);
         Root<T> root = query.from(domainClass);
 
+        LinkedList<SelfReference<T>> allEntitiesToDelete = new LinkedList<>();
+
+        // 获取根类目，如果存在的话
+        try {
+            T r = this.entityManager.createQuery(
+                    query.select(root)
+                            .where(builder.equal(root.get("level"), -1))
+            ).getSingleResult();
+            if(r != null) {
+                allEntitiesToDelete.addAll(bfsTraverse((SelfReference<T>) r));
+            }
+        }catch (NoResultException e) {
+        }catch (NonUniqueResultException e) {
+            LOGGER.warn("there is more than one root node in parent/child relationship, they will all be deleted, but note that don't do this. this is illegal");
+            List<T> r = this.entityManager.createQuery(
+                    query.select(root)
+                            .where(builder.equal(root.get("level"), -1))
+            ).getResultList();
+            // 将每个分类的子类目放在列表头部，这样先删除子类目，从而不会违反外键约束
+            r.forEach(entity -> allEntitiesToDelete.addAll(bfsTraverse((SelfReference<T>) entity)));
+        }
+
         // 获取一级目录列表
-        List<T> firstLevelEntities = entityManager.createQuery(
+        List<T> firstLevelEntities = this.entityManager.createQuery(
                 query.select(root)
                         .where(builder.equal(root.get("level"), 0))
                         .orderBy(builder.asc(root.get("orderNumber")))
         ).getResultList();
 
-
-        LinkedList<SelfReference<T>> allEntitiesToDelete = new LinkedList<>();
         // 将每个分类的子类目放在列表头部，这样先删除子类目，从而不会违反外键约束
         firstLevelEntities.forEach(entity -> allEntitiesToDelete.addAll(bfsTraverse((SelfReference<T>) entity)));
 
         allEntitiesToDelete.forEach(category ->
-                entityManager.remove(category));
+                this.entityManager.remove(category));
     }
 
     /**
@@ -108,11 +141,12 @@ public class AbstractSelfReferenceRepository<T, ID extends Serializable>
      * @return the entity with the given id or {@literal null} if none found
      * @throws IllegalArgumentException if {@code id} is {@literal null}
      */
+    @Transactional
     private T findOne(ID id) {
 
         Assert.notNull(id, "The given id must not be null!");
 
-        return entityManager.find(domainClass, id);
+        return this.entityManager.find(domainClass, id);
     }
 
     /**

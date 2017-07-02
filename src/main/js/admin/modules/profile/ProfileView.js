@@ -4,34 +4,45 @@ function ProfileView(props) {
     return (
         <div className="ProfileView">
             <div>
-                <span>头像地址：</span><span>{props.profile.avatar}</span>
+                <div className="row-title">头像地址</div>
+                <div className="row-content">{props.profile.avatar}</div>
             </div>
             <div>
-                <span>姓名：</span><span>{props.profile.name}</span>
+                <div className="row-title">姓名</div><div className="row-content">{props.profile.name}</div>
             </div>
             <div>
-                <span>邮箱：</span><span>{props.profile.email}</span>
+                <div className="row-title">邮箱</div><div className="row-content">{props.profile.email}</div>
             </div>
             <div>
-                <span>个人简介：</span><span>{props.profile.biography}</span>
+                <div className="row-title">个人简介</div>
+                <div className="row-content">{props.profile.biography}</div>
             </div>
             <div>
-                <span>个人网站：</span><span>{props.profile.url}</span>
+                <div className="row-title">个人网站</div>
+                <div className="row-content">{props.profile.url}</div>
             </div>
             <div>
-                <span>github账号：</span><span>{props.profile.githubUrl}</span>
+                <div className="row-title">github账号</div><div className="row-content">{props.profile.githubUrl}</div>
             </div>
             <div>
-                <span>twitter账号：</span><span>{props.profile.twitterUrl}</span>
+                <div className="row-title">twitter账号</div>
+                <div className="row-content">{props.profile.twitterUrl}</div>
             </div>
             <div>
-                <span>所在公司：</span><span>{props.profile.company}</span>
+                <div className="row-title">所在公司</div>
+                <div className="row-content">{props.profile.company}</div>
             </div>
             <div>
-                <span>所在位置：</span><span>{props.profile.location}</span>
+                <div className="row-title">所在位置</div>
+                <div className="row-content">{props.profile.location}</div>
             </div>
             <div>
-                <span>详细简介预览：</span><span dangerouslySetInnerHTML={{__html: props.htmlBody}}/>
+                <div className="row-title">详细简介</div>
+                <div className="row-content" dangerouslySetInnerHTML={{__html: props.profile.htmlBody}}/>
+            </div>
+
+            <div className="buttons">
+                <button className="btn btn-info" onClick={props.setView}>编辑</button>
             </div>
         </div>
     )

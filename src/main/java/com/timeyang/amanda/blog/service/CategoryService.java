@@ -14,7 +14,17 @@ public interface CategoryService {
 
     Iterable<Category> save(List<Category> categories);
 
-    List<Category> getAllCategory();
+    List<Category> getFirstLevelCategoriesAndChildTree();
+
+    Category getCategory(Long id);
+
+    Category getCategoryByName(String name);
 
     void deleteAll();
+
+    List<Category> getFirstLevelCategories();
+
+    Category getCategoryTree();
+
+    void delete(Long id);
 }

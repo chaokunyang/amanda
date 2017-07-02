@@ -16,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 初始化数据
@@ -64,21 +61,121 @@ public class DatabaseInitializer implements CommandLineRunner {
 
         addCategories();
 
+        addArticles(user);
+
+        addProfile();
+    }
+
+    public void deleteAll() {
+        commentRepository.deleteAll();
+        articleRepository.deleteAll();
+        categoryService.deleteAll();
+        categoryService.deleteAll();
+        profileService.deleteAll();
+        userService.deleteAll();
+    }
+
+    private void addCategories() {
+        categoryService.deleteAll();
+
+        Category root = new Category("Category", "分类", -1, 0, new ArrayList<>());
+
+        Category lang = new Category("Programing Languages", "编程语言", 0, 0, null);
+
+        List<Category> langs = Arrays.asList(
+                new Category("Java", 1, 0, null),
+                new Category("Scala", 1, 1, null),
+                new Category("Clojure", 1, 2, null),
+                new Category("Groovy", 1, 3, null),
+                new Category("Python", 1, 4, null),
+                new Category("EcmaScript", 1, 5, null)
+        );
+        lang.setChildren(langs);
+
+        Category backend = new Category("Development", "开发", 0, 1, null);
+        List<Category> backendEntries = Arrays.asList(
+                new Category("log", "日志", 1, 0, null),
+                new Category("Search", "搜索", 1, 1, null),
+                new Category("Message Queue", "消息队列", 1, 2, null)
+        );
+        backend.setChildren(backendEntries);
+
+        Category microservices = new Category("MicroServices", "微服务", 0, 2, null);
+        List<Category> microservicesList = Arrays.asList(
+                new Category("Event Sourcing", 1, 0, null),
+                new Category("CQRS", 1, 1, null),
+                new Category("Message-Driven MicroServices","消息驱动的微服务", 1, 2, null)
+        );
+        microservices.setChildren(microservicesList);
+
+        Category reactive = new Category("Reactive","响应式编程", 0, 3, null);
+        List<Category> reactives = Arrays.asList(
+                new Category("Akka", 1, 0, null),
+                new Category("Spring Reactor", 1, 1, null),
+                new Category("Vert.x", 1, 2, null)
+        );
+        reactive.setChildren(reactives);
+
+        Category cloudComputing = new Category("Cloud Computing", "云计算", 0, 4, null);
+        List<Category> cloudComputingList = Arrays.asList(
+                new Category("Docker", 1, 0, null),
+                new Category("Kubernetes", 1, 1, null),
+                new Category("Mesos", 1, 2, null)
+        );
+        cloudComputing.setChildren(cloudComputingList);
+
+        Category bigData = new Category("Big Data", "大数据", 0, 5, null);
+        List<Category> bigDataList = Arrays.asList(
+                new Category("Hadoop", 1, 0, null),
+                new Category("Spark", 1, 1, null),
+                new Category("Flink", 1, 2, null),
+                new Category("Storm", 1, 3, null),
+                new Category("Beam", 1, 4, null)
+        );
+        bigData.setChildren(bigDataList);
+
+        Category devOps = new Category("DevOps", 0, 6, null);
+        List<Category> devOpsList = Arrays.asList(
+                new Category("DevOps Practice", "DevOps实践", 1, 0, null),
+                new Category("SRE Practice", "SRE实践", 1, 1, null)
+        );
+        devOps.setChildren(devOpsList);
+
+        List<Category> categories = Arrays.asList(
+                lang,
+                microservices,
+                new Category("Streaming", 0, 2, null),
+                reactive,
+                backend,
+                cloudComputing,
+                bigData,
+                devOps,
+                new Category("Build/Delivery", "构建交付", 0, 7, null)
+        );
+
+        root.getChildren().addAll(categories);
+        categoryService.save(root);
+    }
+
+    private void addArticles(User user) {
+        Category category1 = categoryService.getCategoryByName("Development");
         Article article = new Article(user, "我为什么开发Amanda？",
                 "Amanda、 Spring Boot、Spring Data JPA、 Hibernate Search",
-                "Amanda关注于使用最好和最合适的工具解决问题", "Amanda关注于使用最好和最合适的工具解决问题", null, null);
+                "Amanda关注于使用最好和最合适的工具解决问题", "Amanda关注于使用最好和最合适的工具解决问题", null, category1, category1.getName());
 
         articleRepository.save(article);
 
         Comment comment = new Comment(article.getId(), "Amanda设计不错, 我很喜欢", null);
         commentRepository.save(comment);
 
+        Category category2 = categoryService.getCategoryByName("log");
         Article logPlatform = new Article(user, "基于Elastic Stack + Fluentd搭建实时日志平台",
                 "Elastic Stack、Fluentd、ElasticSearch、Logstash、Beats、filebeat、metricbeat、 Kibana",
-                "基于Elastic Stack + Fluentd搭建实时日志平台", "基于Elastic Stack + Fluentd搭建实时日志平台", null, null);
+                "基于Elastic Stack + Fluentd搭建实时日志平台", "基于Elastic Stack + Fluentd搭建实时日志平台", null, category2, category2.getName());
 
         articleRepository.save(logPlatform);
 
+        Category category3 = categoryService.getCategoryByName("MicroServices");
         Article eventSourcing = new Article(user, "Microservices Event Sourcing",
                 "spring-boot\n" +
                         "springcloud\n" +
@@ -91,87 +188,9 @@ public class DatabaseInitializer implements CommandLineRunner {
                         "microservice\n" +
                         "oauth2\n" +
                         "eventually-consistent",
-                "Microservices Event Sourcing 是一个微服务架构的在线购物平台，使用Spring Boot、Spring Cloud、Spring Reactor、OAuth2、CQRS 构建，实现了基于Event Sourcing的最终一致性，提供了构建端到端微服务的最佳实践", "Microservices Event Sourcing", null, null);
+                "Microservices Event Sourcing 是一个微服务架构的在线购物平台，使用Spring Boot、Spring Cloud、Spring Reactor、OAuth2、CQRS 构建，实现了基于Event Sourcing的最终一致性，提供了构建端到端微服务的最佳实践", "Microservices Event Sourcing", null, category3, category3.getName());
 
         articleRepository.save(eventSourcing);
-
-        addProfile();
-    }
-
-    public void deleteAll() {
-        commentRepository.deleteAll();
-        articleRepository.deleteAll();
-        categoryService.deleteAll();
-        userService.deleteAll();
-        profileService.deleteAll();
-    }
-
-    private void addCategories() {
-        categoryService.deleteAll();
-
-        Category lang = new Category("编程语言", 0, 0, null, null);
-        List<Category> langs = Arrays.asList(
-                new Category("Java", 1, 0, lang, null),
-                new Category("Scala", 1, 1, lang, null),
-                new Category("Clojure", 1, 2, lang, null),
-                new Category("Groovy", 1, 3, lang, null),
-                new Category("Python", 1, 4, lang, null),
-                new Category("EcmaScript", 1, 5, lang, null)
-        );
-        lang.setChildren(langs);
-
-        Category microservices = new Category("微服务", 0, 1, null, null);
-        List<Category> microservicesList = Arrays.asList(
-                new Category("Event Sourcing", 1, 0, microservices, null),
-                new Category("CQRS", 1, 1, microservices, null),
-                new Category("消息驱动的微服务", 1, 2, microservices, null)
-        );
-        microservices.setChildren(microservicesList);
-
-        Category reactive = new Category("响应式编程", 0, 3, null, null);
-        List<Category> reactives = Arrays.asList(
-                new Category("Akka", 1, 0, reactive, null),
-                new Category("Spring Reactor", 1, 1, reactive, null),
-                new Category("Vert.x", 1, 2, reactive, null)
-        );
-        reactive.setChildren(reactives);
-
-        Category cloudComputing = new Category("云计算", 0, 4, null, null);
-        List<Category> cloudComputingList = Arrays.asList(
-                new Category("Docker", 1, 0, cloudComputing, null),
-                new Category("Kubernetes", 1, 1, cloudComputing, null),
-                new Category("Mesos", 1, 2, cloudComputing, null)
-        );
-        cloudComputing.setChildren(cloudComputingList);
-
-        Category bigData = new Category("大数据", 0, 5, null, null);
-        List<Category> bigDataList = Arrays.asList(
-                new Category("Hadoop", 1, 0, bigData, null),
-                new Category("Spark", 1, 1, bigData, null),
-                new Category("Flink", 1, 2, bigData, null),
-                new Category("Storm", 1, 3, bigData, null),
-                new Category("Beam", 1, 4, bigData, null)
-        );
-        bigData.setChildren(bigDataList);
-
-        Category devOps = new Category("DevOps", 0, 6, null, null);
-        List<Category> devOpsList = Arrays.asList(
-                new Category("DevOps实践", 1, 0, devOps, null),
-                new Category("SRE实践", 1, 1, devOps, null)
-        );
-        devOps.setChildren(devOpsList);
-
-        List<Category> categories = Arrays.asList(
-                lang,
-                microservices,
-                new Category("Streaming", 0, 2, null, null),
-                reactive,
-                cloudComputing,
-                bigData,
-                devOps,
-                new Category("构建交付", 0, 7, null, null)
-        );
-        categoryService.save(categories);
     }
 
     private void addProfile() {

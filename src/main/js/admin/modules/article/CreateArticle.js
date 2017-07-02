@@ -6,16 +6,12 @@ import './Article.css'
 
 class CreateArticle extends Component {
 
-    // If contextTypes is defined within a component, the following lifecycle methods will receive an additional parameter, the context object:
-    // constructor(props, context)
-    // componentWillReceiveProps(nextProps, nextContext)
-    // shouldComponentUpdate(nextProps, nextState, nextContext)
-    // componentWillUpdate(nextProps, nextState, nextContext)
-    // componentDidUpdate(prevProps, prevState, prevContext)
-
-    constructor(props, context) {
-        super(props, context);
-        this.state = {article: {}};
+    constructor(props) {
+        super(props);
+        this.state = {
+            article: {},
+            view: true
+        };
         this.onMarkdownChange = this.onMarkdownChange.bind(this);
         this.handleSubmit  = this.handleSubmit.bind(this);
         this.handleInputChange  = this.handleInputChange .bind(this);
@@ -39,7 +35,7 @@ class CreateArticle extends Component {
         Axios.post('/api/articles', this.state.article)
             .then(response => {
                 this.setState({article: response.data});
-                history.push("/articles");
+                history.push(`/articles/${response.data.id}/${response.data.title}`)
             })
             .catch(error => console.log(error));
     }
@@ -55,57 +51,52 @@ class CreateArticle extends Component {
             article
         })
     }
-
+    
     render() {
         return (
-            <div className="Article">
+            <div className="CreateArticle ArticleEdit">
                 <form onSubmit={this.handleSubmit} className="form-horizontal">
-                    <h2>{this.state.article.title}</h2>
+                    <h2>新建文章</h2>
                     <div className="form-group">
-                        <label className="col-sm-1 control-label">标题</label>
+                        <label className="control-label">标题</label>
                         <div className="col-sm-5">
                             <input type="text" value={this.state.article.title ? this.state.article.title : ''} onChange={this.handleInputChange} name="title" className="form-control"/>
                         </div>
                     </div>
                     <div className="form-group">
-                        <label className="col-sm-1 control-label">关键字</label>
+                        <label className="control-label">关键字</label>
                         <div className="col-sm-8">
                             <input type="text" value={this.state.article.keywords ? this.state.article.keywords : ''} onChange={this.handleInputChange} name="keywords" className="form-control"/>
                         </div>
                     </div>
                     <div className="form-group">
-                        <label className="col-sm-1 control-label">摘要</label>
+                        <label className="control-label">摘要</label>
                         <div className="col-sm-8">
-                            <textarea value={this.state.article.abstractContent ? this.state.article.abstractContent : ''} onChange={this.handleInputChange} name="abstractContent" rows="4" cols="20" className="form-control"/>
+                            <textarea value={this.state.article.abstractContent ? this.state.article.abstractContent : ''} onChange={this.handleInputChange} name="abstractContent" rows="8" cols="20" className="form-control"/>
                         </div>
                     </div>
                     <div className="form-group">
-                        <label className="col-sm-1 control-label">图片URL</label>
+                        <label className="control-label">图片URL</label>
                         <div className="col-sm-6">
                             <input type="text" value={this.state.article.pictureUrl ? this.state.article.pictureUrl : ''} onChange={this.handleInputChange} name="pictureUrl" className="form-control"/>
                         </div>
                     </div>
                     <div className="form-group">
-                        <label className="col-sm-1 control-label">分类</label>
+                        <label className="control-label">分类</label>
                         <div className="col-sm-8">
                             <input type="text" value={this.state.article.categories ? this.state.article.categories : ''} onChange={this.handleInputChange} name="categories" className="form-control"/>
                         </div>
                     </div>
+
                     <div className="form-group">
-                        <label className="col-sm-1 control-label">发布</label>
-                        <div className="col-sm-3">
-                            <span className="form-control">{this.state.article.published ? '发布于' + this.state.article.publishedDate : '未发布'}</span>
+                        <label className="control-label">文章内容</label>
+                        <div className="markdown-container">
+                            <MarkdownEditor inputTitle="markdown" mdBody={this.state.article.mdBody} previewTitle="预览" htmlBody={this.state.article.htmlBody} onMarkdownChange={this.onMarkdownChange}/>
                         </div>
                     </div>
 
-                    <div>
-                        <MarkdownEditor inputTitle="mdBody" mdBody={this.state.article.mdBody} previewTitle="预览" htmlBody={this.state.article.htmlBody} onMarkdownChange={this.onMarkdownChange}/>
-                    </div>
-
-                    <div className="form-group">
-                        <div className="col-sm-offset-1 col-sm-11">
-                            <button type="submit" className="btn btn-default">更新</button>
-                        </div>
+                    <div className="form-group buttons">
+                        <button type="submit" className="btn btn-primary">创建</button>
                     </div>
                 </form>
             </div>

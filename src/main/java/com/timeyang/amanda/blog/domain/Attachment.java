@@ -3,7 +3,7 @@ package com.timeyang.amanda.blog.domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.core.valadation.NotBlank;
-import com.timeyang.amanda.core.jpa.domain.AuditedEntity;
+import com.timeyang.amanda.core.jpa.domain.AuditEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,7 +27,7 @@ import java.io.Serializable;
         setterVisibility = JsonAutoDetect.Visibility.NONE
 )
 @AttributeOverride(name = "id", column = @Column(name = "attachment_id"))
-public class Attachment extends AuditedEntity implements Serializable {
+public class Attachment extends AuditEntity implements Serializable {
 
     @NotBlank(message = "{validate.attachment.name}")
     @JsonProperty

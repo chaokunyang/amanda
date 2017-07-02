@@ -1,0 +1,30 @@
+.Profile .ProfileView {
+    font-size: 16px;
+}
+.Profile .ProfileView > div {
+    margin-bottom: 1em;
+}
+
+.Profile .ProfileView > div .row-title {
+    display: inline-block;
+    width: 16.6%;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: right;
+    padding-right: 15px;
+}
+.Profile .ProfileView > div .row-content {
+    padding-left: 15px;
+    display: inline-block;
+}
+
+.Profile .ProfileView .buttons {
+    margin-left: 16.6%;
+}
+
+.Profile .ProfileEdit .update {
+    margin-right: 1em;
+}
+.Profile .ProfileEdit .form-group .control-label {
+    font-size: 16px;
+}

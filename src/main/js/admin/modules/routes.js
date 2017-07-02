@@ -6,7 +6,7 @@ import Monitor from './monitor/Monitor'
 import Articles from './article/Articles'
 import Article from './article/Article'
 import CreateArticle from './article/CreateArticle'
-import Category from './Category'
+import Categories from './category/Categories'
 import FileService from './file/FileService'
 import Report from './Report'
 import Analyze from './Analyze'
@@ -20,7 +20,7 @@ const routes = (
         </Route>
         <Route path="/articles/:articleId/:articleName" component={Article}/>
         <Route path="/articles/new" component={CreateArticle}/>
-        <Route path="/categories" component={Category}/>
+        <Route path="/categories" component={Categories}/>
         <Route path="/files" component={FileService}>
              <Route path="/files/"/>
         </Route>

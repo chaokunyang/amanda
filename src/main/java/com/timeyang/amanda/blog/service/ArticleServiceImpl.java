@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+
 /**
  * @author chaokunyang
  * @create 2017-04-20
@@ -42,10 +44,18 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Transactional
     @Override
-    public Article getArticle(Long id) {
+    public Article viewArticle(Long id) {
         Article article = articleRepository.findOne(id);
-        article.setViews(article.getViews() == null ? 1 :  article.getViews() + 1);
+        if(article.getPublished()) {
+            article.setViews(article.getViews() == null ? 1 :  article.getViews() + 1);
+        }
         return articleRepository.save(article);
+    }
+
+    @Transactional
+    @Override
+    public Article getArticle(Long id) {
+        return articleRepository.findOne(id);
     }
 
     @Override
@@ -54,5 +64,25 @@ public class ArticleServiceImpl implements ArticleService {
             article.setUser(UserUtils.getCurrentUser());
         }
         return articleRepository.save(article);
+    }
+
+    @Override
+    public Article publishArticle(Long id) {
+        Article article = articleRepository.findOne(id);
+        article.setPublished(true);
+        article.setPublishedDate(Instant.now());
+        return articleRepository.save(article);
+    }
+
+    @Override
+    public Article cancelPublish(Long id) {
+        Article article = articleRepository.findOne(id);
+        article.setPublished(false);
+        return articleRepository.save(article);
+    }
+
+    @Override
+    public void delete(Long id) {
+        articleRepository.delete(id);
     }
 }

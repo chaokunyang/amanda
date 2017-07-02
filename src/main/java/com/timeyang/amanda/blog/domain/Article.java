@@ -15,6 +15,7 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -32,6 +33,7 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "article_id"))
 @Indexed
@@ -43,7 +45,7 @@ import java.util.List;
 public class Article extends BaseEntity implements Serializable {
 
     @NotNull(message = "{validate.getArticle.user")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "used_id")
     @JsonProperty
     @IndexedEmbedded
@@ -66,14 +68,31 @@ public class Article extends BaseEntity implements Serializable {
     @Lob
     private String abstractContent;
 
-    @NotNull(message = "{validate.getArticle.categories}")
-    @ManyToMany
-    @JoinTable(name = "article_category",
-            joinColumns = {@JoinColumn(name = "article_id")},
-            inverseJoinColumns = {@JoinColumn(name = "category_d")})
+    // @NotNull(message = "{validate.getArticle.categories}")
+    // @ManyToMany
+    // @JoinTable(name = "article_category",
+    //         joinColumns = {@JoinColumn(name = "article_id")},
+    //         inverseJoinColumns = {@JoinColumn(name = "category_d")})
+    // @JsonProperty
+    // @IndexedEmbedded
+    // private List<Category> categories;
+
+    @JsonProperty
+    private String categoryName;
+
+    /**
+     * 引用category表主键
+     */
+    @Column(name = "category_id", insertable = false, updatable = false)
+    @JsonProperty
+    private Long categoryId;
+
+    @NotNull(message = "{validate.getArticle.category}")
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     @JsonProperty
     @IndexedEmbedded
-    private List<Category> categories;
+    private Category category;
 
     /**
      * 关键字<br/>
@@ -139,14 +158,15 @@ public class Article extends BaseEntity implements Serializable {
     @JsonProperty
     private Long views;
 
-    public Article(User user, String title, String keywords, String mdBody, String htmlBody, List<Attachment> attachments, List<Category> categories) {
+    public Article(User user, String title, String keywords, String mdBody, String htmlBody, List<Attachment> attachments, Category category, String categoryName) {
         this.user = user;
         this.title = title;
         this.keywords = keywords;
         this.mdBody = mdBody;
         this.htmlBody = htmlBody;
         this.attachments = attachments;
-        this.categories = categories;
+        this.category = category;
+        this.categoryName = categoryName;
     }
 
     /**

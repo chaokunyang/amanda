@@ -29,8 +29,15 @@ public class ProfileServiceImpl implements ProfileService {
     @Transactional
     @Override
     public Profile save(Profile profile) {
-        User user = userRepository.findOne(profile.getUserId());
-        profile.setUser(user);
+        return profileRepository.save(profile);
+    }
+
+    @Override
+    public Profile update(Profile profile) {
+        if(profile.getUserId() != null) {
+            User user = userRepository.findOne(profile.getUserId());
+            profile.setUser(user); // 用于在更新Profile时维持关联关系
+        }
         return profileRepository.save(profile);
     }
 

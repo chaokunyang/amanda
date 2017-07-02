@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import MarkdownEditor from '../markdown/MarkdownEditor'
 
 function ProfileEdit(props) {
 
@@ -59,7 +60,15 @@ function ProfileEdit(props) {
                         <input name="location" type="text" value={props.profile.location} onChange={props.handleInputChange} placeholder="请输入所在位置" className="form-control"/>
                     </div>
                 </div>
+
                 <div className="form-group">
+                    <label className="col-sm-2 control-label">详细简介</label>
+                    <div className="markdown-container">
+                        <MarkdownEditor inputTitle="markdown" mdBody={props.profile.mdBody} previewTitle="预览" htmlBody={props.profile.htmlBody} onMarkdownChange={props.onMarkdownChange}/>
+                    </div>
+                </div>
+
+                {/*<div className="form-group">
                     <label className="col-sm-2 control-label">详细简介markdown</label>
                     <div className="col-sm-6">
                         <input name="mdBody" type="text" value={props.profile.mdBody} onChange={props.handleInputChange} placeholder="请输入详细简介markdown" className="form-control"/>
@@ -70,11 +79,12 @@ function ProfileEdit(props) {
                     <div className="col-sm-6">
                         <input name="htmlBody" type="text" value={props.profile.htmlBody} onChange={props.handleInputChange} placeholder="请输入详细简介预览" className="form-control"/>
                     </div>
-                </div>
+                </div>*/}
 
                 <div className="form-group">
                     <div className="col-sm-offset-2 col-sm-6">
-                        <button type="submit" className="btn btn-default">更新</button>
+                        <button type="submit" className="btn btn-primary update">更新</button>
+                        <button className="btn btn-success" onClick={props.setView}>查看</button>
                     </div>
                 </div>
             </form>

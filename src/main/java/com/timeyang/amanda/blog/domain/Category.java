@@ -34,10 +34,18 @@ import java.util.List;
         setterVisibility = JsonAutoDetect.Visibility.NONE)
 public class Category extends AuditedEntity implements Serializable, SelfReference<Category> {
 
+    @NotBlank(message = "{validate.category.zhName}")
+    @Size(min = 2, max = 20)
+    @JsonProperty
+    @Field
+    @Column(unique = true)
+    private String zhName;
+
     @NotBlank(message = "{validate.category.name}")
     @Size(min = 2, max = 20)
     @JsonProperty
     @Field
+    @Column(unique = true)
     private String name;
 
     /**
@@ -53,63 +61,30 @@ public class Category extends AuditedEntity implements Serializable, SelfReferen
     @JsonProperty
     private Integer orderNumber;
 
-    @Column(name = "parent_id", insertable=false, updatable = false) // 该
+    @Column(name = "parent_id", insertable=false, updatable = false)
     @JsonProperty
     private Long parentId;
 
-    // @JsonIgnore // 自动的，因为我们默认忽略了所有
-    @ManyToOne
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "parent_id")
-    private Category parent;
-
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderBy(value = "order_number ASC")
     @JsonProperty
     private List<Category> children;
 
-    // 这种构造器不要使用Lombok，因为lombok生成的构造器
-    public Category(String name, Integer level, Integer orderNumber, Category parent, List<Category> children) {
+    public Category(String name, String zhName, Integer level, Integer orderNumber, List<Category> children) {
         this.name = name;
+        this.zhName = zhName;
         this.level = level;
         this.orderNumber = orderNumber;
-        this.parent = parent;
         this.children = children;
     }
 
-    @Override
-    public Category getParent() {
-        return parent;
-    }
-
-    public void setParent(Category parent) {
-        this.parent = parent;
-    }
-
-    @Override
-    public List<Category> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<Category> children) {
-        this.children = children;
-    }
-
-    @Override
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
+    public Category(String name, Integer level, Integer orderNumber, List<Category> children) {
+        this.name = name;
+        this.zhName = name;
         this.level = level;
-    }
-
-    @Override
-    public Integer getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
+        this.children = children;
     }
 
     /**
@@ -127,6 +102,7 @@ public class Category extends AuditedEntity implements Serializable, SelfReferen
     @Override
     public String toString() {
         return "Category{" +
+                "zhName='" + zhName + '\'' +
                 "name='" + name + '\'' +
                 ", level=" + level +
                 ", orderNumber=" + orderNumber +

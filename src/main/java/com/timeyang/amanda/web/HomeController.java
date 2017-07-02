@@ -33,7 +33,7 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Map<String, Object> model) {
-        List<Category> categories = categoryService.getAllCategory();
+        List<Category> categories = categoryService.getFirstLevelCategoriesAndChildTree();
         Pageable pageable = new PageRequest(0, 5);
         Page<Article> articles = articleService.getArticles(pageable);
 
@@ -45,7 +45,7 @@ public class HomeController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Pageable pageable, Map<String, Object> model) {
-        List<Category> categories = categoryService.getAllCategory();
+        List<Category> categories = categoryService.getFirstLevelCategoriesAndChildTree();
         Page<Article> articles = articleService.getArticles(pageable);
 
         model.put("categories", categories);

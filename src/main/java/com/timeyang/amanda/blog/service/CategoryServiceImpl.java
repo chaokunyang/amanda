@@ -32,18 +32,50 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional
     @Override
-    public List<Category> getAllCategory() {
+    public Category getCategoryTree() {
+        Category root = categoryRepository.findCategoryByName("Category");
+        root.loadChildren();
+        return root;
+    }
+
+    @Override
+    public void delete(Long id) {
+        categoryRepository.delete(id);
+    }
+
+    @Transactional
+    @Override
+    public List<Category> getFirstLevelCategoriesAndChildTree() {
         List<Category> categories = categoryRepository.findByLevelOrderByOrderNumberAsc(0);
 
-        categories.forEach(category -> category.loadChildren()); // 加载所有子类目，直到末级类目
+        categories.forEach(Category::loadChildren); // 加载所有子类目，直到末级类目
 
         return categories;
     }
 
     @Transactional
     @Override
+    public Category getCategory(Long id) {
+        return categoryRepository.findOne(id);
+    }
+
+    @Transactional
+    @Override
+    public Category getCategoryByName(String name) {
+        return categoryRepository.findCategoryByName(name);
+    }
+
+    @Transactional
+    @Override
     public void deleteAll() {
         categoryRepository.deleteAll();
+    }
+
+    @Transactional
+    @Override
+    public List<Category> getFirstLevelCategories() {
+
+        return categoryRepository.findByLevelOrderByOrderNumberAsc(0);
     }
 
 }

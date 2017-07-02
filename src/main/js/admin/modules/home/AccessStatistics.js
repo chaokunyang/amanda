@@ -44,19 +44,21 @@ function AccessStatistics(props) {
             <div className="panel panel-info">
                 <div className="panel-heading">访问统计</div>
 
-                <table className="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>访问路径</th>
-                        <th>响应状态</th>
-                        <th width={200}>上次响应时间<br/>(与状态码不完全对应)</th>
-                        <th>访问次数</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {trs}
-                    </tbody>
-                </table>
+                <div className="table-responsive">
+                    <table className="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>访问路径</th>
+                            <th>响应状态</th>
+                            <th width={200}>上次响应时间<br/>(与状态码不完全对应)</th>
+                            <th>访问次数</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {trs}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     )

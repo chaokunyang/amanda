@@ -1,14 +1,104 @@
+.Articles .createArticle {
+    display: inline-block;
+    margin-bottom: 14px;
+}
+.Articles table>thead>tr>th, .Articles table>thead>tr>td,
+.Articles table>tbody>tr>th, .Articles table>tbody>tr>td {
+    text-align: center;
+}
+.Articles table th.title {
+    width: 10em;
+}
+.Articles table th.categories {
+    width: 8em;
+}
+.Articles table th.keywords {
+    width: 10em;
+}
+.Articles table th.picture {
+    width: 10em;
+}
+.Articles table th.abstract {
+    width: 20em;
+}
+.Articles table th.publish-status {
+    width: 6em;
+}
+.Articles table th.views {
+    width: 6em;
+}
+.Articles table th.option {
+    width: 6em;
+}
+.Articles .pagination-container {
+    float: right;
+}
+.Articles table>tbody>tr>td {
+    height: 6em;
+
+    /*只能用于单行省略*/
+    /*white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;*/
+}
+.Articles table>tbody>tr>td img {
+    max-height: 100%;
+}
+.Articles button {
+    margin-bottom: 0.5em;
+}
+
+
+.Articles .form-horizontal .form-group,
+.Article .form-horizontal .form-group,
+.CreateArticle .form-horizontal .form-group {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+
 .Article form h2 {
     margin: 0 0 0.5em 0;
 }
 .Article form h3 {
     margin: 0 0 0.5em 0;
 }
-.Article form > div {
-    padding: 0.3em 0;
+
+
+.ArticleView .row {
+    margin-bottom: 15px;
+}
+.ArticleView .row .row-title {
+    text-align: right;
+    font-weight: 600;
+    font-size: 16px;
+    padding-top: 5px;
+}
+.ArticleView .row .row-content {
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    color: #555;
+    font-size: 16px;
+}
+.ArticleView .buttons button {
+    margin-right: 1em;
 }
 
-.Article .MarkdownEditor {
-    padding-left: 4.7em;
+
+.ArticleEdit .form-group label {
+    font-weight: 600;
+    font-size: 16px;
+}
+.ArticleEdit button[type=submit] {
+    margin-right: 1em;
+}
+
+.ArticleEdit .publish {
+    display: inline-block;
+    margin-top: 3px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
 }
 

@@ -22,7 +22,7 @@ public class CategoryServiceTest {
 
     @Test
     public void getAllCategory() throws Exception {
-        List<Category> categories = categoryService.getAllCategory();
+        List<Category> categories = categoryService.getFirstLevelCategoriesAndChildTree();
         System.out.println(categories);
     }
 

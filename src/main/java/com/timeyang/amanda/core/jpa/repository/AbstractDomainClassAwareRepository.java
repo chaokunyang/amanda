@@ -13,6 +13,10 @@ public abstract class AbstractDomainClassAwareRepository<T> {
 
     protected final Class<T> domainClass;
 
+    public AbstractDomainClassAwareRepository(Class<T> domainClass) {
+        this.domainClass = domainClass;
+    }
+
     @SuppressWarnings("unchecked")
     protected AbstractDomainClassAwareRepository() {
         Type genericSuperclass = this.getClass().getGenericSuperclass();

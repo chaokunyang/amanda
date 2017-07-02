@@ -1,6 +1,12 @@
 .MarkdownEditor {
 
 }
+.MarkdownEditor .input-title,
+.MarkdownEditor .preview-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0.6em 0;
+}
 .MarkdownEditor .input, .MarkdownEditor .preview {
     width: 49%;
     float: left;
@@ -8,18 +14,36 @@
     padding-right: 15px;
     padding-left: 15px;
 }
-.MarkdownEditor .input textarea, .MarkdownEditor .preview .content {
+.MarkdownEditor .input textarea,
+.MarkdownEditor .preview .content {
     width: 100%;
     height: 90%;
     overflow: auto;
-    background-color: #fff;
+}
+.MarkdownEditor .input textarea {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background: #fff none;
+    border: 1px solid #ccc;
     border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.MarkdownEditor .preview .content {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
 
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-    font-size: 16px;
-    padding: 4px;
+    font-size: 14px;
+    color: #555;
 }
-.MarkdownEditor .preview .content {
-    border: 1px solid #ccc;
-}
+
 

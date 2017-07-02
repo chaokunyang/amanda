@@ -6,6 +6,65 @@
     position: relative;
     top: 1px;
 }
+
+textarea {
+    resize: none;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+}
+
+/* ===================== MEDIA QUERIES ===================== */
+
+/* 320+
+------------------------------------------ */
+@media only screen and (min-width: 20em) {
+    .Sidebar ul li {
+        float: left;
+        width: 25%;
+    }
+    .App .App-main {
+        padding: 1em 1em;
+    }
+
+    /* Header组件 */
+    .App .App-header {
+        height: 50px;
+    }
+
+    .Logout {
+        margin: -7.5px -15px 7.5px -15px;
+    }
+    .Logout button {
+        font-size: 12px;
+        text-align: left;
+        padding: 10px 15px;
+    }
+
+
+    /* 文章相关组件 */
+    .CreateArticle .buttons,
+    .Articles .buttons {
+        margin-left: 0;
+        padding-left: 15px;
+    }
+    .ArticleView .row .row-title {
+        display: inline-block;
+        text-align: left;
+        padding-left: 10px;
+    }
+    .ArticleEdit .form-group label {
+        padding-left: 15px;
+    }
+}
+
+/* 480+
+------------------------------------------ */
+@media only screen and (min-width: 30em) {
+
+}
+
 /* 480-767-only
 ------------------------------------------ */
 @media only screen and (min-width: 30em) and (max-width: 47.9375em) {
@@ -23,7 +82,7 @@
 @media only screen and (min-width: 48em) {
     .App-header {
         background-color: #222;
-        height: 60px;
+        height: 50px;
         padding: 0 2em;
 
         position: fixed;
@@ -34,12 +93,25 @@
         z-index: 1030;
         text-align: right;
     }
+    .Logout {
+        float: right;
+        margin: 0;
+        width: auto;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    .Logout button {
+        font-size: 18px;
+        padding-top: 12px;
+    }
+
     .Sidebar {
         position: fixed;
-        top: 60px;
+        top: 50px;
         bottom: 0;
         left: 0;
-        width: 11%;
+        width: 15%;
 
         z-index: 1000;
         overflow-x: hidden;
@@ -47,11 +119,57 @@
         background-color: #f5f5f5;
         border-right: 1px solid #eee;
     }
+    .Sidebar ul li {
+        float: none;
+        width: auto;
+    }
     .App-main {
         float: left;
-        margin-left: 11%;
-        margin-top: 60px;
-        width: 89%;
+        margin-left: 15%;
+        margin-top: 50px;
+        width: 85%;
         padding: 1em;
+    }
+
+    /* Home组件 */
+    .Home .audit {
+        float: left;
+        width: 45%;
+    }
+    .Home .trace {
+        float: right;
+        width: 50%;
+    }
+    .Home .metrics {
+        float: left;
+        width: 45%;
+    }
+
+
+    /* 文章 */
+    .ArticleView .row .row-title {
+        float: left;
+        width: 10%;
+    }
+    .ArticleEdit .form-group label {
+        float: left;
+        width: 10%;
+    }
+
+    .ArticleEdit .markdown-container {
+        float: left;
+        width: 83%;
+    }
+    .Articles .form-horizontal .form-group,
+    .Article .form-horizontal .form-group,
+    .CreateArticle .form-horizontal .form-group,
+    .Article .buttons, .CreateArticle .buttons {
+        margin-left: 10.2%;
+    }
+
+    /* 简介 */
+    .Profile .ProfileEdit .markdown-container {
+        float: left;
+        width: 83%;
     }
 }
