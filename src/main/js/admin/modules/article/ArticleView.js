@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment';
+import ArticleCategoryView from './ArticleCategoryView';
 
 import './Article.css'
 
@@ -16,7 +17,7 @@ function ArticleView(props) {
             <div className="row">
                 <div className="row-title">分类</div>
                 <div className="col-sm-8 row-content">
-                    {props.article.categories}
+                    <ArticleCategoryView categoryId={props.article.category ? props.article.category.id : props.categoryTree.id} categoryTree={props.categoryTree} />
                 </div>
             </div>
             <div className="row">

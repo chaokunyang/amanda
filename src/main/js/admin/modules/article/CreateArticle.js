@@ -3,6 +3,7 @@ import Axios from 'axios'
 import history from '../History'
 import MarkdownEditor from '../markdown/MarkdownEditor'
 import './Article.css'
+import ArticleCategoryEdit from './ArticleCategoryEdit'
 
 class CreateArticle extends Component {
 
@@ -15,6 +16,17 @@ class CreateArticle extends Component {
         this.onMarkdownChange = this.onMarkdownChange.bind(this);
         this.handleSubmit  = this.handleSubmit.bind(this);
         this.handleInputChange  = this.handleInputChange .bind(this);
+        this.handleCategorySelect  = this.handleCategorySelect .bind(this);
+    }
+
+    componentDidMount() {
+        Axios.all([this.getCategory()]).then(Axios.spread(function (categoryTree) {
+            this.setState({categoryTree: categoryTree.data});
+        }.bind(this)));
+    }
+
+    getCategory() {
+        return Axios.get('/api/categories');
     }
 
     onMarkdownChange(markdownText, renderedHtml) {
@@ -51,6 +63,14 @@ class CreateArticle extends Component {
             article
         })
     }
+
+    handleCategorySelect(id) {
+        this.setState(prevState => {
+            const article = Object.assign({}, prevState.article);
+            article.categoryId = id;
+            return {article: article}
+        });
+    }
     
     render() {
         return (
@@ -84,7 +104,8 @@ class CreateArticle extends Component {
                     <div className="form-group">
                         <label className="control-label">分类</label>
                         <div className="col-sm-8">
-                            <input type="text" value={this.state.article.categories ? this.state.article.categories : ''} onChange={this.handleInputChange} name="categories" className="form-control"/>
+                            {this.state.categoryTree ?
+                                <ArticleCategoryEdit categoryId={this.state.categoryTree.id} categoryTree={this.state.categoryTree}  handleCategorySelect={this.handleCategorySelect}/> : ''}
                         </div>
                     </div>
 

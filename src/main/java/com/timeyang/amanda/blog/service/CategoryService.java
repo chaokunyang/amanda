@@ -1,6 +1,7 @@
 package com.timeyang.amanda.blog.service;
 
 import com.timeyang.amanda.blog.domain.Category;
+import com.timeyang.amanda.blog.domain.CategoryPathNode;
 
 import java.util.List;
 
@@ -24,7 +25,13 @@ public interface CategoryService {
 
     List<Category> getFirstLevelCategories();
 
-    Category getCategoryTree();
+    Category getRootCategoryTree();
 
     void delete(Long id);
+
+    Category getCategoryTree(Long id);
+
+    Category create(Category category);
+
+    List<CategoryPathNode> getCategoryPath(Long id);
 }

@@ -17,6 +17,7 @@ import org.springframework.core.Ordered;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -27,6 +28,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.SharedCacheMode;
@@ -55,7 +57,8 @@ import java.util.concurrent.Executor;
 )
 @EnableJpaRepositories(
         basePackages = "com.timeyang.amanda",
-        entityManagerFactoryRef = "entityManagerFactoryBean" // 必须指定，不然创建仓库会失败
+        entityManagerFactoryRef = "entityManagerFactoryBean", // 必须指定，不然创建仓库会失败
+        transactionManagerRef = "jpaTransactionManager"
 )
 @EnableConfigurationProperties(StorageProperties.class)
 @EnableJpaAuditing
@@ -77,13 +80,13 @@ public class RootContextConfiguration implements
     }
 
     @Bean
-    public InstrumentationLoadTimeWeaver loadTimeWeaver()  throws Throwable {
+    public InstrumentationLoadTimeWeaver loadTimeWeaver() {
         InstrumentationLoadTimeWeaver loadTimeWeaver = new InstrumentationLoadTimeWeaver();
         return loadTimeWeaver;
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(EntityManagerFactoryBuilder builder) throws Throwable {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
         Map<String, Object> properties = new HashMap<>();
         // properties.put("javax.persistence.schema-generation.database.action", "none"); // 没有update选项，只有：none、create、drop-and-create、drop，不满足开发需求
         // properties.put("hibernate.hbm2ddl.auto", "update"); // 使用adapter.setGenerateDdl(true)，避免拼写错误;
@@ -115,6 +118,14 @@ public class RootContextConfiguration implements
         adapter.setDatabasePlatform("org.hibernate.dialect.MySQL5InnoDBDialect");
         adapter.setGenerateDdl(true);
         return adapter;
+    }
+
+    @Bean
+    public PlatformTransactionManager jpaTransactionManager()
+    {
+        return new JpaTransactionManager(
+                this.entityManagerFactoryBean().getObject()
+        );
     }
 
     public DataSource getDataSource() {

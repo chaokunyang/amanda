@@ -1,8 +1,20 @@
 .Categories .table-bordered>thead>tr>th, .Categories .table-bordered>tbody>tr>th, .Categories .table-bordered>tfoot>tr>th, .Categories .table-bordered>thead>tr>td, .Categories .table-bordered>tbody>tr>td, .Categories .table-bordered>tfoot>tr>td {
     text-align: center;
 }
+.Categories .category-level, .Categories .order-number {
+    width: 6em;
+}
+.Categories .create-time, .Categories .update-time {
+    width: 7em;
+}
+.Categories .children {
+    width: 5em;
+}
 .Categories .categories-options {
-    margin-right: 1em;
+    width: 7em;
+}
+.Categories .categories-options button {
+    margin-right: 4px;
 }
 
 .Categories .Category-NavBar {
@@ -20,4 +32,8 @@
     font-size: 0.9em;
     font-weight: 600;
     color: hsl(175, 2%, 72%);
+}
+
+.Categories input, .Categories input.form-control {
+    text-align: center;
 }

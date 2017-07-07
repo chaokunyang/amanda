@@ -1,7 +1,9 @@
 package com.timeyang.amanda.blog.service;
 
 import com.timeyang.amanda.blog.domain.Article;
+import com.timeyang.amanda.blog.domain.Category;
 import com.timeyang.amanda.blog.repository.ArticleRepository;
+import com.timeyang.amanda.blog.repository.CategoryRepository;
 import com.timeyang.amanda.core.jpa.criterion.QueryCriteria;
 import com.timeyang.amanda.core.search.SearchResult;
 import com.timeyang.amanda.user.util.UserUtils;
@@ -22,6 +24,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleRepository articleRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Transactional
     @Override
@@ -63,6 +68,8 @@ public class ArticleServiceImpl implements ArticleService {
         if(article.getUser() == null) {
             article.setUser(UserUtils.getCurrentUser());
         }
+        Category category = categoryRepository.findOne(article.getCategoryId());
+        article.setCategory(category);
         return articleRepository.save(article);
     }
 

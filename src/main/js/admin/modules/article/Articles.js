@@ -5,6 +5,7 @@ import Pagination from '../pagination/Pagination'
 import Axios from 'axios'
 import moment from 'moment';
 import './Article.css'
+import ArticleCategoryView from './ArticleCategoryView';
 
 class Articles extends Component {
 
@@ -21,8 +22,32 @@ class Articles extends Component {
         this.onDelete = this.onDelete.bind(this);
     }
 
+    // componentDidMount() {
+    //     this.loadArticles(this.state.pageNumber, this.state.pageSize);
+    // }
+
     componentDidMount() {
-        this.loadArticles(this.state.pageNumber, this.state.pageSize);
+        Axios.all([this.getArticles(this.state.pageNumber, this.state.pageSize), this.getCategory()]).then(Axios.spread(function (articlesResp, categoryTree) {
+
+            const articles = articlesResp.data.content;
+            delete articlesResp.data.content;
+            const pagination = articlesResp.data;
+
+            this.setState({
+                articles: articles,
+                categoryTree: categoryTree.data,
+                pagination: pagination
+            });
+
+        }.bind(this)));
+    }
+
+    getArticles(pageNumber, pageSize) {
+        return Axios.get(`/api/articles?page=${pageNumber}&size=${pageSize}`)
+    }
+
+    getCategory() {
+        return Axios.get('/api/categories');
     }
 
     loadArticles(pageNumber, pageSize) {
@@ -67,7 +92,11 @@ class Articles extends Component {
                         article.title
                     }
                     </td>
-                <td className="categories">{article.categories}</td>
+                <td className="categories">
+                    {/*{article.category ? article.category.zhName : ""}*/}
+                    <ArticleCategoryView categoryId={article.category ? article.category.id : this.state.categoryTree.id} categoryTree={this.state.categoryTree} />
+
+                </td>
                 <td className="keywords" title={article.keywords}>
                     {
                         article.keywords && article.keywords.length > 30 ?

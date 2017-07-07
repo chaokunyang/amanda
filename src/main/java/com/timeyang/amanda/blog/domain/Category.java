@@ -61,7 +61,7 @@ public class Category extends AuditedEntity implements Serializable, SelfReferen
     @JsonProperty
     private Integer orderNumber;
 
-    @Column(name = "parent_id", insertable=false, updatable = false)
+    @Column(name = "parent_id")
     @JsonProperty
     private Long parentId;
 
@@ -92,8 +92,10 @@ public class Category extends AuditedEntity implements Serializable, SelfReferen
      * note: 仅适用于在事务内调用。事务关闭后，没有session与children的代理(即PersistList)相关联。从而无法从数据库加载子孙类目，而会报错：could not initialize proxy - no Session
      */
     public List<Category> loadChildren() {
-        children.size(); // 从数据库加载数据到children。注意：children永远不会是null，即使size为0.因为它实际上是PersistList，所有的调用都委托给PersistList。所以不必担心空指针异常，这不会发生
-        children.forEach(child -> child.loadChildren());
+        if(children != null) {
+            children.size(); // 从数据库加载数据到children。注意：children永远不会是null，即使size为0.因为它实际上是PersistList，所有的调用都委托给PersistList。所以不必担心空指针异常，这不会发生
+            children.forEach(child -> child.loadChildren());
+        }
 
         return  children;
     }

@@ -9,7 +9,6 @@ class Article extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            article: {},
             view: true
         };
         this.onMarkdownChange = this.onMarkdownChange.bind(this);
@@ -18,16 +17,23 @@ class Article extends Component {
         this.setView = this.setView.bind(this);
         this.publish = this.publish.bind(this);
         this.cancelPublish = this.cancelPublish.bind(this);
+        this.handleCategorySelect = this.handleCategorySelect.bind(this);
     }
 
     componentDidMount() {
-        Axios.get('/api/articles/' + this.props.params.articleId)
-            .then(response => {
-                this.setState({article: response.data})
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        Axios.all([this.getArticle(), this.getCategory()]).then(Axios.spread(function (article, categoryTree) {
+            this.setState({article: article.data});
+            this.setState({categoryTree: categoryTree.data});
+        }.bind(this)));
+
+    }
+
+    getArticle() {
+        return Axios.get('/api/articles/' + this.props.params.articleId);
+    }
+
+    getCategory() {
+        return Axios.get('/api/categories');
     }
 
     onMarkdownChange(markdownText, renderedHtml) {
@@ -65,6 +71,14 @@ class Article extends Component {
         })
     }
 
+    handleCategorySelect(id) {
+        this.setState(prevState => {
+            const article = Object.assign({}, prevState.article);
+            article.categoryId = id;
+            return {article: article}
+        });
+    }
+
     setView() {
         this.setState((prevState, props) => ({
             view : !prevState.view
@@ -93,9 +107,10 @@ class Article extends Component {
         return (
             <div className="Article">
                 {
-                    this.state.view ?
-                        <ArticleView view={this.state.view} setView={this.setView} article={this.state.article} publish={this.publish} cancelPublish={this.cancelPublish}/>
-                        : <ArticleEdit view={this.state.view} setView={this.setView} article={this.state.article} handleInputChange={this.handleInputChange} onMarkdownChange={this.onMarkdownChange} handleSubmit={this.handleSubmit} />
+                    (this.state.article && this.state.categoryTree) ?
+                        (this.state.view ?
+                        <ArticleView view={this.state.view} setView={this.setView} article={this.state.article} publish={this.publish} cancelPublish={this.cancelPublish}  categoryTree={this.state.categoryTree}/>
+                        : <ArticleEdit view={this.state.view} setView={this.setView} article={this.state.article} handleInputChange={this.handleInputChange} onMarkdownChange={this.onMarkdownChange} handleSubmit={this.handleSubmit} handleCategorySelect={this.handleCategorySelect} categoryTree={this.state.categoryTree} />) : ''
                 }
             </div>
         )

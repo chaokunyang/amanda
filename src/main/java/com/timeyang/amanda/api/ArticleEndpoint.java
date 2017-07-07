@@ -36,8 +36,7 @@ public class ArticleEndpoint {
     @RequestMapping(method = RequestMethod.POST)
     public Article saveArticle(@RequestBody Article article) {
         LOGGER.info("保存文章");
-        Article result = articleService.save(article);
-        return result;
+        return articleService.save(article);
     }
 
     @RequestMapping(value = "/publish/{id}", method = RequestMethod.PUT)

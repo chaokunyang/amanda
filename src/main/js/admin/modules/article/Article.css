@@ -25,7 +25,7 @@
     width: 6em;
 }
 .Articles table th.views {
-    width: 6em;
+    width: 7em;
 }
 .Articles table th.option {
     width: 6em;
@@ -102,3 +102,7 @@
     color: #555;
 }
 
+.ArticleCategoryEdit select.form-control {
+    display: inline-block;
+    width: auto;
+}

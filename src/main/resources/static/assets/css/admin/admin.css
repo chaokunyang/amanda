@@ -15,6 +15,14 @@ a:focus, a:hover {
     text-decoration: none;
 }
 
+.separator {
+    display: inline-block;
+    padding: 0 0.4em;
+    font-weight: 600;
+    color: hsl(175, 2%, 72%);
+}
+
+
 /* ===================== MEDIA QUERIES ===================== */
 
 /* 320+
@@ -166,6 +174,17 @@ a:focus, a:hover {
     .Article .buttons, .CreateArticle .buttons {
         margin-left: 10.2%;
     }
+    .ArticleEdit .form-horizontal .form-group.buttons {
+        margin-left: 10.2%;
+        padding-left: 12px;
+    }
+
+
+    /* 分类 */
+    .Categories .CategoryEdit input {
+        text-align: center;
+    }
+
 
     /* 简介 */
     .Profile .ProfileEdit .markdown-container {

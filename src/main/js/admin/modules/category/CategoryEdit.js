@@ -47,7 +47,7 @@ class CategoryEdit extends Component{
                 <td>{moment(this.props.category.dateCreated).format('YYYY/MM/DD HH:mm:ss')}</td>
                 <td>{moment(this.props.category.dateModified).format('YYYY/MM/DD HH:mm:ss')}</td>
                 <td>
-                    <button className="btn btn-info" onClick={(e) => this.handleClick(e, props.category)}>{this.props.category.children.length}</button>
+                    <button className="btn btn-info" onClick={(e) => this.handleClick(e, this.props.category)}>{this.props.category.children.length}</button>
                 </td>
                 <td className="categories-options">
                     <button className="btn btn-primary btn-sm" onClick={this.handleSave}>保存</button>

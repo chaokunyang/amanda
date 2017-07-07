@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import moment from 'moment';
 import MarkdownEditor from '../markdown/MarkdownEditor'
 import './Article.css'
+import ArticleCategoryEdit from './ArticleCategoryEdit'
 
 function ArticleEdit(props) {
     return (
@@ -17,7 +18,7 @@ function ArticleEdit(props) {
                 <div className="form-group">
                     <label className="control-label">分类</label>
                     <div className="col-sm-8">
-                        <input type="text" value={props.article.categories ? props.article.categories : ''} onChange={props.handleInputChange} name="categories" className="form-control"/>
+                        <ArticleCategoryEdit categoryId={props.article.category.id} categoryTree={props.categoryTree} handleCategorySelect={props.handleCategorySelect}/>
                     </div>
                 </div>
                 <div className="form-group">

@@ -1,6 +1,7 @@
 package com.timeyang.amanda.api;
 
 import com.timeyang.amanda.blog.domain.Category;
+import com.timeyang.amanda.blog.domain.CategoryPathNode;
 import com.timeyang.amanda.blog.service.CategoryService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,9 +25,9 @@ public class CategoryEndpoint {
     private CategoryService categoryService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Category allCategories() {
+    public Category getRootCategoryTree() {
         LOGGER.info("获取分类树");
-        return categoryService.getCategoryTree();
+        return categoryService.getRootCategoryTree();
     }
 
     @RequestMapping(value = "/first_levels", method = RequestMethod.GET)
@@ -41,14 +42,32 @@ public class CategoryEndpoint {
         return categoryService.getCategory(id);
     }
 
-    @RequestMapping
-    public Category save(@RequestBody Category category) {
-        LOGGER.info("保存分类: {}", category);
+    @RequestMapping(value = "/path/{id}", method = RequestMethod.GET)
+    public List<CategoryPathNode> getCategoryPath(@PathVariable Long id) {
+        LOGGER.info("获取指定分类路径，分类id: " + id);
+        return categoryService.getCategoryPath(id);
+    }
+
+    @RequestMapping(value = "/tree/{id}", method = RequestMethod.GET)
+    public Category getCategoryTree(@PathVariable Long id) {
+        LOGGER.info("获取指定分类，分类id: " + id);
+        return categoryService.getCategoryTree(id);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public Category update(@RequestBody Category category) {
+        LOGGER.info("更新分类: {}", category);
         return categoryService.save(category);
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public Category create(@RequestBody Category category) {
+        LOGGER.info("创建分类: {}", category);
+        return categoryService.create(category);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void save(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         LOGGER.info("删除分类，分类id: {}", id);
         categoryService.delete(id);
     }
