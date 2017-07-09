@@ -6,10 +6,7 @@ import com.timeyang.amanda.core.jpa.converter.InstantConverter;
 import com.timeyang.amanda.core.jpa.domain.BaseEntity;
 import com.timeyang.amanda.core.valadation.NotBlank;
 import com.timeyang.amanda.user.domain.User;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.search.annotations.Boost;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
@@ -33,6 +30,8 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "article_id"))

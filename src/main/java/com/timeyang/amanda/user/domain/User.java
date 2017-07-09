@@ -3,6 +3,8 @@ package com.timeyang.amanda.user.domain;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.authority.UserAuthority;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.hibernate.search.annotations.Field;
 import org.springframework.security.core.CredentialsContainer;
@@ -19,6 +21,8 @@ import java.util.Set;
  * @create 2017-04-15
  */
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @AttributeOverride(name = "id", column = @Column(name = "user_id"))
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE,
@@ -33,6 +37,11 @@ public class User implements UserDetails, CredentialsContainer, Cloneable {
     @Column(unique = true)
     private String username;
 
+    @Column(unique = true)
+    @Field
+    @JsonProperty
+    private String name;
+
     private byte[] hashedPassword;
 
     private Set<UserAuthority> authorities;
@@ -45,15 +54,15 @@ public class User implements UserDetails, CredentialsContainer, Cloneable {
 
     private boolean enabled;
 
-    public User(String username, byte[] hashedPassword, Set<UserAuthority> authorities, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
-        this.username = username;
-        this.hashedPassword = hashedPassword;
-        this.authorities = authorities;
-        this.accountNonExpired = accountNonExpired;
-        this.accountNonLocked = accountNonLocked;
-        this.credentialsNonExpired = credentialsNonExpired;
-        this.enabled = enabled;
-    }
+    // public User(String username, byte[] hashedPassword, Set<UserAuthority> authorities, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+    //     this.username = username;
+    //     this.hashedPassword = hashedPassword;
+    //     this.authorities = authorities;
+    //     this.accountNonExpired = accountNonExpired;
+    //     this.accountNonLocked = accountNonLocked;
+    //     this.credentialsNonExpired = credentialsNonExpired;
+    //     this.enabled = enabled;
+    // }
 
     @JsonProperty
     @Id
@@ -160,6 +169,14 @@ public class User implements UserDetails, CredentialsContainer, Cloneable {
         User user = (User) o;
 
         return username.equals(user.username);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

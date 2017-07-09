@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.*;
 
 /**
@@ -55,8 +56,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "VIEW_FILE", "VIEW_PRIVATE_FILE", "UPLOAD_FILE", "UPLOAD_PRIVATE_FILE", "DELETE_FILE", "DELETE_ANY_FILE",
                 "ACTUATOR");
         Set<UserAuthority> authorities = new HashSet<>(userAuthorityList);
-        User user = new User("amanda", userService.getHashedPassword("timeyang"),
-                authorities, true, true, true, true);
+        User user = User.builder().username("amanda").name("amanda").hashedPassword(userService.getHashedPassword("timeyang")).authorities(authorities).accountNonExpired(true).accountNonLocked(true).credentialsNonExpired(true).enabled(true).build();
         userService.save(user);
 
         addCategories();
@@ -159,36 +159,58 @@ public class DatabaseInitializer implements CommandLineRunner {
 
     private void addArticles(User user) {
         Category category1 = categoryService.getCategoryByName("Development");
-        Article article = new Article(user, "我为什么开发Amanda？",
-                "Amanda、 Spring Boot、Spring Data JPA、 Hibernate Search",
-                "Amanda关注于使用最好和最合适的工具解决问题", "Amanda关注于使用最好和最合适的工具解决问题", null, category1, category1.getName());
+        Article amanda = Article.builder()
+                .user(user)
+                .title("我为什么开发Amanda？")
+                .keywords("Amanda、 Spring Boot、Spring Data JPA、 Hibernate Search")
+                .abstractContent("Amanda关注于使用最好和最合适的工具解决问题")
+                .mdBody("Amanda关注于使用最好和最合适的工具解决问题")
+                .htmlBody("Amanda关注于使用最好和最合适的工具解决问题")
+                .category(category1).categoryName(category1.getName())
+                .published(true)
+                .publishedDate(Instant.now())
+                .build();
 
-        articleRepository.save(article);
+        articleRepository.save(amanda);
 
-        Comment comment = new Comment(article.getId(), "Amanda设计不错, 我很喜欢", null);
+        Comment comment = new Comment(amanda.getId(), "Amanda设计不错, 我很喜欢", null);
         commentRepository.save(comment);
 
         Category category2 = categoryService.getCategoryByName("log");
-        Article logPlatform = new Article(user, "基于Elastic Stack + Fluentd搭建实时日志平台",
-                "Elastic Stack、Fluentd、ElasticSearch、Logstash、Beats、filebeat、metricbeat、 Kibana",
-                "基于Elastic Stack + Fluentd搭建实时日志平台", "基于Elastic Stack + Fluentd搭建实时日志平台", null, category2, category2.getName());
-
+        Article logPlatform = Article.builder()
+                .user(user)
+                .title("基于Elastic Stack + Fluentd搭建实时日志平台？")
+                .keywords("Elastic Stack、Fluentd、ElasticSearch、Logstash、Beats、filebeat、metricbeat、 Kibana")
+                .abstractContent("基于Elastic Stack + Fluentd搭建实时日志平台")
+                .mdBody("基于Elastic Stack + Fluentd搭建实时日志平台")
+                .htmlBody("基于Elastic Stack + Fluentd搭建实时日志平台")
+                .category(category2).categoryName(category2.getName())
+                .published(true)
+                .publishedDate(Instant.now())
+                .build();
         articleRepository.save(logPlatform);
 
         Category category3 = categoryService.getCategoryByName("MicroServices");
-        Article eventSourcing = new Article(user, "Microservices Event Sourcing",
-                "spring-boot\n" +
+        Article eventSourcing = Article.builder()
+                .user(user)
+                .title("Microservices Event Sourcing")
+                .keywords("spring-boot\n" +
                         "springcloud\n" +
-                        "event-driven\n" +
-                        "event-sourcing\n" +
-                        "angularjs\n" +
-                        "ecommerce\n" +
-                        "mongodb\n" +
-                        "neo4j\n" +
-                        "microservice\n" +
-                        "oauth2\n" +
-                        "eventually-consistent",
-                "Microservices Event Sourcing 是一个微服务架构的在线购物平台，使用Spring Boot、Spring Cloud、Spring Reactor、OAuth2、CQRS 构建，实现了基于Event Sourcing的最终一致性，提供了构建端到端微服务的最佳实践", "Microservices Event Sourcing", null, category3, category3.getName());
+                                "event-driven\n" +
+                                "event-sourcing\n" +
+                                "angularjs\n" +
+                                "ecommerce\n" +
+                                "mongodb\n" +
+                                "neo4j\n" +
+                                "microservice\n" +
+                                "oauth2\n" +
+                                "eventually-consistent")
+                .abstractContent("Microservices Event Sourcing 是一个微服务架构的在线购物平台，使用Spring Boot、Spring Cloud、Spring Reactor、OAuth2、CQRS 构建，实现了基于Event Sourcing的最终一致性，提供了构建端到端微服务的最佳实践")
+                .mdBody("Microservices Event Sourcing 是一个微服务架构的在线购物平台，使用Spring Boot、Spring Cloud、Spring Reactor、OAuth2、CQRS 构建，实现了基于Event Sourcing的最终一致性，提供了构建端到端微服务的最佳实践")
+                .htmlBody("Microservices Event Sourcing 是一个微服务架构的在线购物平台，使用Spring Boot、Spring Cloud、Spring Reactor、OAuth2、CQRS 构建，实现了基于Event Sourcing的最终一致性，提供了构建端到端微服务的最佳实践")
+                .category(category3).categoryName(category3.getName())                                   .published(true)
+                .publishedDate(Instant.now())
+                .build();
 
         articleRepository.save(eventSourcing);
     }

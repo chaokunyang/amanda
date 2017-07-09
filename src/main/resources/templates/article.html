@@ -32,7 +32,11 @@
             <main role="main">
                 <!--/*@thymesVar id="article" type="com.timeyang.amanda.blog.domain.Article"*/-->
                 <h1 th:text="${article.title}"></h1>
-
+                <p>
+                    <span th:text="${article.user.name}"></span>
+                    发布于
+                    <time th:datetime="${article.publishedDate}" th:text="${#dates.format(article.publishedDate, 'yyyy/MM/dd HH:mm')}" datetime="2017-05-17T11:20" class="pubdate">May 17, 2017 at 11:20am</time>
+                </p>
                 <img th:src="${article.pictureUrl}"/>
 
                 <div class="article-content">
@@ -40,10 +44,7 @@
                 </div>
 
                 <footer class="article-footer">
-                    <p>
-                        发布于
-                        <time th:datetime="${article.publishedDate}" th:text="${#dates.format(article.publishedDate, 'yyyy/MM/dd HH:mm')}" datetime="2017-05-17T11:20" class="pubdate">May 17, 2017 at 11:20am</time>
-                    </p>
+
                 </footer>
 
             </main>

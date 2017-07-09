@@ -9,6 +9,7 @@ class Settings extends Component {
         this.state = {
             passwordInconsistent: false,
             user: {},
+            name: "",
             currentPassword: "",
             newPassword: "",
             newPassword2: ""
@@ -90,6 +91,12 @@ class Settings extends Component {
                             <div className="username">{this.state.user.username}</div>
                         </div>
                     </div>
+                    {/*<div className="form-group">
+                        <label className="col-sm-2 control-label">姓名</label>
+                        <div className="col-sm-10">
+                            <input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} placeholder="请输入新的名字" className="form-control"/>
+                        </div>
+                    </div>*/}
                     <div className="form-group">
                         <label className="col-sm-2 control-label">当前密码</label>
                         <div className="col-sm-10">
