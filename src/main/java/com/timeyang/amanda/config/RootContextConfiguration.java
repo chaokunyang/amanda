@@ -95,8 +95,8 @@ public class RootContextConfiguration implements
         properties.put("hibernate.search.lucene_version", "5.3.1"); // 避免控制台警告，默认使用LUCENE_CURRENT
         properties.put("hibernate.search.default.indexBase", "../amanda/searchIndexes");
 
-        properties.put("hibernate.show_sql", "true");
-        properties.put("hibernate.format_sql", "true");
+        // properties.put("hibernate.show_sql", "true");
+        // properties.put("hibernate.format_sql", "true");
         properties.put("hibernate.use_sql_comments", "true");
         properties.put("hibernate.physical_naming_strategy", "com.timeyang.amanda.core.jpa.naming.PhysicalNamingStrategyImpl");
 

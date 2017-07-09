@@ -9,7 +9,7 @@
     <meta name="author" content="chaokunyang"/>
     <link rel="icon" th:href="@{/favicon.ico}"/>
 
-    <title>杨朝坤的个人网站</title>
+    <title>搜索结果</title>
 
     <!--[if lt IE 9]>
     <script src="../static/assets/lib/shim/html5shiv.js" th:href="@{/assets/lib/shim/html5shiv.js}"></script>
@@ -20,38 +20,39 @@
     <link href="../static/assets/css/markdown.css" th:href="@{/assets/css/markdown.css}" rel="stylesheet"/>
     <link href="../static/assets/css/base.css" th:href="@{/assets/css/base.css}" rel="stylesheet"/>
     <link href="../static/assets/css/amanda.css" th:href="@{/assets/css/amanda.css}" rel="stylesheet"/>
-
 </head>
 <body>
 
 <div>
     <div th:replace="fragments/header :: header">Header</div>
-
     <div class="content">
         <div class="container clearfix">
             <main role="main">
-                <!--/*@thymesVar id="article" type="com.timeyang.amanda.blog.domain.Article"*/-->
-                <h1 th:text="${article.title}"></h1>
+                <!--/*@thymesVar id="articles" type="java.util.List<com.timeyang.amanda.blog.domain.Article>"*/-->
+                <section th:each="article : ${articles}" class="post">
+                    <h1 th:text="${article.title}"></h1>
 
-                <img th:src="${article.pictureUrl}"/>
+                    <img th:src="${article.pictureUrl}" class="post-photo"/>
 
-                <div class="article-content">
-                    <p th:utext="${article.htmlBody}"></p>
-                </div>
+                    <div class="post-blurb">
+                        <p th:utext="${article.abstractContent}"></p>
+                        <a th:href="@{'/articles/'+${article.id}+'/'+${#dates.format(article.publishedDate, 'yyyy/MM/dd')}+'/'+${article.title}}" class="more">阅读全文</a>
+                    </div>
 
-                <footer class="article-footer">
-                    <p>
-                        发布于
-                        <time th:datetime="${article.publishedDate}" th:text="${#dates.format(article.publishedDate, 'yyyy/MM/dd HH:mm')}" datetime="2017-05-17T11:20" class="pubdate">May 17, 2017 at 11:20am</time>
-                    </p>
-                </footer>
+                    <footer class="post-footer">
+                        <p>
+                            发布于
+                            <time th:datetime="${article.publishedDate}" th:text="${#dates.format(article.publishedDate, 'yyyy/MM/dd HH:mm')}" datetime="2017-05-17T11:20" class="pubdate">May 17, 2017 at 11:20am</time>
+                        </p>
+                    </footer>
+                </section>
 
+                <div th:replace="fragments/pagination :: paging(${articles})"></div>
             </main>
         </div>
 
-        <div th:replace="fragments/footer :: footer">footer</div>
-
     </div>
+    <div th:replace="fragments/footer :: footer">footer</div>
 </div>
 
 <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>

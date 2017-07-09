@@ -1,6 +1,5 @@
 package com.timeyang.amanda.blog.service;
 
-import com.timeyang.amanda.core.search.SearchResult;
 import com.timeyang.amanda.blog.domain.Article;
 import com.timeyang.amanda.config.DatabaseInitializer;
 import org.junit.Assert;
@@ -39,7 +38,7 @@ public class ArticleServiceTest {
     @Test
     public void search() {
         Pageable pageable = new PageRequest(0, 10);
-        Page<SearchResult<Article>> results = articleService.search("amanda", pageable);
+        Page<Article> results = articleService.search("amanda", pageable);
         System.out.println(results);
         Assert.assertTrue( results.getTotalPages() >= 1);
     }

@@ -7,6 +7,8 @@ import com.timeyang.amanda.user.domain.Profile;
  */
 public interface ProfileService {
 
+    Profile getProfile();
+
     Profile getProfileByUserId(Long userId);
 
     Profile save(Profile profile);

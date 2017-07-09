@@ -1,4 +1,80 @@
-.header ul li {
-    display: inline-block;
-    text-align: justify;
+/*
+--------------------------*/
+ul,
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* post list
+---------------------------------------*/
+.post-photo,
+.post-photo-full {
+    max-width: 100%;
+}
+
+.post-photo {
+    float: left;
+    margin-bottom: 2px;
+    margin-right: 22px;
+    max-width: 61.667%;
+}
+
+.post-blurb {
+    color: #363636;
+    font-size: 1.125em;
+    line-height: 1.575;
+}
+.post-blurb p {
+    display: inline;
+}
+
+.post .post-footer {
+    clear: left;
+    padding: 0.7em 0;
+}
+.post-footer p {
+    border-bottom: 1px solid #dbdbdb;
+    border-top: 1px solid #dbdbdb;
+    padding-bottom: .7em; /* 7.7px/11px */
+    padding-top: .7em;
+    margin: 0;
+    font-size: 1em;
+}
+
+
+/* ===================== MEDIA QUERIES ===================== */
+
+/* 320+
+------------------------------------------ */
+@media only screen and (min-width: 20em) {
+}
+
+/* 480+
+------------------------------------------ */
+@media only screen and (min-width: 30em) {
+
+}
+
+/* 480-767-only
+------------------------------------------ */
+@media only screen and (min-width: 30em) and (max-width: 47.9375em) {
+
+}
+
+/* 600-767-only
+------------------------------------------ */
+@media only screen and (min-width: 37.5em) and (max-width: 47.9375em) {
+}
+
+/* 768+
+------------------------------------------- */
+@media only screen and (min-width: 48em) {
+}
+
+/* 1024+
+------------------------------------------- */
+@media only screen and (min-width: 64em) {
+
 }

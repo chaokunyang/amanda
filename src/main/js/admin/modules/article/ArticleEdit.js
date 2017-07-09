@@ -18,7 +18,7 @@ function ArticleEdit(props) {
                 <div className="form-group">
                     <label className="control-label">分类</label>
                     <div className="col-sm-8">
-                        <ArticleCategoryEdit categoryId={props.article.category.id} categoryTree={props.categoryTree} handleCategorySelect={props.handleCategorySelect}/>
+                        <ArticleCategoryEdit categoryId={props.article.category ? props.article.category.id : props.categoryTree.id} categoryTree={props.categoryTree} handleCategorySelect={props.handleCategorySelect}/>
                     </div>
                 </div>
                 <div className="form-group">

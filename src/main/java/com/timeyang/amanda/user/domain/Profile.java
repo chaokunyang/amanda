@@ -47,7 +47,6 @@ public class Profile extends VersionedEntity {
     //  */
     // @Column(nullable = false, unique = true)
     // @JsonProperty
-
     // private String username;
 
     /**
@@ -59,7 +58,7 @@ public class Profile extends VersionedEntity {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User user = new User();
 
     @JsonProperty
     @Email

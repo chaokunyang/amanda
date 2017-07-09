@@ -1,3 +1,9 @@
+ul,
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 .active {
     color: #fff;
     background-color: #428bca;
@@ -108,6 +114,7 @@ a:focus, a:hover {
         border: 0;
         -webkit-box-shadow: none;
         box-shadow: none;
+        height: 50px;
     }
     .Logout button {
         font-size: 18px;

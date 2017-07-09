@@ -37,20 +37,22 @@ public class ArticleRepositoryImpl extends AbstractJpaCriterionRepository<Articl
                 .forEntity(Article.class).get();
 
         Query luceneQuery = builder.keyword()
-                .onFields("title", "keywords", "mdBody", "user.username")
+                .onFields("title", "keywords", "abstractContent", "category.name", "category.zhName", "mdBody")
                 .matching(query)
                 .createQuery();
 
-        FullTextQuery q = manager.createFullTextQuery(luceneQuery, Article.class);
-        q.setProjection(FullTextQuery.THIS, FullTextQuery.SCORE);
+        FullTextQuery fullTextQuery = manager.createFullTextQuery(luceneQuery, Article.class);
+        // fullTextQuery.enableFullTextFilter("published").setParameter( "published", true );
 
-        long total = q.getResultSize();
+        fullTextQuery.setProjection(FullTextQuery.THIS, FullTextQuery.SCORE);
 
-        q.setFirstResult(pageable.getOffset())
+        long total = fullTextQuery.getResultSize();
+
+        fullTextQuery.setFirstResult(pageable.getOffset())
                 .setMaxResults(pageable.getPageSize());
 
         @SuppressWarnings("unchecked")
-        List<Object[]> results = q.getResultList();
+        List<Object[]> results = fullTextQuery.getResultList();
         List<SearchResult<Article>> list = new ArrayList<>();
         results.forEach(o -> list.add(
                 new SearchResult<>((Article) o[0], (Float)o[1])

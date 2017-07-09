@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
+
 /**
  * @author chaokunyang
  */
@@ -19,6 +21,15 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Override
+    public Profile getProfile() {
+        Iterator<Profile> iterator = profileRepository.findAll().iterator();
+        if (iterator.hasNext()) {
+            return iterator.next();
+        }
+        return new Profile();
+    }
 
     @Transactional
     @Override

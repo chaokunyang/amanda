@@ -17,7 +17,7 @@ import java.util.Map;
  * @create 2017-04-18
  */
 @Controller
-@RequestMapping("article")
+@RequestMapping("articles")
 public class ArticleController {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -25,8 +25,8 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String article(@PathVariable Long id, Map<String, Object> model) {
+    @RequestMapping(value = "/{id}/**", method = RequestMethod.GET)
+    public String getArticle(@PathVariable Long id, Map<String, Object> model) {
         Article article = articleService.viewArticle(id);
         model.put("article", article);
         return "article";

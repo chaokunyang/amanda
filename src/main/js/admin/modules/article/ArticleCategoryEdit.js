@@ -18,7 +18,7 @@ class ArticleCategoryEdit extends Component {
     }
 
     componentDidMount() {
-        Axios.all([this.getPath(), this.getCategory()]).then(Axios.spread(function (path, categoryTree) {
+        Axios.all([this.getPath()]).then(Axios.spread(function (path, categoryTree) {
             this.setState({path: path.data});
             this.setState({categoryTree: categoryTree.data});
         }.bind(this)));
@@ -26,10 +26,6 @@ class ArticleCategoryEdit extends Component {
 
     getPath() {
         return Axios.get('/api/categories/path/' + this.props.categoryId);
-    }
-
-    getCategory() {
-        return Axios.get('/api/categories');
     }
 
     handleSelect(event) {
@@ -58,7 +54,7 @@ class ArticleCategoryEdit extends Component {
     }
 
     render() {
-        let parent = this.state.categoryTree;
+        let parent = this.props.categoryTree;
         const selects = [];
         if(parent && parent.children && parent.children.length > 0
            && this.state.path && this.state.path.length > 0)

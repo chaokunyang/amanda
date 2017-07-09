@@ -213,7 +213,7 @@ class Categories extends Component {
                         <td>
                             <button className="btn btn-info" onClick={(e) => this.handleClick(e, category)}>{category.children ? category.children.length : 0}</button>
                         </td>
-                        <td>
+                        <td className="categories-options">
                             <button className="btn btn-primary btn-sm" onClick={(e) => this.handleEditClick(e, index)}>编辑</button>
                             <button className="btn btn-danger btn-sm" onClick={(e) => this.handleDeleteClick(e, category.id)}>删除</button>
                         </td>

@@ -1,25 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="../../static/assets/css/common.css" th:href="@{/assets/css/common.css}" rel="stylesheet"/>
+    <link href="../../static/assets/css/base.css" th:href="@{/assets/css/base.css}" rel="stylesheet"/>
     <link href="../../static/assets/css/index.css" th:href="@{/assets/css/index.css}" rel="stylesheet"/>
 </head>
 <body>
-<nav th:fragment="paging(page)" role="navigation">
-    <ol class="pagination">
-        <li th:class="${page.first} ? 'disabled'">
-            <a th:href="${page.number - 1}" th:text="#{pagination.previous}">上一页</a>
-        </li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">6</a></li>
-        <li th:class="${page.last} ? 'disabled'" class="more">
-            <a th:href="${page.number + 1}" th:text="#{pagination.next}">下一页</a>
-        </li>
-    </ol>
+<nav th:fragment="paging(articles)" role="navigation" class="paging clearfix">
+
+    <div class="pagination-wrapper">
+        <ul class='pagination'>
+            <!--/*@thymesVar id="page" type="com.timeyang.amanda.core.jpa.domain.PageWrapper"*/-->
+            <li th:class="${page.firstPage}? 'disabled' : '' ">
+                <span th:if='${page.firstPage}' th:text="#{pagination.first}">First</span>
+                <a th:if='${not page.firstPage}' th:href='@{${page.url}(page=0,size=${page.size})}' th:text="#{pagination.first}">First</a>
+            </li>
+            <li th:class="${page.hasPreviousPage}? '' : 'disabled' ">
+                <span th:if='${not page.hasPreviousPage}'>«</span>
+                <a th:if='${page.hasPreviousPage}' th:href='@{${page.url}(page=${page.number - 1},size=${page.size})}' title='Go to previous page'>«</a>
+            </li>
+
+            <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
+                <span th:if='${item.current}' th:text='${item.number + 1}'>current</span>
+                <a th:if='${not item.current}' th:href='@{${page.url}(page=${item.number},size=${page.size})}'><span th:text='${item.number + 1}'>i</span></a>
+            </li>
+
+            <li th:class="${page.hasNextPage}? '' : 'disabled'">
+                <span th:if='${not page.hasNextPage}'>»</span>
+                <a th:if='${page.hasNextPage}' th:href='@{${page.url}(page=${page.number+1},size=${page.size})}' title='Go to next page'>»</a>
+            </li>
+            <li th:class="${page.lastPage}? 'disabled' : '' ">
+                <span th:if='${page.lastPage}'>Last</span>
+                <a th:if='${not page.lastPage}' th:href='@{${page.url}(page=${page.totalPages - 1},size=${page.size})}' th:text="#{pagination.last}">Last</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <!--/*-->
+    <div class="table-pagination">
+        <ul class="pagination">
+            <li th:class="${articles.number eq 0} ? 'disabled' : ''">
+                <a th:if="${not articles.first}" th:href="@{${'/contacts'}(page=${articles.number-1},size=${articles.size})}">Previous</a>
+                <a th:if="${articles.first}" href="javascript:void(0);">Previous</a>
+            </li>
+
+            <li th:each="pageNo : ${#numbers.sequence(0, articles.totalPages - 1)}" th:class="${articles.number eq pageNo}? 'active' : ''">
+                <a th:if="${articles.number  eq pageNo}" href="javascript:void(0);">
+                    <span th:text="${pageNo + 1}"></span>
+                </a>
+                <a th:if="${not (articles.number  eq pageNo)}" th:href="@{${'/contacts'}(page=${pageNo},size=${articles.size})}">
+                    <span th:text="${pageNo + 1}"></span>
+                </a>
+
+            </li>
+            <li th:class="${articles.number + 1 ge articles.totalPages} ? 'disabled' : ''">
+                <a th:if="${not articles.last}" th:href="@{${'/contacts'}(page=${articles.number+1},size=${articles.size})}">Next</a>
+                <a th:if="${articles.last}" href="javascript:void(0);">Next</a>
+            </li>
+        </ul>
+    </div>
+    <!--*/-->
 </nav>
 </body>
 </html>

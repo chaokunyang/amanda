@@ -9,11 +9,14 @@ import com.timeyang.amanda.core.search.SearchResult;
 import com.timeyang.amanda.user.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author chaokunyang
@@ -36,8 +39,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Transactional // 必须包含该行，不只是懒加载问题，而是需要 transactional EntityManager available (无法得到FullTextEntityManager)
     @Override
-    public Page<SearchResult<Article>> search(String query, Pageable pageable) {
-        return articleRepository.search(query, pageable);
+    public Page<Article> search(String query, Pageable pageable) {
+        Page<SearchResult<Article>> results = articleRepository.search(query, pageable);
+        List<Article> articles = new ArrayList<>();
+        results.getContent().forEach(item -> articles.add(item.getEntity()));
+        return new PageImpl<>(articles, pageable, results.getTotalPages());
     }
 
     @Transactional
@@ -45,6 +51,13 @@ public class ArticleServiceImpl implements ArticleService {
     public Page<Article> getArticles(Pageable pageable) {
         Page<Article> articles = articleRepository.findAll(pageable);
         return articles;
+    }
+
+    @Override
+    public Page<Article> getPublishedArticles(Pageable pageable) {
+        Page<Article> articles = articleRepository.findArticleByPublishedIsTrueOrderByPublishedDateDesc(pageable);
+        return articles;
+
     }
 
     @Transactional

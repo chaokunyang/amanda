@@ -13,7 +13,7 @@
 .Categories .categories-options {
     width: 7em;
 }
-.Categories .categories-options button {
+.Categories td.categories-options button:first-child {
     margin-right: 4px;
 }
 

@@ -1,8 +1,7 @@
 package com.timeyang.amanda.blog.service;
 
-import com.timeyang.amanda.core.jpa.criterion.QueryCriteria;
-import com.timeyang.amanda.core.search.SearchResult;
 import com.timeyang.amanda.blog.domain.Article;
+import com.timeyang.amanda.core.jpa.criterion.QueryCriteria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
@@ -18,9 +17,11 @@ public interface ArticleService {
 
     Page search(QueryCriteria criteria, Pageable pageable);
 
-    Page<SearchResult<Article>> search(String query, Pageable pageable);
+    Page<Article> search(String query, Pageable pageable);
 
     Page<Article> getArticles(Pageable pageable);
+
+    Page<Article> getPublishedArticles(Pageable pageable);
 
     /**
      * 获取文章API，不改变文章阅读次数
