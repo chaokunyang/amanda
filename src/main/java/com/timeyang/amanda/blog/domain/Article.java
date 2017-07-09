@@ -19,7 +19,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -149,7 +148,7 @@ public class Article extends BaseEntity implements Serializable {
     )
     @OrderColumn(name = "sort_key")
     @JsonProperty
-    private List<Attachment> attachments = new ArrayList<>();
+    private List<Attachment> attachments;
 
     /**
      * 文章访问量
