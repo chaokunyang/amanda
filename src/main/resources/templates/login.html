@@ -7,34 +7,34 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="" />
     <meta name="author" content="Chaokun Yang" />
-    <link rel="icon" href="../../favicon.ico" />
+    <link rel="icon" th:href="@{/favicon.ico}"/>
 
     <title>timeyang login</title>
 
+    <link rel="stylesheet" th:href="@{/assets/lib/bootstrap/css/bootstrap.min.css}" />
     <link href="../static/assets/css/base.css" th:href="@{/assets/css/base.css}" rel="stylesheet"/>
- <!--   <link href="../static/assets/css/signin.css" th:href="@{/assets/css/signin.css}" rel="stylesheet"/>-->
+    <link href="../static/assets/css/login.css" th:href="@{/assets/css/login.css}" rel="stylesheet"/>
 
 </head>
 <body>
 
-<div class="container">
+<div class="container login">
 
     <form class="form-signin" action="login" th:action="@{/login}" method="post">
-        <h2 class="form-signin-heading">请登录</h2>
-        <label for="username" class="sr-only">用户名</label>
-        <input type="text" name="username" id="username" class="form-control" placeholder="用户名/邮箱/手机号码" required="required" autofocus="autofocus" />
-        <label for="password" class="sr-only">密码</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="密码" required="required" />
+        <h2 class="form-signin-heading" th:text="#{title.login.loginHint}">请登录</h2>
+        <label for="username" class="sr-only" th:text="#{title.login.username}">用户名</label>
+        <input type="text" name="username" id="username" class="form-control" th:placeholder="#{title.login.username}" required="required" autofocus="autofocus" />
+        <label for="password" class="sr-only" th:text="#{title.login.password}">密码</label>
+        <input type="password" id="password" name="password" class="form-control" th:placeholder="#{title.login.password}" required="required" />
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="remember-me" /> 记住我
-            </label>
+                <input type="checkbox" value="remember-me" th:text="#{title.login.remember.me}"/></label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{title.login}">登录</button>
     </form>
 
+    <div th:replace="fragments/footer :: footer">footer</div>
 
-    
 </div>
 
 </body>
