@@ -44,4 +44,7 @@ public interface ArticleService {
     Article cancelPublish(Long id);
 
     void delete(Long id);
+
+    Page<Article> getPopularArticles(Pageable pageable);
+
 }

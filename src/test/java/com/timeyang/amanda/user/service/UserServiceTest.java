@@ -1,5 +1,6 @@
 package com.timeyang.amanda.user.service;
 
+import com.timeyang.amanda.config.AmandaProperties;
 import com.timeyang.amanda.user.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,16 +18,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class UserServiceTest {
 
     @Autowired
+    private AmandaProperties amandaProperties;
+
+    @Autowired
     private UserService userService;
 
-    /**
-     * 可用于在开发时重置密码
-     * @throws Exception
-     */
     @Test
-    public void save() throws Exception {
-        User amanda = userService.getUserByUsername("amanda");
-        userService.save(amanda, "timeyang");
+    public void save()  {
+        User amanda = userService.getUserByUsername(amandaProperties.getUsername());
+        userService.save(amanda, amandaProperties.getPassword());
     }
 
 }

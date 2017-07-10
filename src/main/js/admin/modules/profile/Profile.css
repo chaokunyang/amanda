@@ -16,6 +16,7 @@
 .Profile .ProfileView > div .row-content {
     padding-left: 15px;
     display: inline-block;
+    vertical-align: top;
 }
 
 .Profile .ProfileView .buttons {

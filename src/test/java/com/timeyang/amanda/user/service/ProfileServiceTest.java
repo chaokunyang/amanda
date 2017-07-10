@@ -1,5 +1,6 @@
 package com.timeyang.amanda.user.service;
 
+import com.timeyang.amanda.config.AmandaProperties;
 import com.timeyang.amanda.user.domain.Profile;
 import com.timeyang.amanda.user.domain.User;
 import org.junit.Test;
@@ -18,6 +19,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class ProfileServiceTest {
 
     @Autowired
+    private AmandaProperties amandaProperties;
+
+    @Autowired
     private ProfileService profileService;
 
     @Autowired
@@ -29,9 +33,21 @@ public class ProfileServiceTest {
 
     @Test
     public void save() throws Exception {
-        User user = userService.getUserByUsername("amanda");
+        User user = userService.getUserByUsername(amandaProperties.getUsername());
 
-        Profile profile = new Profile("杨朝坤", user, "chaokunyang@qq.com", "在微服务、Spring Cloud、Elastic Stack、搜索、Kafka、Spark、机器学习、深度学习等技术有一定的实践经验", "http://timeyang.com", "https://github.com/chaokunyang", "https://twitter.com/chaokunyang", "", "广东 深圳", "擅长大数据、机器学习、流处理、微服务", "", "");
+        Profile profile = Profile.builder()
+                .name("杨朝坤")
+                .user(user)
+                .email("chaokunyang@qq.com")
+                .biography("在微服务、Spring Cloud、Elastic Stack、搜索、Kafka、Spark、机器学习、深度学习等技术有一定的实践经验")
+                .url("http://timeyang.com")
+                .githubUrl("https://github.com/chaokunyang")
+                .twitterUrl("https://twitter.com/chaokunyang")
+                .location("广东 深圳")
+                .mdBody("在微服务、Spring Cloud、Elastic Stack、搜索、Kafka、Spark、机器学习、深度学习等技术有一定的实践经验")
+                .htmlBody("在微服务、Spring Cloud、Elastic Stack、搜索、Kafka、Spark、机器学习、深度学习等技术有一定的实践经验")
+                .build();
+
         profileService.save(profile);
     }
 

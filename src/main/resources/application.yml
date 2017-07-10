@@ -41,6 +41,10 @@ endpoints.metrics.enabled: true
 endpoints.trace.enabled: true
 endpoints.auditevents.enabled: true
 
+amanda.username: amanda
+amanda.password: timeyang
+amanda.name: amanda
+
 ---
 # 仅在active profiles include dev时有效
 spring:

@@ -30,6 +30,9 @@ import java.util.*;
 public class DatabaseInitializer implements CommandLineRunner {
 
     @Autowired
+    private AmandaProperties amandaProperties;
+
+    @Autowired
     private ArticleRepository articleRepository;
 
     @Autowired
@@ -56,7 +59,7 @@ public class DatabaseInitializer implements CommandLineRunner {
                 "VIEW_FILE", "VIEW_PRIVATE_FILE", "UPLOAD_FILE", "UPLOAD_PRIVATE_FILE", "DELETE_FILE", "DELETE_ANY_FILE",
                 "ACTUATOR");
         Set<UserAuthority> authorities = new HashSet<>(userAuthorityList);
-        User user = User.builder().username("amanda").name("amanda").hashedPassword(userService.getHashedPassword("timeyang")).authorities(authorities).accountNonExpired(true).accountNonLocked(true).credentialsNonExpired(true).enabled(true).build();
+        User user = User.builder().username(amandaProperties.getUsername()).name(amandaProperties.getName()).hashedPassword(userService.getHashedPassword(amandaProperties.getPassword())).authorities(authorities).accountNonExpired(true).accountNonLocked(true).credentialsNonExpired(true).enabled(true).build();
         userService.save(user);
 
         addCategories();
@@ -216,9 +219,25 @@ public class DatabaseInitializer implements CommandLineRunner {
     }
 
     private void addProfile() {
-        User user = userService.getUserByUsername("amanda");
+        User user = userService.getUserByUsername(amandaProperties.getUsername());
 
-        Profile profile = new Profile("杨朝坤", user, "chaokunyang@qq.com", "在微服务、Spring Cloud、Elastic Stack、搜索、Kafka、Spark、机器学习、深度学习等技术有一定的实践经验", "http://timeyang.com", "https://github.com/chaokunyang", "https://twitter.com/chaokunyang", "", "广东 深圳", "擅长大数据、机器学习、流处理、微服务", "", "");
+        Profile profile = Profile.builder()
+                .name("杨朝坤")
+                .user(user)
+                .email("chaokunyang@qq.com")
+                .biography("在微服务、Spring Cloud、Elastic Stack、搜索、Kafka、Spark、机器学习、深度学习等技术有一定的实践经验")
+                .url("http://timeyang.com")
+                .githubUrl("https://github.com/chaokunyang")
+                .twitterUrl("https://twitter.com/chaokunyang")
+                .weiboUrl("http://weibo.com/u/3153324577")
+                .location("广东 深圳")
+                .mdBody("我叫杨朝坤，我是一名软件工程师。\n" +
+                        "\n" +
+                        "热爱大数据与机器学习相关技术，在微服务、Spring Cloud、Elastic Stack、搜索、Kafka、Spark、机器学习、深度学习等领域有一定的实践经验。\n" +
+                        "\n" +
+                        "在空余时间，我喜欢运动、读书、旅行、看电影")
+                .htmlBody("<p>我叫杨朝坤，是一名软件工程师。</p>\n<p>热爱大数据与机器学习相关技术，在微服务、Spring Cloud、Elastic Stack、搜索、Kafka、Spark、机器学习、深度学习等领域有一定的实践经验。</p>\n<p>在空余时间，我喜欢运动、读书、旅行、看电影</p>")
+                .build();
         profileService.save(profile);
     }
 

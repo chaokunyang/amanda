@@ -1,0 +1,25 @@
+.profile {
+    margin-top: 1em;
+    line-height: 180%;
+    margin-left: 0.8em;
+}
+.profile .title {
+    padding-bottom: 1em;
+    border-bottom: 1px solid rgba(0,0,0,.0975);
+    font-size: 1.5em;
+}
+.profile a {
+    color: #262626;
+}
+
+.profile .about-me {
+    margin: 2em 0 3em;
+}
+.profile .about-me-content {
+    margin-left: 2em;
+}
+
+
+.profile .contact-list {
+    margin: 1em 0 3em 1em;
+}

@@ -198,4 +198,8 @@ a:focus, a:hover {
         float: left;
         width: 83%;
     }
+
+    .Profile .ProfileView > div .row-content {
+        width: 55em;
+    }
 }

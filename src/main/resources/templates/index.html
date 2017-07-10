@@ -27,7 +27,7 @@
 <div>
     <div th:replace="fragments/header :: header">Header</div>
     <div class="content">
-        <div class="container">
+        <div>
             <main role="main">
                 <!--/*@thymesVar id="articles" type="java.util.List<com.timeyang.amanda.blog.domain.Article>"*/-->
                 <section th:each="article : ${articles}" class="post">

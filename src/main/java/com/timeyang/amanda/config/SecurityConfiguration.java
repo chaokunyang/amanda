@@ -85,7 +85,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity security) throws Exception {
         security
                 .authorizeRequests() // authorize all requests using the access rules defined earlier
-                .antMatchers("/", "/list/**", "/articles/**", "/search/**", "/about", "/profile", "/fs/**").permitAll()
+                .antMatchers("/", "/list/**",
+                        "/articles/**", "/search/**",
+                        "/popular", "/popular/**", "hottest/**",
+                        "/about", "/profile", "/fs/**").permitAll()
                 .antMatchers("/api/session/list")
                 .hasAuthority("VIEW_USER_SESSIONS")
                 .anyRequest().authenticated()
@@ -116,6 +119,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // missing HttpSessionEventPublisher in spring boot。Because SessionRegistry is not exposed as a Bean so there is no way for ApplicationEvent to be published to it, spring boot doesn't provide HttpSessionEventPublisher. solved by register both two
     // https://github.com/spring-projects/spring-boot/issues/1537
     // Register HttpSessionEventPublisher
+    @SuppressWarnings("unchecked")
     @Bean
     public static ServletListenerRegistrationBean httpSessionEventPublisher() {
         return new ServletListenerRegistrationBean(new HttpSessionEventPublisher());

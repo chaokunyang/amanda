@@ -38,8 +38,6 @@ public class User implements UserDetails, CredentialsContainer, Cloneable {
     private String username;
 
     @Column(unique = true)
-    @Field
-    @JsonProperty
     private String name;
 
     private byte[] hashedPassword;
@@ -171,6 +169,8 @@ public class User implements UserDetails, CredentialsContainer, Cloneable {
         return username.equals(user.username);
     }
 
+    @Field
+    @JsonProperty
     public String getName() {
         return name;
     }

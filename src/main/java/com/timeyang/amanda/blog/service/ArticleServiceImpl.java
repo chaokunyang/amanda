@@ -105,4 +105,9 @@ public class ArticleServiceImpl implements ArticleService {
     public void delete(Long id) {
         articleRepository.delete(id);
     }
+
+    @Override
+    public Page<Article> getPopularArticles(Pageable pageable) {
+        return articleRepository.findPopular(pageable);
+    }
 }

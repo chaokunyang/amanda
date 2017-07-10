@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.timeyang.amanda.core.jpa.domain.VersionedEntity;
 import com.timeyang.amanda.core.valadation.Email;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -20,6 +17,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@Builder
 @ToString
 @AttributeOverride(name = "id", column = @Column(name = "profile_id"))
 @JsonAutoDetect(creatorVisibility = JsonAutoDetect.Visibility.NONE,
@@ -89,6 +88,11 @@ public class Profile extends VersionedEntity {
     private String twitterUrl;
 
     /**
+     * 微博账号
+     */
+    private String weiboUrl;
+
+    /**
      * 所在公司
      */
     @JsonProperty
@@ -114,18 +118,4 @@ public class Profile extends VersionedEntity {
     @JsonProperty
     private String htmlBody;
 
-    public Profile(String name, User user, String email, String biography, String url, String github, String twitter, String company, String location, String mdBody, String htmlBody, String avatar) {
-        this.name = name;
-        this.user = user;
-        this.email = email;
-        this.biography = biography;
-        this.url = url;
-        this.githubUrl = github;
-        this.twitterUrl = twitter;
-        this.company = company;
-        this.location = location;
-        this.mdBody = mdBody;
-        this.htmlBody = htmlBody;
-        this.avatar = avatar;
-    }
 }
