@@ -63,15 +63,15 @@ class Profile extends Component {
     }
 
     onMarkdownChange(markdownText, renderedHtml) {
-        // document.querySelectorAll("pre code").forEach(function(i, block) {
-        //     hljs.highlightBlock(block);
-        // });
+        $("pre code").each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
         this.setState((prevState, props) => {
             let profile = prevState.profile;
             profile.mdBody = markdownText;
             profile.htmlBody = renderedHtml;
             profile
-        })
+        });
     }
 
     render() {

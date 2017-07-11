@@ -33,12 +33,15 @@ class CreateArticle extends Component {
         // document.querySelectorAll("pre code").forEach(function(i, block) {
         //     hljs.highlightBlock(block);
         // });
+        $("pre code").each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
         this.setState((prevState, props) => {
             let article = prevState.article;
             article.mdBody = markdownText;
             article.htmlBody = renderedHtml;
             article
-        })
+        });
     }
 
     handleSubmit(event) {

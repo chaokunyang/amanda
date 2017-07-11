@@ -7,9 +7,6 @@ class ArticleCategoryEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            categoryTree: {
-                children: []
-            },
             path: [],
             selects: []
         };
@@ -18,9 +15,8 @@ class ArticleCategoryEdit extends Component {
     }
 
     componentDidMount() {
-        Axios.all([this.getPath()]).then(Axios.spread(function (path, categoryTree) {
+        Axios.all([this.getPath()]).then(Axios.spread(function (path) {
             this.setState({path: path.data});
-            this.setState({categoryTree: categoryTree.data});
         }.bind(this)));
     }
 
