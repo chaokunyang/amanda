@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <meta th:content="${article.keywords}" name="keywords"/>
-    <meta content="专注于Java,大数据,Hadoop,Spark,Flink,机器学习,搜索算法,搜索引擎,ElasticSearch,微服务,Docker,SpringCloud等领域" name="description"/>
+    <meta th:content="${article.abstractContent}" name="description"/>
 
     <link rel="icon" th:href="@{/favicon.ico}"/>
 
