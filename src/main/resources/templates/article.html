@@ -4,12 +4,13 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description"
-          content="microservices spring-boot springcloud event-driven event-sourcing ecommerce neo4j oauth2 eventually-consistent"/>
-    <meta name="author" content="chaokunyang"/>
+
+    <meta th:content="${article.keywords}" name="keywords"/>
+    <meta content="专注于Java,大数据,Hadoop,Spark,Flink,机器学习,搜索算法,搜索引擎,ElasticSearch,微服务,Docker,SpringCloud等领域" name="description"/>
+
     <link rel="icon" th:href="@{/favicon.ico}"/>
 
-    <title>杨朝坤的个人网站</title>
+    <title th:text="${article.title}"></title>
 
     <!--[if lt IE 9]>
     <script src="../static/assets/lib/shim/html5shiv.js" th:href="@{/assets/lib/shim/html5shiv.js}"></script>
