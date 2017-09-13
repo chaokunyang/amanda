@@ -52,6 +52,8 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.springframework.boot:spring-boot-devtools'
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-cache")
+    compile("org.ehcache:ehcache")
 
     runtime 'mysql:mysql-connector-java'
     compile 'org.projectlombok:lombok'
