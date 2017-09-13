@@ -4,7 +4,7 @@ Amanda is a blogging system written in java8、spring boot. Elegant and beautifu
 ## Demo
 [网站示例](http://timeyang.com)：http://timeyang.com
 
-*预览*：
+**预览**：
 - 首页
 ![首页](https://raw.githubusercontent.com/chaokunyang/amanda/master/docs/images/Home.png)
 
