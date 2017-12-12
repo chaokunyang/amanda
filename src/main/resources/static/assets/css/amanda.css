@@ -21,13 +21,14 @@
 }
 .logo a img {
     border-radius: 50%;
-    max-width: 7em;
+    max-width: 4em;
 }
 
 .search input[type=search] {
     border: solid 1px #dbdbdb;
     color: #262626;
-    font-size: 1em;
+    font-size: 0.8em;
+    font-weight: 100;
     outline: none;
     padding: 0.21em 0.71em 0.21em 1.86em;  /*padding: 3px 10px 3px 26px;*/
     z-index: 2;
@@ -41,11 +42,12 @@
     background: transparent;
     border: solid 1px #dbdbdb;
     border-radius: 0 0.21em 0.21em 0;
-    font-size: 1em;
+    font-size: 0.8em;
+    font-weight: 100;
     color: #262626;
-    margin-left: -6px;
+    margin-left: -5px;
     padding: 0 0.5em;
-    vertical-align: middle;
+    /*vertical-align: middle;*/
 }
 .search input[type=submit]:hover {
     cursor: pointer;
@@ -62,7 +64,7 @@
 .nav-main a {
     display: inline-block;
     padding: .5em;
-    font-size: 1.2em;
+    font-size: 1.05em;
     color: #262626;;
 }
 
@@ -89,7 +91,7 @@
 h1 {
     color: #212121;
     font-family: 'Lato', sans-serif;
-    font-size: 2.25em;
+    font-size: 1.5em;
     font-weight: 300;
     letter-spacing: -1px;
     line-height: .975;
@@ -289,7 +291,7 @@ h1 {
 
     .masthead .container {
         max-width: 960px;
-        height: 130px;
+        height: 77px;
         margin-right: auto;
         margin-left: auto;
     }

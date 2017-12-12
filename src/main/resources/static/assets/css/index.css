@@ -18,12 +18,12 @@ ol {
     float: left;
     margin-bottom: 2px;
     margin-right: 22px;
-    max-width: 61.667%;
+    max-width: 31.667%;
 }
 
 .post-blurb {
     color: #363636;
-    font-size: 1.125em;
+    font-size: 1.025em;
     line-height: 1.575;
 }
 .post-blurb p {
